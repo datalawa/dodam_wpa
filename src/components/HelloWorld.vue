@@ -27,11 +27,20 @@
       <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
       <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
     </ul>
+    <button @click="count++">{{ count }}</button>
+    <button @click="Test *= 2">{{ Test }}</button>
   </div>
 </template>
 
 <script>
+import { ref } from 'vue'
+
 export default {
+  setup() {
+    const count = ref(0);
+    const Test = ref(2);
+    return { count, Test }
+  },
   name: 'HelloWorld',
   props: {
     msg: String
