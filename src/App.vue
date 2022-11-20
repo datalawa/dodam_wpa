@@ -1,20 +1,27 @@
 <template>
   <div id="app">
-    <nav>
-      <router-link to="/">dash</router-link> |
-      <router-link to="/free">free</router-link> |
-      <router-link to="/complain">complain</router-link> |
-      <router-link to="/survey">survey</router-link>
-    </nav>
-    <!-- convert -->
-    <!-- <a href="#/main" class="">main</a> -->
     <router-view/>
   </div>
 </template>
 
 <script>
-export default {}
+export default { }
 </script>
 
 <style>
+@import "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined";
+
+.icon-color-button-gray {
+  color: #C7C7C7;
+}
+
+html {
+  background: #F1F1F1;
+  margin: 0;
+  padding: 0;
+}
+body {
+  margin: 0;
+  padding: 0;
+}
 </style>
