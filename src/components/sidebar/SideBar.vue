@@ -63,11 +63,4 @@ export default {
     order: 1;
     align-self: stretch;
   }
-
-  SideBarItem {
-    width: 100%;
-    flex: none;
-    align-self: stretch;
-    flex-grow: 0;
-  }
 </style>

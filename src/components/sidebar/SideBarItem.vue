@@ -1,6 +1,6 @@
 <template>
   <router-link v-bind:to="url" custom v-slot="{ navigate }">
-    <div class="sidebar-item-root" @click="navigate">
+    <div class="sidebar-item-root" @click="navigate" @mouseover="doMouseOver">
       <span class="material-icons-outlined sidebar-item-icon">{{ image }}</span>
       <div class="sidebar-item-text">{{ title }}</div>
     </div>
@@ -14,12 +14,19 @@ export default {
     title: String,
     image: String,
     url: String
+  },
+  methods: {
+    doMouseOver() {
+      alert('over')
+    }
   }
 }
 </script>
 
 <style>
   .sidebar-item-root {
+    cursor: pointer;
+
     display: flex;
     flex-direction: row;
     align-items: center;
