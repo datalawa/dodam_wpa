@@ -1,6 +1,6 @@
 <template>
   <router-link v-bind:to="url" custom v-slot="{ navigate }">
-    <div class="sidebar-item-root" @click="navigate" @mouseover="doMouseOver">
+    <div class="sidebar-item-root" @click="{ navigate, eventSidebarItemClicked }">
       <span class="material-icons-outlined sidebar-item-icon">{{ image }}</span>
       <div class="sidebar-item-text">{{ title }}</div>
     </div>
@@ -8,16 +8,18 @@
 </template>
 
 <script>
+
 export default {
   name: "SideBarItem",
   props: {
     title: String,
     image: String,
-    url: String
+    url: String,
+    code: String
   },
   methods: {
-    doMouseOver() {
-      // alert('over')
+    eventSidebarItemClicked() {
+
     }
   }
 }

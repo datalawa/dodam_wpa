@@ -1,12 +1,25 @@
+<script setup>
+import DashBoard from "@/views/DashBoard";
+import ComplainBoard from "@/views/ComplainBoard";
+import FreeBoard from "@/views/FreeBoard";
+import SurveyBoard from "@/views/SurveyBoard";
+
+const components = {
+  'dash': DashBoard,
+  'complain': ComplainBoard,
+  'free': FreeBoard,
+  'survey': SurveyBoard,
+}
+</script>
+
 <template>
   <NavigationBar></NavigationBar>
   <div id="section-main">
     <SideBar></SideBar>
     <div id="section-main-content">
-      <p>Test</p>
-      <p>Test</p>
-      <p>Test</p>
-      <p>Test</p>
+      <keep-alive>
+        <component :is="components[selectedCompCode]"></component>
+      </keep-alive>
     </div>
   </div>
 </template>
@@ -14,9 +27,15 @@
 <script>
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
+
 export default {
   name: "DefaultPage",
-  components: {SideBar, NavigationBar}
+  components: {SideBar, NavigationBar},
+  data() {
+    return {
+      selectedCompCode: 'dash'
+    }
+  }
 }
 </script>
 

@@ -3,7 +3,7 @@
     <div class="sidebar-index-title">{{ indexTitle }}</div>
     <div class="sidebar-index-list-items">
       <div v-for="data in itemsData.indexItems" v-bind:key="data" class="sidebar-index-items">
-        <SideBarItem v-bind:title="data.title" v-bind:image="data.image" v-bind:url="data.url"></SideBarItem>
+        <SideBarItem :title="data.title" :image="data.image" :url="data.url" :code="data.code"></SideBarItem>
       </div>
     </div>
   </div>
