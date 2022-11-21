@@ -1,8 +1,10 @@
 <template>
-  <div class="sidebar-item-root">
-    <span class="material-icons-outlined sidebar-item-icon">{{ image }}</span>
-    <div class="sidebar-item-text">{{ title }}</div>
-  </div>
+  <router-link v-bind:to="url" custom v-slot="{ navigate }">
+    <div class="sidebar-item-root" @click="navigate">
+      <span class="material-icons-outlined sidebar-item-icon">{{ image }}</span>
+      <div class="sidebar-item-text">{{ title }}</div>
+    </div>
+  </router-link>
 </template>
 
 <script>

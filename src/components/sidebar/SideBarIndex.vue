@@ -2,9 +2,9 @@
   <div class="sidebar-index-root">
     <div class="sidebar-index-title">{{ indexTitle }}</div>
     <div class="sidebar-index-list-items">
-      <SideBarItem v-for="data in itemsData.indexItems"
-                   v-bind:key="data" v-bind:title="data.title" v-bind:image="data.image"
-                   class="sidebar-index-items"></SideBarItem>
+      <div v-for="data in itemsData.indexItems" v-bind:key="data" class="sidebar-index-items">
+        <SideBarItem v-bind:title="data.title" v-bind:image="data.image" v-bind:url="data.url"></SideBarItem>
+      </div>
     </div>
   </div>
 </template>
@@ -58,11 +58,7 @@ export default {
   }
 
   .sidebar-index-items {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
     padding: 5px 10px;
-    gap: 10px;
 
     flex: none;
     align-self: stretch;
