@@ -1,7 +1,9 @@
 <template>
   <div id="sidebar-root">
     <SideBarItem title="대시보드" image="dashboard"></SideBarItem>
-    <SideBarIndex index-title="게시판" v-bind:items-data="indexData[0]"></SideBarIndex>
+    <SideBarIndex v-bind:index-title="indexData[0].indexTitle" v-bind:items-data="indexData[0]"></SideBarIndex>
+    <SideBarIndex v-bind:index-title="indexData[1].indexTitle" v-bind:items-data="indexData[1]"></SideBarIndex>
+    <SideBarIndex v-bind:index-title="indexData[2].indexTitle" v-bind:items-data="indexData[2]"></SideBarIndex>
   </div>
 </template>
 
@@ -15,15 +17,28 @@ export default {
     return {
       indexData: [
         {
-          indexTitle: 'title',
+          indexTitle: '게시판',
           indexItems: [
             {title: '공지사항', image: 'feedback'},
-            {title: '자유게시판', image: 'feedback'},
-            {title: '설문조사', image: 'feedback'},
-            {title: '민원/QnA', image: 'feedback'},
+            {title: '자유게시판', image: 'forum'},
+            {title: '설문조사', image: 'inventory'},
+            {title: '민원/QnA', image: 'support_agent'},
           ]
         },
-        {}
+        {
+          indexTitle: '관리비',
+          indexItems: [
+            {title: '이번달 관리비', image: 'attach_money'},
+            {title: '납부기록', image: 'assessment'},
+          ]
+        },
+        {
+          indexTitle: '주차',
+          indexItems: [
+            {title: '주차장 현황', image: 'local_parking'},
+            {title: '입출차 기록', image: 'schedule'},
+          ]
+        }
       ]
     }
   }
