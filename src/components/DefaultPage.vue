@@ -2,7 +2,12 @@
   <NavigationBar></NavigationBar>
   <div id="section-main">
     <SideBar></SideBar>
-    <div id="section-main-content" style="background: aqua"></div>
+    <div id="section-main-content">
+      <p>Test</p>
+      <p>Test</p>
+      <p>Test</p>
+      <p>Test</p>
+    </div>
   </div>
 </template>
 
@@ -15,16 +20,11 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   #section-main {
     display: flex;
-    flex-direction: row;
-    align-items: flex-start;
     padding: 0;
-
-    width: 100%;
-    height: 200px;
-    overflow-y: scroll;
+    /*overflow-y: scroll;*/
   }
 
   SideBar {
@@ -33,12 +33,7 @@ export default {
     align-items: flex-start;
     padding: 0;
 
-    height: 200px;
-
-    flex: none;
     order: 0;
-    align-self: stretch;
-    flex-grow: 0;
   }
 
   #section-main-content {
@@ -47,8 +42,6 @@ export default {
     align-items: center;
     padding: 0;
     gap: 38px;
-
-    height: 100%;
 
     flex: 1;
     order: 1;
