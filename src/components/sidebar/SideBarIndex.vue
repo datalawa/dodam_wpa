@@ -39,7 +39,7 @@ export default {
     font-weight: 600;
     font-size: 12px;
     line-height: 15px;
-    color: #393939;
+    color: var(--secondary-text-color);
 
     flex: none;
     flex-grow: 0;
@@ -50,7 +50,6 @@ export default {
     flex-direction: column;
     align-items: flex-start;
     padding: 0;
-    gap: 4px;
 
     flex: none;
     align-self: stretch;
@@ -58,8 +57,6 @@ export default {
   }
 
   .sidebar-index-items {
-    padding: 5px 10px;
-
     flex: none;
     align-self: stretch;
     flex-grow: 0;

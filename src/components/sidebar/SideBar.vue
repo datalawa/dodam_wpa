@@ -55,10 +55,10 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 32px 0px 20px 23px;
+    padding: 32px 23px 20px 23px;
     gap: 32px;
 
-    border-right: 0.25px solid #393939;
+    border-right: 0.25px solid var(--secondary-text-color);
     flex: none;
     order: 1;
     align-self: stretch;

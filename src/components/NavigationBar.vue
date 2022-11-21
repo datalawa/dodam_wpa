@@ -30,7 +30,7 @@ export default {
 
 <style scoped>
 .navbar-top {
-  background: #FFFFFF;
+  background: var(--secondary-background-color);
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -44,7 +44,7 @@ export default {
   font-size: 16px;
   line-height: 19px;
 
-  color: #000000;
+  color: var(--primary-text-color);
 }
 
 .navbar-right {
@@ -82,7 +82,7 @@ export default {
   font-size: 12px;
   line-height: 15px;
 
-  color: #393939;
+  color: var(--secondary-text-color);
 
   flex: none;
   order: 0;

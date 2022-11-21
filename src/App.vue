@@ -85,12 +85,26 @@ export default { }
   font-display: swap;
 }
 
+:root {
+  --primary-background-color: #F1F1F1;
+  --secondary-background-color: #FFFFFF;
+  --secondary-text-color: #393939;
+  --primary-text-color: #000000;
+  --navbar-icon-color: #C7C7C7;
+  --sidebar-hovering-color: rgba(255, 111, 0, 0.2);
+  --point-color: #F28B2C;
+  --point-color2: #2CABF2;
+  --point-color3: #7C12A6;
+  --woman-parking-area-color: #F25672;
+  --disable-parking-area-color: #5AA6EF;
+}
+
 .icon-color-button-gray {
   color: #C7C7C7;
 }
 
 html {
-  background: #F1F1F1;
+  background: var(--primary-background-color);
   margin: 0;
   padding: 0;
   font-family: 'SCoreDream';

@@ -17,7 +17,7 @@ export default {
   },
   methods: {
     doMouseOver() {
-      alert('over')
+      // alert('over')
     }
   }
 }
@@ -30,12 +30,20 @@ export default {
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 0;
+    padding: 5px;
     gap: 10px;
 
     flex: none;
     order: 0;
     flex-grow: 0;
+
+    width: 100%;
+
+    border-radius: 5px;
+  }
+
+  .sidebar-item-root:hover {
+    background: var(--sidebar-hovering-color);
   }
 
   .sidebar-item-icon {
@@ -47,9 +55,9 @@ export default {
   .sidebar-item-text {
     font-weight: 700;
     font-size: 14px;
-    height: 16px;
-    padding-top: 2px;
+    height: 18px;
+    /*padding-top: 2px;*/
 
-    color: #393939;
+    color: var(--secondary-text-color);
   }
 </style>
