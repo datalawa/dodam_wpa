@@ -18,7 +18,7 @@ const components = {
     <SideBar></SideBar>
     <div id="section-main-content">
       <keep-alive>
-        <component :is="components[selectedCompCode]"></component>
+        <component :is="components[selectedItem]"></component>
       </keep-alive>
     </div>
   </div>
@@ -34,6 +34,13 @@ export default {
   data() {
     return {
       selectedCompCode: 'dash'
+    }
+  },
+  computed: {
+    selectedItem() {
+      let selected = this.$store.state.sidebarSelector.selected;
+      console.log(selected);
+      return selected;
     }
   }
 }
