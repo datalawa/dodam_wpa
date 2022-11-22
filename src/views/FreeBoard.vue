@@ -1,13 +1,22 @@
 <template>
-  <h1>freeboard</h1>
+  <NavigationBar></NavigationBar>
+  <div id="section-main">
+    <SideBar></SideBar>
+    <div id="section-main-content">
+      <h1>free</h1>
+    </div>
+  </div>
 </template>
 
 <script>
+import NavigationBar from "@/components/NavigationBar";
+import SideBar from "@/components/sidebar/SideBar";
 export default {
-  name: "FreeBoard"
+  name: "FreeBoard",
+  components: {SideBar, NavigationBar},
 }
 </script>
 
-<style scoped>
-
+<style>
+@import "../css/view-main.css";
 </style>

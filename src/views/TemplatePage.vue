@@ -3,7 +3,7 @@
   <div id="section-main">
     <SideBar></SideBar>
     <div id="section-main-content">
-      <h1>survey</h1>
+      <
     </div>
   </div>
 </template>
@@ -12,7 +12,8 @@
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 export default {
-  name: "SurveyBoard",
+  //TODO: name 변경
+  name: "TempPage",
   components: {SideBar, NavigationBar},
 }
 </script>
