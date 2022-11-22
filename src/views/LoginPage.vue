@@ -71,14 +71,6 @@
         </v-col>
       </v-row>
     </v-container>
-    <!-- <div class="login">
-      <h3>LOGIN</h3>
-      <p>로그인을 하시면 더욱 편리하게 이용하실 수 있습니다.</p>
-      <input type="email" placeholder="email"><br>
-      <input type="password" placeholder="password"><br>
-      <button>로그인</button>
-      <p>아이디(이메일) 찾기 | 비밀번호 찾기 | 회원가입</p>
-    </div> -->
     </div>
   </div>
 </template>
@@ -87,7 +79,6 @@
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 export default {
-  //TODO: name 변경
   name: "LoginPage",
   components: {SideBar, NavigationBar},
   data () {
