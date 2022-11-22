@@ -1,7 +1,7 @@
 <template>
   <NavigationBar></NavigationBar>
   <div id="section-main">
-    <SideBar></SideBar>
+    <SideBar :is-hidden="false"></SideBar>
     <div id="section-main-content">
       <div class="dashboard-root card"></div>
     </div>

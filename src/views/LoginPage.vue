@@ -1,7 +1,7 @@
 <template>
   <NavigationBar></NavigationBar>
   <div id="section-main">
-    <SideBar></SideBar>
+    <SideBar :is-hidden="true"></SideBar>
     <div id="section-main-content">
       <v-container
       class="fill-height"
