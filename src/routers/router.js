@@ -8,6 +8,7 @@ import SurveyBoard from '../views/SurveyBoard';
 const router = new createRouter({
     history: createWebHashHistory(),
     routes: [
+        // TODO: 추가한 페이지 여기에 추가
         {path: '/', redirect: '/dash'},
         {path: "/dash", component: DashBoard},
         {path: "/free", component: FreeBoard},

@@ -5,7 +5,7 @@
         <span class="material-icons-outlined sidebar-item-icon">{{ image }}</span>
         <div class="sidebar-item-text">{{ title }}</div>
       </div>
-      <div class="sidebar-item-selected"></div>
+      <div class="sidebar-item-selected" :class="{ sidebar_item_active: checkSelected() }"></div>
     </div>
   </router-link>
 </template>
@@ -26,7 +26,6 @@ export default {
   methods: {
     checkSelected() {
       let nowPath = Object.values(this.$router.currentRoute)[3].path;
-      console.log(nowPath);
       return nowPath === this.url;
     }
   }
@@ -37,6 +36,7 @@ export default {
 
   .sidebar_item_active {
     color: var(--point-color) !important;
+    visibility: visible !important;
   }
 
   .sidebar-item-root {
@@ -90,6 +90,7 @@ export default {
   }
 
   .sidebar-item-selected {
+    visibility: hidden;
     height: 100%;
     width: 3px;
     background: var(--point-color);
