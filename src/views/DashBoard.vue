@@ -3,7 +3,7 @@
   <div id="section-main">
     <SideBar></SideBar>
     <div id="section-main-content">
-      <h1>dash</h1>
+      <div class="dashboard-root card"></div>
     </div>
   </div>
 </template>
@@ -17,21 +17,15 @@ export default {
 }
 </script>
 
+<style scoped>
+  .dashboard-root {
+    max-width: 1000px;
+    width: 100%;
+    height: 100%;
+    background: #2CABF2;
+  }
+</style>
+
 <style>
-  #section-main {
-    display: flex;
-    padding: 0;
-    /*overflow-y: scroll;*/
-  }
-
-  #section-main-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0;
-    gap: 38px;
-
-    flex: 1;
-    order: 1;
-  }
+@import "../css/view-main.css";
 </style>

@@ -18,20 +18,5 @@ export default {
 </script>
 
 <style>
-#section-main {
-  display: flex;
-  padding: 0;
-  /*overflow-y: scroll;*/
-}
-
-#section-main-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 0;
-  gap: 38px;
-
-  flex: 1;
-  order: 1;
-}
+@import "../css/view-main.css";
 </style>
