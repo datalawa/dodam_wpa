@@ -96,13 +96,17 @@ html {
     background: var(--primary-background-color);
     margin: 0;
     padding: 0;
-    font-family: 'SCoreDream';
+    /*font-family: 'SCoreDream' !important;*/
 }
 body {
     margin: 0;
     padding: 0;
 }
 
-.card {
-    background: var;
+/*.card {*/
+/*    background: var;*/
+/*}*/
+
+.hidden {
+    display: none !important;
 }

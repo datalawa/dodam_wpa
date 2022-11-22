@@ -9,6 +9,6 @@ export default { }
 </script>
 
 <style>
-@import "./css/root.css";
-@import url(https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css);
+  @import "./css/root.css";
+  @import url(https://cdn.jsdelivr.net/npm/@mdi/font@latest/css/materialdesignicons.min.css);
 </style>

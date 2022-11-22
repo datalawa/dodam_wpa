@@ -1,9 +1,9 @@
 <template>
   <NavigationBar></NavigationBar>
   <div id="section-main">
-    <SideBar></SideBar>
+    <SideBar :is-hidden="false"></SideBar>
     <div id="section-main-content">
-      <
+      <!--TODO: 화면 구현은 여기에-->
     </div>
   </div>
 </template>
