@@ -3,7 +3,9 @@
   <div id="section-main">
     <SideBar :is-hidden="false"></SideBar>
     <div id="section-main-content">
-      <div class="dashboard-root card"></div>
+      <div class="dashboard-root">
+        <div class="dashboard-content-list card"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -18,11 +20,7 @@ export default {
 </script>
 
 <style scoped>
-  .dashboard-root {
-    max-width: 1000px;
-    width: 100%;
-    height: 4000px;
-  }
+@import "../css/dashboard-main.css";
 </style>
 
 <style>
