@@ -1,6 +1,6 @@
 <template>
-  <router-link v-bind:to="url" custom v-slot="{ navigate }" @click="eventSidebarItemClicked">
-    <div class="sidebar-item-root" @click="{ navigate }">
+  <router-link v-bind:to="url" custom v-slot="{ navigate }">
+    <div class="sidebar-item-root" @click="navigate">
       <span class="material-icons-outlined sidebar-item-icon">{{ image }}</span>
       <div class="sidebar-item-text">{{ title }}</div>
     </div>
@@ -8,26 +8,12 @@
 </template>
 
 <script>
-// import { computed, onMounted, toRef } from "vue";
-import { useStore } from "vuex";
-
 export default {
-  setup: () => {
-    const store = useStore();
-    // const selector = computed(() => store.state.sidebarSelector.selected)
-    const eventSidebarItemClicked = () => {
-      console.log('item clicked')
-      store.dispatch('onChangedSelectedSidebarItem', this.code)
-    }
-
-    return { eventSidebarItemClicked }
-  },
   name: "SideBarItem",
   props: {
     title: String,
     image: String,
-    url: String,
-    code: String
+    url: String
   }
 }
 </script>

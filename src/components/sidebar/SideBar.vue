@@ -1,6 +1,6 @@
 <template>
   <div id="sidebar-root">
-    <SideBarItem title="대시보드" image="dashboard" url="/" code="dash"></SideBarItem>
+    <SideBarItem title="대시보드" image="dashboard" url="/"></SideBarItem>
     <SideBarIndex v-bind:index-title="indexData[0].indexTitle" v-bind:items-data="indexData[0]"></SideBarIndex>
     <SideBarIndex v-bind:index-title="indexData[1].indexTitle" v-bind:items-data="indexData[1]"></SideBarIndex>
     <SideBarIndex v-bind:index-title="indexData[2].indexTitle" v-bind:items-data="indexData[2]"></SideBarIndex>
@@ -19,10 +19,10 @@ export default {
         {
           indexTitle: '게시판',
           indexItems: [
-            {title: '공지사항', image: 'feedback', url: '/', code: 'feedback'},
-            {title: '자유게시판', image: 'forum', url: '/free', code: 'free'},
-            {title: '설문조사', image: 'inventory', url: '/survey', code: 'survey'},
-            {title: '민원/QnA', image: 'support_agent', url: '/complain', code: 'complain'},
+            {title: '공지사항', image: 'feedback', url: '/'},
+            {title: '자유게시판', image: 'forum', url: '/free'},
+            {title: '설문조사', image: 'inventory', url: '/survey'},
+            {title: '민원/QnA', image: 'support_agent', url: '/complain'},
           ]
         },
         {
