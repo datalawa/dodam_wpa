@@ -46,21 +46,5 @@ export default {
 </script>
 
 <style>
-  #sidebar-root {
-    width: 190px;
-    height: auto;
-
-    box-sizing: border-box;
-
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 32px 0 20px 23px;
-    gap: 32px;
-
-    border-right: 0.25px solid var(--secondary-text-color);
-    flex: none;
-    order: 1;
-    align-self: stretch;
-  }
+  @import "../../css/sidebar-main.css";
 </style>
