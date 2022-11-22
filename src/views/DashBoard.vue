@@ -21,8 +21,7 @@ export default {
   .dashboard-root {
     max-width: 1000px;
     width: 100%;
-    height: 100%;
-    background: #2CABF2;
+    height: 500px;
   }
 </style>
 

@@ -5,7 +5,7 @@
 }
 
 #section-main-content {
-    padding: 0 38px 20px;
+    padding: 20px 38px 20px 38px;
 
     display: flex;
     flex-direction: column;
