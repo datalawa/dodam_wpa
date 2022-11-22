@@ -1,6 +1,6 @@
 <template>
   <div id="sidebar-root">
-    <SideBarItem title="대시보드" image="dashboard" url="/"></SideBarItem>
+    <SideBarItem title="대시보드" image="dashboard" url="/dash"></SideBarItem>
     <SideBarIndex v-bind:index-title="indexData[0].indexTitle" v-bind:items-data="indexData[0]"></SideBarIndex>
     <SideBarIndex v-bind:index-title="indexData[1].indexTitle" v-bind:items-data="indexData[1]"></SideBarIndex>
     <SideBarIndex v-bind:index-title="indexData[2].indexTitle" v-bind:items-data="indexData[2]"></SideBarIndex>
@@ -55,7 +55,7 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    padding: 32px 23px 20px 23px;
+    padding: 32px 0 20px 23px;
     gap: 32px;
 
     border-right: 0.25px solid var(--secondary-text-color);

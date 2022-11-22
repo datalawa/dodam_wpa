@@ -1,8 +1,11 @@
 <template>
   <router-link v-bind:to="url" custom v-slot="{ navigate }">
-    <div class="sidebar-item-root" @click="navigate">
-      <span class="material-icons-outlined sidebar-item-icon">{{ image }}</span>
-      <div class="sidebar-item-text">{{ title }}</div>
+    <div class="sidebar-item-root" :class="{ sidebar_item_active: checkSelected() }" @click="navigate">
+      <div class="sidebar-item-list">
+        <span class="material-icons-outlined sidebar-item-icon">{{ image }}</span>
+        <div class="sidebar-item-text">{{ title }}</div>
+      </div>
+      <div class="sidebar-item-selected"></div>
     </div>
   </router-link>
 </template>
@@ -14,30 +17,62 @@ export default {
     title: String,
     image: String,
     url: String
+  },
+  data: () => {
+    return {
+      checked: false
+    }
+  },
+  methods: {
+    checkSelected() {
+      let nowPath = Object.values(this.$router.currentRoute)[3].path;
+      console.log(nowPath);
+      return nowPath === this.url;
+    }
   }
 }
 </script>
 
 <style>
+
+  .sidebar_item_active {
+    color: var(--point-color) !important;
+  }
+
   .sidebar-item-root {
+    cursor: pointer;
+    gap: 20px;
+    height: 28px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    flex: none;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    color: var(--secondary-text-color);
+  }
+
+  .sidebar-item-list {
     cursor: pointer;
 
     display: flex;
     flex-direction: row;
     align-items: center;
-    padding: 5px;
+    padding: 5px 0px 5px 5px;
     gap: 10px;
 
-    flex: none;
-    order: 0;
-    flex-grow: 0;
+    flex: 1;
 
-    width: 100%;
+    box-sizing: border-box;
 
     border-radius: 5px;
   }
 
-  .sidebar-item-root:hover {
+  .sidebar-item-list:hover {
     background: var(--sidebar-hovering-color);
   }
 
@@ -52,7 +87,16 @@ export default {
     font-size: 14px;
     height: 18px;
     /*padding-top: 2px;*/
+  }
 
-    color: var(--secondary-text-color);
+  .sidebar-item-selected {
+    height: 100%;
+    width: 3px;
+    background: var(--point-color);
+    box-sizing: border-box;
+    border-radius: 3px 0 0 3px;
+
+    display: flex;
+    flex: none;
   }
 </style>
