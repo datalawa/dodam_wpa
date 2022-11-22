@@ -2,7 +2,7 @@
   <nav class="navbar-top">
     <div class="navbar-right">
       <span class="material-icons-round">menu</span>
-      <div class="navbar-title">아파트 통합 시스템</div>
+      <div class="navbar-title">도담도담</div>
     </div>
     <div class="navbar-alert">
       <span class="material-icons-outlined icon-color-button-gray">notifications</span>

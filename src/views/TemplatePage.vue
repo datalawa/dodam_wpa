@@ -3,8 +3,7 @@
   <div id="section-main">
     <SideBar></SideBar>
     <div id="section-main-content">
-      <!--TODO:여기에 레이아웃 구현-->
-      <h1>temp</h1>
+      <
     </div>
   </div>
 </template>
