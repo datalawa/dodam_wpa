@@ -114,7 +114,8 @@ body {
 }
 
 body::-webkit-scrollbar {
-    width: 20px;
+    width: 0px;
+    /*overflow: auto;*/
 }
 
 body::-webkit-scrollbar-thumb {
