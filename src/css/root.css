@@ -125,3 +125,7 @@ body::-webkit-scrollbar-thumb {
     border: 5px solid transparent;
     background-clip: content-box;
 }
+
+.background-shadow {
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
+}

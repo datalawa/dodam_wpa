@@ -3,7 +3,15 @@
   <div id="section-main">
     <SideBar :is-hidden="false"></SideBar>
     <div id="section-main-content">
-      <h1>free</h1>
+      <div class="section-board-root">
+        <div class="section-board-top">
+          <div class="section-board-title">자유게시판</div>
+          <div class="section-board-search-root background-shadow">
+            <input class="section-board-search-text" type="text" placeholder="글 검색"/>
+            <div class="section-board-search-border"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -19,4 +27,5 @@ export default {
 
 <style>
 @import "../css/view-main.css";
+@import "../css/board-main.css";
 </style>
