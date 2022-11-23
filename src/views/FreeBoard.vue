@@ -9,6 +9,7 @@
           <div class="section-board-search-root background-shadow">
             <input class="section-board-search-text" type="text" placeholder="글 검색"/>
             <div class="section-board-search-border"></div>
+            <span class="material-icons-outlined section-board-search-image">search</span>
           </div>
         </div>
       </div>

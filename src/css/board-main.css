@@ -77,16 +77,24 @@
 }
 
 .section-board-search-border {
-    width: 0px;
+    width: 1px;
     height: 24px;
-    border-color: blue;
-    border-style: solid;
 
-    border: 1px;
-    border-color: rgba(0, 0, 255, 0.75);
+    background: black;
+
+    transform: scaleX(0.5);
 
     flex: none;
     order: 1;
+    flex-grow: 0;
+}
+
+.section-board-search-image {
+    width: 24px;
+    height: 24px;
+
+    flex: none;
+    order: 2;
     flex-grow: 0;
 }
 
