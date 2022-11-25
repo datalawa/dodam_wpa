@@ -2,7 +2,7 @@
   <NavigationBar></NavigationBar>
   <div id="section-main" class="open">
     <SideBar :is-hidden="false"></SideBar>
-    <div id="section-main-transparent"></div>
+    <div id="section-main-transparent" class="open"></div>
     <div id="section-main-content">
       <div class="section-board-root">
         <div class="section-board-top">

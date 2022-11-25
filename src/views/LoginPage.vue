@@ -2,6 +2,7 @@
   <NavigationBar></NavigationBar>
   <div id="section-main" class="open">
     <SideBar :is-hidden="true"></SideBar>
+    <div id="section-main-transparent" class="open"></div>
     <div id="section-main-content">
       <v-container
       class="fill-height"

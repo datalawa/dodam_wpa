@@ -2,6 +2,7 @@
   <NavigationBar></NavigationBar>
   <div id="section-main" class="open">
     <SideBar :is-hidden="false"></SideBar>
+    <div id="section-main-transparent" class="open"></div>
     <div id="section-main-content">
       <h1>complain</h1>
     </div>
