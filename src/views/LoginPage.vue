@@ -1,6 +1,6 @@
 <template>
   <NavigationBar></NavigationBar>
-  <div id="section-main">
+  <div id="section-main" class="open">
     <SideBar :is-hidden="true"></SideBar>
     <div id="section-main-content">
       <v-container

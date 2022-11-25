@@ -10,11 +10,18 @@
     padding: 32px 0 20px 23px;
     gap: 32px;
 
+    /*left: -190px;*/
+    /*position: absolute;*/
+
     border-right: 0.25px solid var(--secondary-text-color);
     flex: none;
     order: 1;
     align-self: stretch;
 }
+
+/*#sidebar-root.open {*/
+/*    left: 0;*/
+/*}*/
 
 .sidebar-index-root {
     display: flex;

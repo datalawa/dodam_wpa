@@ -1,7 +1,13 @@
 #section-main {
     display: flex;
     padding: 0;
-    /*overflow-y: scroll;*/
+    margin-left: -190px;
+    transition: margin-left 500ms ease-out;
+}
+
+#section-main.open {
+    margin-left: 0;
+    transition: margin-left 500ms ease-in;
 }
 
 #section-main-content {

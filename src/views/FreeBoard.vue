@@ -1,6 +1,6 @@
 <template>
   <NavigationBar></NavigationBar>
-  <div id="section-main">
+  <div id="section-main" class="open">
     <SideBar :is-hidden="false"></SideBar>
     <div id="section-main-content">
       <div class="section-board-root">
