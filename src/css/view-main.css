@@ -21,3 +21,17 @@
     flex: 1;
     order: 1;
 }
+
+@media (max-width: 768px) {
+    #section-main.open {
+        margin-left: 0;
+        transition: margin-left 500ms ease-in;
+    }
+
+    #section-main {
+        margin-left: 0;
+        transition: margin-left 500ms ease-in;
+        overflow: hidden;
+        position: relative;
+    }
+}

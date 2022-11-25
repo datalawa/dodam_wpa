@@ -21,12 +21,15 @@ export default {
     onOpenButtonClicked() {
       let sideBar = document.getElementById('sidebar-root')
       let mainContentSection = document.getElementById('section-main')
+      let blackSection = document.getElementById('section-main-transparent')
       if (sideBar.className === 'open') {
         sideBar.className = '';
         mainContentSection.className = ''
+        blackSection.className = ''
       } else {
         sideBar.className = 'open';
         mainContentSection.className = 'open'
+        blackSection.className = 'open'
       }
     }
   }

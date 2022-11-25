@@ -94,12 +94,10 @@
 
 html {
     background: var(--primary-background-color);
-    margin: 0;
-    padding: 0;
     /*font-family: 'SCoreDream' !important;*/
     -webkit-font-smoothing: antialiased;
 }
-body {
+html, body {
     margin: 0;
     padding: 0;
 }
