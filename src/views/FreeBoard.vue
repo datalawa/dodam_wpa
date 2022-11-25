@@ -1,10 +1,10 @@
 <template>
-  <h1>dashboard</h1>
+  <h1>freeboard</h1>
 </template>
 
 <script>
 export default {
-  name: "DashBoard"
+  name: "FreeBoard"
 }
 </script>
 

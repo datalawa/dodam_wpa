@@ -1,10 +1,10 @@
 <template>
-  <h1>dashboard</h1>
+  <h1>surveyboard</h1>
 </template>
 
 <script>
 export default {
-  name: "DashBoard"
+  name: "SurveyBoard"
 }
 </script>
 
