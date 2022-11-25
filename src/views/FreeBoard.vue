@@ -13,6 +13,14 @@
             <span class="material-icons-outlined section-board-search-image">search</span>
           </div>
         </div>
+        <div class="card background-shadow section-board-content-root">
+          <BoardItemType1></BoardItemType1>
+          <BoardItemType1></BoardItemType1>
+          <BoardItemType1></BoardItemType1>
+          <BoardItemType1></BoardItemType1>
+          <BoardItemType1></BoardItemType1>
+          <BoardItemType1></BoardItemType1>
+        </div>
       </div>
     </div>
   </div>
@@ -21,9 +29,10 @@
 <script>
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
+import BoardItemType1 from "@/components/list/BoardItemType1";
 export default {
   name: "FreeBoard",
-  components: {SideBar, NavigationBar},
+  components: {BoardItemType1, SideBar, NavigationBar},
 }
 </script>
 
