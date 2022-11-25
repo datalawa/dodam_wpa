@@ -41,6 +41,7 @@
                   prepend-icon="mdi-account"
                   type="text"
                   hint="@ 포함하여 입력하세요."
+                  color="red"
                 ></v-text-field>
 
                 <v-text-field
@@ -50,6 +51,7 @@
                   prepend-icon="mdi-lock"
                   type="password"
                   hint="최소 6자입니다."
+                  color="red"
                 ></v-text-field>
 
                 <v-btn
