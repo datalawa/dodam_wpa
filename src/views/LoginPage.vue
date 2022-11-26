@@ -3,28 +3,13 @@
   <div id="section-main">
     <SideBar></SideBar>
     <div id="section-main-content">
-      <v-container
-      class="fill-height"
-      fluid
-    >
-      <v-row
-        align="center"
-        justify="center"
-      >
-        <v-col
-          cols="12"
-          sm="8"
-          md="4"
-        >
+      <v-container class="fill-height" fluid>
+      <v-row align="center" justify="center">
+        <v-col cols="12" sm="8" md="4">
           <v-card width="530" height="600" class="elevation-12">
-            <v-toolbar
-              color="white"
-              dark
-              flat
-            >
-              <v-toolbar-title class="flex text-center">LOGIN</v-toolbar-title>
-            </v-toolbar>
-
+            <v-toolbar color="white" dark flat></v-toolbar>
+            <div class="pa-2">
+                <h1 style="text-align: center">LOGIN</h1>
             <v-container grid-list-md fluid>
               <v-layout row wrap>
                 <v-divider></v-divider>
@@ -52,14 +37,19 @@
                   type="password"
                   hint="최소 6자입니다."
                   color="red"
+                  counter
                 ></v-text-field>
 
-                <v-btn
-                  block
-                  color="#7C12A6"
-                  text
-                  rounded
-                >로그인</v-btn>
+                <div class="mt-3 d-flex flex-row-reverse">
+                  <v-btn
+                      color="#7C12A6"
+                      block
+                      rounded
+                      size="45px"
+                  >
+                    로그인
+                  </v-btn>
+                </div>
               </v-form>
             </v-card-text>
 
@@ -69,18 +59,11 @@
               <v-btn color="black" @click="$router.push('/signup')">회원가입</v-btn>
               <!-- <router-link to="/signup">SignUp</router-link> -->
             </v-card-actions>
+           </div>
           </v-card>
         </v-col>
       </v-row>
-    </v-container>
-    <!-- <div class="login">
-      <h3>LOGIN</h3>
-      <p>로그인을 하시면 더욱 편리하게 이용하실 수 있습니다.</p>
-      <input type="email" placeholder="email"><br>
-      <input type="password" placeholder="password"><br>
-      <button>로그인</button>
-      <p>아이디(이메일) 찾기 | 비밀번호 찾기 | 회원가입</p>
-    </div> -->
+     </v-container>
     </div>
   </div>
 </template>
