@@ -26,6 +26,30 @@
           <div class="section-board-content-divider"></div>
           <BoardItemType1></BoardItemType1>
           <div class="section-board-content-divider"></div>
+          <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
+          <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
+          <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
+          <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
+          <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
+          <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
+          <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
+          <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
+          <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
+          <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
+          <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
+          <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
         </div>
       </div>
     </div>

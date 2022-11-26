@@ -3,6 +3,8 @@
     padding: 0;
     margin-left: -190px;
     transition: margin-left 500ms ease-out;
+
+    min-height: 100vh;
 }
 
 #section-main.open {
