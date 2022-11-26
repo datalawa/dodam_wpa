@@ -1,0 +1,150 @@
+.section-board-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 38px 20px;
+    gap: 18px;
+
+    width: 100%;
+
+    flex: none;
+
+    max-width: 1000px;
+}
+
+.section-board-top {
+    width: 100%;
+    height: 40px;
+
+    position: relative;
+
+    flex: none;
+    order: 0;
+}
+
+.section-board-title {
+    width: 100%;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+    top: 9px;
+
+    color: var(--secondary-text-color);
+}
+
+.section-board-search-root {
+    position: absolute;
+    width: 350px;
+    height: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 0px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 0px 10px 0px 20px;
+    gap: 10px;
+
+    background: var(--secondary-background-color);
+    border-radius: 20px;
+}
+
+.section-board-search-text {
+    height: 100%;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+
+    color: var(--secondary-text-color);
+
+    flex: 1;
+    order: 0;
+    align-self: stretch;
+
+    outline: none;
+}
+
+.section-board-search-border {
+    width: 1px;
+    height: 24px;
+
+    background: black;
+
+    transform: scaleX(0.5);
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.section-board-search-image {
+    width: 24px;
+    height: 24px;
+
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
+
+.section-board-content-root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 18px;
+    gap: 10px;
+
+    width: 100%;
+
+    background: var(--secondary-background-color);
+
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+@media (max-width: 980px) {
+    .section-board-top {
+        height: 90px;
+    }
+
+    .section-board-search-root {
+        top: 50px;
+    }
+}
+
+#section-main-transparent {
+    position: absolute;
+    top: 0;
+    z-index: 50;
+
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, 0);
+    visibility: hidden;
+}
+
+@media (max-width: 768px) {
+    #section-main-transparent {
+        background: rgba(0, 0, 0, 0);
+        visibility: hidden;
+        transition: all 500ms ease-out;
+    }
+
+    #section-main-transparent.open {
+        visibility: visible;
+        background: rgba(0, 0, 0, 0.25);
+        transition: background 500ms ease-in;
+    }
+}

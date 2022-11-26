@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar-top">
     <div class="navbar-right">
-      <span class="material-icons-round">menu</span>
+      <span class="material-icons-round navbar-button-menu" @click="onOpenButtonClicked">menu</span>
       <div class="navbar-title">도담도담</div>
     </div>
     <div class="navbar-alert">
@@ -16,7 +16,23 @@
 
 <script>
 export default {
-  name: "NavigationBar"
+  name: "NavigationBar",
+  methods: {
+    onOpenButtonClicked() {
+      let sideBar = document.getElementById('sidebar-root')
+      let mainContentSection = document.getElementById('section-main')
+      let blackSection = document.getElementById('section-main-transparent')
+      if (sideBar.className === 'open') {
+        sideBar.className = '';
+        mainContentSection.className = ''
+        blackSection.className = ''
+      } else {
+        sideBar.className = 'open';
+        mainContentSection.className = 'open'
+        blackSection.className = 'open'
+      }
+    }
+  }
 }
 </script>
 

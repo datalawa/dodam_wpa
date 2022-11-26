@@ -1,9 +1,12 @@
 <template>
   <NavigationBar></NavigationBar>
-  <div id="section-main">
+  <div id="section-main" class="open">
     <SideBar :is-hidden="false"></SideBar>
+    <div id="section-main-transparent" class="open"></div>
     <div id="section-main-content">
-      <div class="dashboard-root card"></div>
+      <div class="dashboard-root">
+        <div class="dashboard-content-list card"></div>
+      </div>
     </div>
   </div>
 </template>
@@ -18,12 +21,7 @@ export default {
 </script>
 
 <style scoped>
-  .dashboard-root {
-    max-width: 1000px;
-    width: 100%;
-    height: 100%;
-    background: #2CABF2;
-  }
+@import "../css/dashboard-main.css";
 </style>
 
 <style>
