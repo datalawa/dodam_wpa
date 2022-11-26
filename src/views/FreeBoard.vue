@@ -15,11 +15,17 @@
         </div>
         <div class="card background-shadow section-board-content-root">
           <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
           <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
           <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
           <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
           <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
           <BoardItemType1></BoardItemType1>
+          <div class="section-board-content-divider"></div>
         </div>
       </div>
     </div>
