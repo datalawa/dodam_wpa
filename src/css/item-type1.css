@@ -1,4 +1,12 @@
 .board-item-type1-root {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.board-item-type1-up {
     display: flex;
     flex-direction: row;
     justify-content: center;
