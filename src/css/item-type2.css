@@ -1,0 +1,60 @@
+.board-item-type2-root {
+  width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.board-item-type2-up {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px 0;
+  gap: 13px;
+
+  width: 100%;
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.board-item-type2-title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+
+  color: var(--primary-text-color);
+
+  flex: 5;
+  order: 0;
+}
+
+.board-item-type2-author {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+
+  text-align: center;
+
+  color: var(--primary-text-color);
+
+  flex: 1;
+  order: 1;
+}
+
+.board-item-type2-writetime {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+
+  text-align: center;
+
+  color: var(--primary-text-color);
+
+  flex: 1;
+  order: 2;
+}

@@ -22,7 +22,7 @@ export default {
         {
           indexTitle: '게시판',
           indexItems: [
-            {title: '공지사항', image: 'feedback', url: '/'},
+            {title: '공지사항', image: 'feedback', url: '/notice'},
             {title: '자유게시판', image: 'forum', url: '/free'},
             {title: '설문조사', image: 'inventory', url: '/survey'},
             {title: '민원/QnA', image: 'support_agent', url: '/complain'},

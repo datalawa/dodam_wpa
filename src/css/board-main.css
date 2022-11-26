@@ -114,6 +114,10 @@
     flex-grow: 0;
 }
 
+.type2 {
+    gap: 13px;
+}
+
 @media (max-width: 980px) {
     .section-board-top {
         height: 90px;
