@@ -22,7 +22,7 @@ export default {
       type: String
     },
     writeTime: {
-      default: () => {return new Date()},
+      default: () => {return (new Date()).toISOString().substring(0, 10)},
       type: Date
     },
   },

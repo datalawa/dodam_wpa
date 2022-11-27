@@ -33,6 +33,7 @@
 
     flex: 1;
     order: 0;
+    min-width: 0;
 }
 
 .board-item-type1-section-right {
@@ -139,7 +140,8 @@
     flex-grow: 0;
 }
 
-.board-item-type1-section-like {display: flex;
+.board-item-type1-section-like {
+    display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
