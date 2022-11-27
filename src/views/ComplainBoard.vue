@@ -14,14 +14,9 @@
           </div>
         </div>
         <div class="card background-shadow section-board-content-root type2">
-          <ComplainItem></ComplainItem>
-          <ComplainItem></ComplainItem>
-          <ComplainItem></ComplainItem>
-          <ComplainItem></ComplainItem>
-          <ComplainItem></ComplainItem>
-          <ComplainItem></ComplainItem>
-          <ComplainItem></ComplainItem>
-          <ComplainItem></ComplainItem>
+          <ComplainItem v-for="item in getTestArticleList" v-bind:key="item"
+                          :title="item.title" :author="item.author"
+                          :write-time="item.writeTime" :is-complain="item.isComplain"></ComplainItem>
         </div>
       </div>
     </div>
@@ -35,6 +30,25 @@ import ComplainItem from "@/components/list/ComplainItem";
 export default {
   name: "ComplainBoard",
   components: {ComplainItem, SideBar, NavigationBar},
+  computed: {
+    getTestArticleList() {
+      let articleDatas = []
+      let writeTime = new Date();
+
+      for (let i = 0; i < 50; i++) {
+        const author = Math.random().toString(36).substring(2, 12)
+        writeTime = new Date(writeTime - ((Math.random(24 * 60) + 90) * 60000))
+
+        articleDatas.push({
+          title: '제목' + i,
+          author: author,
+          writeTime: writeTime.toISOString().substring(0, 10),
+          isComplain: Math.random() < 0.5
+        })
+      }
+      return articleDatas
+    }
+  }
 }
 </script>
 
