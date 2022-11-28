@@ -11,6 +11,7 @@
     "@mdi/font": "5.9.55",
     "@vue/cli": "^5.0.8",
     "core-js": "^3.8.3",
+    "easymde": "^2.18.0",
     "package.json": "^2.0.1",
     "vue": "^3.2.13",
     "vue-router": "^4.1.6",
