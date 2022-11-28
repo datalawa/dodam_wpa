@@ -153,7 +153,7 @@
     transform-origin: center;
     -webkit-transform-origin: center;
 
-    transition: all 150ms ease-out;
+    transition: all 100ms ease-out;
 }
 
 .main-floating-write-button:hover {
@@ -161,7 +161,7 @@
     height: 55px;
     width: 55px;
     padding: 13.5px 0 0 0;
-    transition: all 150ms ease-in;
+    transition: all 100ms ease-in;
     /*transform-origin: center;*/
     /*-webkit-transform-origin: center;*/
 }

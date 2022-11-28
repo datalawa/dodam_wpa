@@ -20,6 +20,9 @@
         </div>
       </div>
     </div>
+    <div class="main-floating-write-button" @click="onArticleWriteButtonClicked('complain')">
+      <v-icon icon="mdi-pencil"></v-icon>
+    </div>
   </div>
 </template>
 
@@ -27,6 +30,7 @@
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 import ComplainItem from "@/components/list/ComplainItem";
+import { onArticleWriteButtonClicked } from "@/components/js/write-button";
 export default {
   name: "ComplainBoard",
   components: {ComplainItem, SideBar, NavigationBar},
@@ -48,6 +52,9 @@ export default {
       }
       return articleDatas
     }
+  },
+  methods: {
+    onArticleWriteButtonClicked
   }
 }
 </script>

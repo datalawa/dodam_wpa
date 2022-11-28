@@ -20,6 +20,9 @@
         </div>
       </div>
     </div>
+    <div class="main-floating-write-button" @click="onArticleWriteButtonClicked('notice')">
+      <v-icon icon="mdi-pencil"></v-icon>
+    </div>
   </div>
 </template>
 
@@ -27,6 +30,7 @@
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 import BoardItemType2 from "@/components/list/BoardItemType2";
+import { onArticleWriteButtonClicked } from "@/components/js/write-button";
 export default {
   name: "NoticeBoard",
   components: {BoardItemType2, SideBar, NavigationBar},
@@ -47,6 +51,9 @@ export default {
       }
       return articleDatas
     }
+  },
+  methods: {
+    onArticleWriteButtonClicked
   }
 }
 </script>

@@ -58,7 +58,6 @@ export default {
     getWriteTime() {
       let now = new Date();
       let diff = now - this.writeTime
-      console.log(diff)
 
       diff /= 60000
       if (diff < 1) {
