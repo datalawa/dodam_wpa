@@ -4,9 +4,15 @@
       <span class="material-icons-round navbar-button-menu" @click="onOpenButtonClicked">menu</span>
       <div class="navbar-title">도담도담</div>
     </div>
-    <div class="navbar-alert">
-      <span class="material-icons-outlined icon-color-button-gray">notifications</span>
-    </div>
+    <v-badge :content="63" dot color="#F25672">
+      <v-icon icon="mdi-bell" size="x-small" color="#C7C7C7"></v-icon>
+    </v-badge>
+<!--    <div class="navbar-alert">-->
+<!--      <v-badge :content="63">-->
+<!--        <v-icon icon="mdi-bell" size="x-small"></v-icon>-->
+<!--      </v-badge>-->
+<!--&lt;!&ndash;      <span class="material-icons-outlined icon-color-button-gray">notifications</span>&ndash;&gt;-->
+<!--    </div>-->
     <div class="navbar-user-left">
       <div class="navbar-user-name">userName</div>
       <div class="navbar-user-profile"></div>
