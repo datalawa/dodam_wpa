@@ -129,6 +129,43 @@
     gap: 13px;
 }
 
+.main-floating-write-button {
+    position: fixed;
+    right: 1.5em;
+    bottom: 1.5em;
+    float: right;
+    display: inline-block;
+    padding: 11px 0 0 0;
+
+    text-align: center;
+    outline: 0;
+    border: none;
+    text-decoration: none;
+    color: white;
+
+    height: 50px;
+    width: 50px;
+    background: var(--point-color);
+    border-radius: 50%;
+    box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+
+    cursor: pointer;
+    transform-origin: center;
+    -webkit-transform-origin: center;
+
+    transition: all 150ms ease-out;
+}
+
+.main-floating-write-button:hover {
+    background: #f3944f;
+    height: 55px;
+    width: 55px;
+    padding: 13.5px 0 0 0;
+    transition: all 150ms ease-in;
+    /*transform-origin: center;*/
+    /*-webkit-transform-origin: center;*/
+}
+
 @media (max-width: 980px) {
     .section-board-top {
         height: 90px;

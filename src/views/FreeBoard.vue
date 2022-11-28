@@ -12,9 +12,6 @@
             <div class="section-board-search-border"></div>
             <span class="material-icons-outlined section-board-search-image">search</span>
           </div>
-          <div class="section-board-write-button">
-            <v-btn size="x-small" icon="mdi-pencil" text-color="white" color="purple-lighten-1"></v-btn>
-          </div>
         </div>
         <div class="card background-shadow section-board-content-root">
           <BoardItemType1 v-for="item in getTestArticleList" v-bind:key="item"
@@ -22,6 +19,9 @@
                           :write-time="item.writeTime" :like-count="item.like" :comment-count="item.comment"></BoardItemType1>
         </div>
       </div>
+    </div>
+    <div class="main-floating-write-button">
+      <v-icon icon="mdi-pencil"></v-icon>
     </div>
   </div>
 </template>
