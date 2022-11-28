@@ -12,6 +12,9 @@
             <div class="section-board-search-border"></div>
             <span class="material-icons-outlined section-board-search-image">search</span>
           </div>
+          <div class="section-board-write-button">
+            <v-btn size="x-small" icon="mdi-pencil" text-color="white" color="purple-lighten-1"></v-btn>
+          </div>
         </div>
         <div class="card background-shadow section-board-content-root">
           <BoardItemType1 v-for="item in getTestArticleList" v-bind:key="item"

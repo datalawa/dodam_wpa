@@ -39,6 +39,17 @@
     color: var(--secondary-text-color);
 }
 
+.section-board-write-button {
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+    top: 4px;
+    right: 0;
+
+    float: right;
+}
+
 .section-board-search-root {
     position: absolute;
     width: 350px;
