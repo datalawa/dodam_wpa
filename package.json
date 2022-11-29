@@ -10,11 +10,15 @@
   "dependencies": {
     "@mdi/font": "5.9.55",
     "@vue/cli": "^5.0.8",
+    "codemirror": "^5.65.10",
     "core-js": "^3.8.3",
     "easymde": "^2.18.0",
+    "marked": "^3.0.8",
     "package.json": "^2.0.1",
+    "simplemde": "^1.11.2",
     "vue": "^3.2.13",
     "vue-router": "^4.1.6",
+    "vue-simplemde": "^2.1.1",
     "vuetify": "^3.0.0-beta.0",
     "vuex": "^4.1.0",
     "webfontloader": "^1.0.0"
