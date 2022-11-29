@@ -3,7 +3,7 @@
   <div id="section-main">
     <SideBar :is-hidden="false"></SideBar>
     <div id="section-main-content">
-      <h1>complain</h1>
+      <!--TODO: 화면 구현은 여기에-->
     </div>
   </div>
 </template>
@@ -12,7 +12,8 @@
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 export default {
-  name: "ComplainBoard",
+  //TODO: name 변경
+  name: "TempPage",
   components: {SideBar, NavigationBar},
 }
 </script>

@@ -72,7 +72,6 @@
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 export default {
-  //TODO: name 변경
   name: "LoginPage",
   components: {SideBar, NavigationBar},
   data () {
