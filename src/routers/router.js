@@ -19,7 +19,7 @@ const router = new createRouter({
         {path: "/complain", component: ComplainBoard},
         {path: "/survey", component: SurveyBoard},
         {path: "/login", component: LoginPage},
-        {path: "/write/:board", component: WritePage, props: true, name: 'write'},
+        {path: "/write", component: WritePage, name: 'write'},
     ]
 });
 

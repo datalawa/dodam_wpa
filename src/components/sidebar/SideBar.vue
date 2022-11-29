@@ -1,5 +1,5 @@
 <template>
-  <div id="sidebar-root" class="open">
+  <div id="sidebar-root" :class="{'open': !isHidden}">
     <SideBarItem title="대시보드" image="dashboard" url="/dash"></SideBarItem>
     <SideBarIndex v-bind:index-title="indexData[0].indexTitle" v-bind:items-data="indexData[0]"></SideBarIndex>
     <SideBarIndex v-bind:index-title="indexData[1].indexTitle" v-bind:items-data="indexData[1]"></SideBarIndex>

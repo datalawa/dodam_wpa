@@ -124,7 +124,7 @@ body {
 }
 
 body::-webkit-scrollbar {
-    width: 0px;
+    width: 15px;
     /*overflow: auto;*/
 }
 
