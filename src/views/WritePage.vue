@@ -1,24 +1,11 @@
 <template>
-  <h1>{{ board }}</h1>
-  <vue-simplemde v-model="content" ref="markdownEditor" />
+  <md-editor v-model="text" language="en-US" style="height: 1509px"/>
 </template>
 
-<script>
-import VueSimplemde from 'vue-simplemde'
+<script setup>
+import { ref } from 'vue';
+import MdEditor from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
 
-export default {
-  name: "WritePage",
-  props: {
-    board: {
-      type: String
-    }
-  },
-  components: {
-    VueSimplemde
-  }
-}
+const text = ref('Hello Editor!');
 </script>
-
-<style>
-@import '~simplemde/dist/simplemde.min.css';
-</style>
