@@ -27,7 +27,11 @@
               :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"></v-select>
         </div>
         <v-text-field label="제목" variant="outlined" density="comfortable" placeholder="제목입력" counter="45"></v-text-field>
-        <md-editor v-model="text" language="en-US" :toolbars="toolbars"/>
+        <md-editor class="section-text-input" v-model="text" language="en-US" :toolbars="toolbars"/>
+        <div class="section-text-selector-root">
+          <v-btn class="section-write-button" variant="outlined" color="red">취소</v-btn>
+          <v-btn class="section-write-button" variant="outlined" color="blue">등록</v-btn>
+        </div>
       </div>
 
     </div>
@@ -63,7 +67,6 @@ const toolbars = [
   '-',
   'revoke',
   'next',
-  'save',
   '=',
   'pageFullscreen',
   'fullscreen',
@@ -97,6 +100,6 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import "../css/wrtie-main.css";
 </style>
