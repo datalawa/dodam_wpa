@@ -15,8 +15,18 @@
 <!--          <span class="material-icons-outlined section-board-search-image">search</span>-->
 <!--        </div>-->
       </div>
-      <div>
-        <v-text-field label="제목" variant="outlined" placeholder="제목입력" counter="45"></v-text-field>
+      <div class="section-text-form-root">
+        <div class="section-text-selector-root">
+          <v-select
+              class="section-text-selector-board"
+              label="게시판" density="comfortable"
+              :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"></v-select>
+          <v-select
+              class="section-text-selector-head"
+              label="머리말" density="comfortable"
+              :items="['California', 'Colorado', 'Florida', 'Georgia', 'Texas', 'Wyoming']"></v-select>
+        </div>
+        <v-text-field label="제목" variant="outlined" density="comfortable" placeholder="제목입력" counter="45"></v-text-field>
         <md-editor v-model="text" language="en-US" :toolbars="toolbars"/>
       </div>
 

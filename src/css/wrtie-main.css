@@ -6,3 +6,26 @@
 .write-title {
     width: 100%;
 }
+
+.section-text-form-root {
+    max-width: 1000px;
+}
+
+.section-text-selector-root {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+
+    width: 100%;
+}
+
+.section-text-selector-board {
+    flex: 3 !important;
+    order: 0;
+}
+
+.section-text-selector-head {
+    flex: 1 !important;
+    order: 1;
+}
