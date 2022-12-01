@@ -5,7 +5,10 @@
     <div id="section-main-transparent" class="open"></div>
     <div id="section-main-content">
       <div class="dashboard-root">
-        <div class="dashboard-content-list card"></div>
+        <div class="dashboard-section-top-cards">
+          <div class="dashboard-top-card card background-shadow"></div>
+          <div class="dashboard-top-card card background-shadow"></div>
+        </div>
       </div>
     </div>
   </div>
