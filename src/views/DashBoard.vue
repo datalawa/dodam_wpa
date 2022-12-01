@@ -6,8 +6,12 @@
     <div id="section-main-content">
       <div class="dashboard-root">
         <div class="dashboard-section-top-cards">
-          <div class="dashboard-top-card card background-shadow"></div>
-          <div class="dashboard-top-card card background-shadow"></div>
+          <div class="dashboard-top-card card background-shadow">
+
+          </div>
+          <div class="dashboard-top-card card background-shadow">
+
+          </div>
         </div>
       </div>
     </div>
