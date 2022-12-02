@@ -6,12 +6,9 @@
     <div id="section-main-content">
       <div class="dashboard-root">
         <div class="dashboard-section-top-cards">
-          <div class="dashboard-top-card card background-shadow">
-
-          </div>
-          <div class="dashboard-top-card card background-shadow">
-
-          </div>
+          <DashboardCards icon="wallet" middle-text="₩ 240,030" bottom-text="저번달 납부금액"></DashboardCards>
+          <DashboardCards icon="local_parking" middle-text="11.12 13:24:52" bottom-text="최근 입차 시각" end-text="32가 1234"></DashboardCards>
+          <DashboardCards></DashboardCards>
         </div>
       </div>
     </div>
@@ -21,9 +18,10 @@
 <script>
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
+import DashboardCards from "@/components/DashboardCards";
 export default {
   name: "DashBoard",
-  components: {SideBar, NavigationBar},
+  components: {DashboardCards, SideBar, NavigationBar},
 }
 </script>
 
