@@ -115,6 +115,13 @@ export default {
         ctx.stroke();
       }
       console.log(line_y);
+
+      const xGraphPadding = 20 * 2;
+      for (i = xAxisHeight + xGraphPadding;
+           i < canvasWidth - (xAxisHeight + xGraphPadding);
+           i += (canvasWidth - (xAxisHeight + xGraphPadding * 2)) / 5){
+        console.log(i)
+      }
     }
   }
 }
