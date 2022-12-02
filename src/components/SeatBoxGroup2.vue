@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <UsingSeat :number="11">11</UsingSeat>
+        <UsingSeat :number="11"></UsingSeat>
         <UsingSeat>12</UsingSeat>
         <UsingSeat>13</UsingSeat>
         <UsingSeat>14</UsingSeat>
@@ -13,35 +13,38 @@
     </div>
 </template>
 <script>
-import UsingSeat from '@/components/UsingSeat';
-import EmptySeat from './EmptySeat';
-import FemaleSeat from './FemaleSeat';
-import DisabledSeat from './DisabledSeat';
+import UsingSeat from '@/components/UsingSeat'
+import EmptySeat from './EmptySeat'
+import FemaleSeat from './FemaleSeat'
+import DisabledSeat from './DisabledSeat'
 export default {
-    props:{
-        number:Number
-    },
-    components: {UsingSeat,EmptySeat,FemaleSeat,DisabledSeat},
-    data() {
+  props: {
+    number: Number
+  },
+  components: { UsingSeat,EmptySeat, FemaleSeat, DisabledSeat },
+  data() {
     return {
-        }
-    },
-    setup() {},
-    created() {},
-    unmounted() {},
-    methods:{}
+    }
+  },
+  setup() {},
+  created() {},
+  unmounted() {},
+  methods: {}
 }
 </script>
 <style scoped>
 .container{
-    height: 140px;
+  position: absolute;
+  right: 107.5px;
     width: 370px;
     padding: 50px 50px 50px 50px;
+
+    box-sizing: border-box;
 
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;   
-    align-content: flex-start;  
+    /*justify-content: flex-start;*/
+    /*align-content: flex-start;*/
 }
 </style>

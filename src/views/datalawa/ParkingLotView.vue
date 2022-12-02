@@ -1,22 +1,21 @@
 <template>
     <div>
         <ParkingLotData :B1seat="25" :F1seat="20" :floor="F1" />
-        
     </div>
 </template>
 <script>
-import ParkingLotData from '@/components/ParkingLotData';
+import ParkingLotData from '@/components/ParkingLotData'
 export default {
-    components: {ParkingLotData},
-    data() {
+  components: { ParkingLotData },
+  data() {
     return {
-        sampleData:''
-        }
-    },
-    setup() {},
-    created() {},
-    unmounted() {},
-    methods:{}
+      sampleData: ''
+    }
+  },
+  setup() {},
+  created() {},
+  unmounted() {},
+  methods: {}
 }
 </script>
 <style scoped>

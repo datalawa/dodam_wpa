@@ -34,14 +34,15 @@ export default {
 </script>
 <style scoped>
 .container{
-    height: 140px;
+  position: absolute;
+  left: 107.5px;
     width: 370px;
     padding: 50px 50px 50px 50px;
 
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;   
-    align-content: flex-start;  
+    justify-content: flex-start;
+    align-content: flex-start;
 }
 </style>

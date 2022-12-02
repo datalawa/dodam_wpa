@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <UsingSeat>31</UsingSeat>
+        <UsingSeat number="10"></UsingSeat>
         <UsingSeat>32</UsingSeat>
         <UsingSeat>33</UsingSeat>
         <UsingSeat>34</UsingSeat>
@@ -34,14 +34,15 @@ export default {
 </script>
 <style scoped>
 .container{
-    height: 140px;
+  position: absolute;
+  right: 107.5px;
     width: 370px;
     padding: 50px 50px 50px 50px;
 
     display: inline-flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;   
-    align-content: flex-start;  
+    justify-content: flex-start;
+    align-content: flex-start;
 }
 </style>
