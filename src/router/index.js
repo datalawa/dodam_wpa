@@ -94,6 +94,11 @@ const routes = [
     path: '/datalawa/mycar',
     name: 'MyCarView',
     component: () => import(/* webpackChunkName: "datalawa", webpackPrefetch:true */ '../views/datalawa/MyCarView.vue')
+  },
+  {
+    path: '/datalawa/parkinglot',
+    name: 'ParkingLotView',
+    component: () => import(/* webpackChunkName: "datalawa", webpackPrefetch:true */ '../views/datalawa/ParkingLotView.vue')
   }
 ]
 
