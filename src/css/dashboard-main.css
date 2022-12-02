@@ -1,7 +1,12 @@
 .dashboard-root {
     max-width: 1000px;
     width: 100%;
-    height: 4000px;
+
+    gap: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
 }
 
 .dashboard-section-top-cards {
@@ -137,4 +142,80 @@
     flex: none;
     order: 1;
     flex-grow: 0;
+}
+
+.dashboard-section-graph {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 40px;
+
+    width: 100%;
+    height: 489px;
+
+    background: var(--secondary-background-color);
+
+    flex: none;
+    order: 1;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.dashboard-text-title {
+    width: 100%;
+    height: 22px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+
+    color: var(--secondary-text-color);
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.dashboard-section-notice {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
+
+    width: 100%;
+
+    background: var(--secondary-background-color);
+
+    flex: none;
+    order: 2;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.dashboard-section-free {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 20px;
+    gap: 20px;
+
+    width: 100%;
+
+    background: var(--secondary-background-color);
+
+    flex: none;
+    order: 3;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.dashboard-section-article-list {
+    padding: 0 !important;
 }
