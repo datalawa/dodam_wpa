@@ -12,6 +12,7 @@
         </div>
         <div class="dashboard-section-graph card background-shadow">
           <div class="dashboard-text-title">납부금액 추이</div>
+          <canvas id="dashboard-section-graph-view"></canvas>
         </div>
         <div class="dashboard-section-notice card background-shadow">
           <div class="dashboard-text-title">최근 공지사항</div>
@@ -80,6 +81,42 @@ export default {
       return articleDatas
     }
   },
+  mounted() {
+    const graphCanvas = document.getElementById("dashboard-section-graph-view");
+    const canvasWidth = graphCanvas.offsetWidth * 2;
+    const canvasHeight = graphCanvas.offsetHeight * 2
+    graphCanvas.width = canvasWidth;
+    graphCanvas.height = canvasHeight;
+
+    const yAxisHeight = 60 * 2;
+    const yPaddingTop = 20 * 2;
+    const xAxisHeight = 60 * 2;
+
+    const maxCost = 250000 + 50000
+
+    if (graphCanvas.getContext) {
+      var ctx = graphCanvas.getContext("2d");
+
+      const line_y = []
+      var nowCost = maxCost;
+      for (var i = yPaddingTop;i <= canvasHeight - yAxisHeight;i += (canvasHeight - (yAxisHeight + yPaddingTop)) / 5) {
+        ctx.font = "700 25px Roboto";
+        ctx.fillStyle = '#00000044';
+        ctx.textAlign = "center";
+        ctx.fillText(nowCost, xAxisHeight / 2, i + 7.5);
+        nowCost -= maxCost / 5
+
+        line_y.push(i);
+        ctx.beginPath();
+        ctx.lineTo(xAxisHeight, i);
+        ctx.lineTo(canvasWidth, i);
+        ctx.closePath();
+        ctx.strokeStyle = '#00000044';
+        ctx.stroke();
+      }
+      console.log(line_y);
+    }
+  }
 }
 </script>
 
