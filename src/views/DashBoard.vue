@@ -96,13 +96,13 @@ export default {
   methods: {
     getDimensions() {
       const graphCanvas = document.getElementById("dashboard-section-graph-view");
-      console.log(graphCanvas)
+      // console.log(graphCanvas)
 
       this.graphCanvasWidth = graphCanvas.offsetWidth * 2;
       this.graphCanvasHeight = graphCanvas.offsetHeight * 2;
 
-      console.log(this.graphCanvasWidth);
-      console.log(this.graphCanvasHeight);
+      // console.log(this.graphCanvasWidth);
+      // console.log(this.graphCanvasHeight);
 
       const data = [
         {

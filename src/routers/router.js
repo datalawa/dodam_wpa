@@ -6,6 +6,7 @@ import SurveyBoard from '../views/SurveyBoard';
 import LoginPage from '../views/LoginPage';
 import NoticeBoard from "@/views/NoticeBoard";
 import WritePage from "@/views/WritePage";
+import PaymentPage from "@/views/PaymentPage";
 
 // Vue 라우터 인스턴스 생성
 const router = new createRouter({
@@ -20,6 +21,7 @@ const router = new createRouter({
         {path: "/survey", component: SurveyBoard},
         {path: "/login", component: LoginPage},
         {path: "/write", component: WritePage, name: 'write'},
+        {path: '/payments', component: PaymentPage}
     ]
 });
 
