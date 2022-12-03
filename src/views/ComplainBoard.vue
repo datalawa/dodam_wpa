@@ -46,7 +46,7 @@ export default {
         articleDatas.push({
           title: '제목' + i,
           author: author,
-          writeTime: writeTime.toISOString().substring(0, 10),
+          writeTime: writeTime,
           isComplain: Math.random() < 0.5
         })
       }
