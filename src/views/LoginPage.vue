@@ -69,6 +69,19 @@
 </template>
 
 <script>
+  import * as firebaseui from 'firebaseui'
+  import firebase from 'firebase/compat/app';
+  import 'firebase/compat/auth'
+  import 'firebase/compat/firestore'
+  import firebaseConfig from '../secrets/secret'
+  // // Use this to initialize the firebase App
+  firebase.initializeApp(firebaseConfig);
+
+  // // // Use these for db & auth
+  // const db = firebaseApp.firestore();
+  const auth = firebase.auth();
+  const ui = new firebaseui.auth.AuthUI(auth);
+
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 export default {
@@ -80,8 +93,47 @@ export default {
         password: ''
       }
     },
-    methods: {}
+    methods: {
+      initUI: function() {
+      // template에 존재하는 div에 ui.start 명령어를 사용하면 firebaseui가 알아서 그림.
+      ui.start("#firebaseui-auth-container", {
+        signInoptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
+        callbacks: {
+          // 로그인이 성공하면,
+          signInSuccessWithAuthResult: (authResult) => {
+            // 로그인 정보를 각각의 data에 저장
+            alert(`${authResult.user.displayName}로그인 성공!`);
+            return false;
+          }
+        }
+      });
+    }
+    // sendPassword: function() {
+    // 임시: 비밀번호 재설정하는 함수.
+    //     sendPasswordResetEmail(auth, email)
+    // .then(() => {
+    //   // Password reset email sent!
+    //   // ..
+    // })
+    // .catch((error) => {
+    //   const errorCode = error.code;
+    //   const errorMessage = error.message;
+    //   // ..
+    // });
+    // }
+    // mounted: function() {
+    // 임시 : 현재 로그인한 회원의 정보를 알 수 있는 함수. 존재하면 딕셔너리가, 아니면 null값.
+    // auth.onAuthStateChanged((user) =>{
+    //     if (user) {
+    //       alert("이미 로그인 한 사용자입니다!");
+    //     }
+        // 현재 유저가 존재하지 않으면 로그인창을 보여주기
+    //     this.initUI()
+    // })
+    // }
+  }
 }
+console.log(firebaseConfig);
 </script>
 
 <style>
