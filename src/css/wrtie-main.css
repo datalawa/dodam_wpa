@@ -1,0 +1,46 @@
+.write-root {
+    padding: 15px;
+    width: 100%;
+}
+
+.write-title {
+    width: 100%;
+}
+
+.section-board-top {
+    max-width: 1500px;
+}
+
+.section-text-form-root {
+    width: 100%;
+    max-width: 1500px;
+}
+
+.section-text-selector-root {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+
+    width: 100%;
+    justify-content: flex-end;
+}
+
+.section-text-selector-board {
+    flex: 3 !important;
+    order: 0;
+}
+
+.section-text-selector-head {
+    flex: 1 !important;
+    order: 1;
+}
+
+.section-text-input {
+    height: 60vh;
+    margin-bottom: 36px;
+}
+
+.section-write-button {
+    justify-content: flex-end;
+}

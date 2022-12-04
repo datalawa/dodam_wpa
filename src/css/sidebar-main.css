@@ -10,11 +10,20 @@
     padding: 32px 0 20px 23px;
     gap: 32px;
 
+    /*left: -190px;*/
+    /*position: absolute;*/
+
     border-right: 0.25px solid var(--secondary-text-color);
     flex: none;
     order: 1;
     align-self: stretch;
+
+    background: var(--primary-background-color);
 }
+
+/*#sidebar-root.open {*/
+/*    left: 0;*/
+/*}*/
 
 .sidebar-index-root {
     display: flex;
@@ -120,4 +129,24 @@
 
     display: flex;
     flex: none;
+}
+
+@media (max-width: 768px) {
+    #sidebar-root {
+        position: absolute;
+        top: 0;
+        z-index: 100;
+        height: 100%;
+
+        left: -190px;
+        transition: left 500ms ease-out;
+        overflow:hidden;
+
+        border-right: none;
+    }
+
+    #sidebar-root.open {
+        left: 0;
+        transition: left 500ms ease-in;
+    }
 }

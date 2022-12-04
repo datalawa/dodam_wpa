@@ -1,7 +1,8 @@
 <template>
   <NavigationBar></NavigationBar>
-  <div id="section-main">
-    <SideBar></SideBar>
+  <div id="section-main" class="open">
+    <SideBar :is-hidden="true"></SideBar>
+    <div id="section-main-transparent" class="open"></div>
     <div id="section-main-content">
       <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">

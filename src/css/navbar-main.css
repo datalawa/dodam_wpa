@@ -71,3 +71,7 @@
     order: 1;
     flex-grow: 0;
 }
+
+.navbar-button-menu {
+    cursor: pointer;
+}

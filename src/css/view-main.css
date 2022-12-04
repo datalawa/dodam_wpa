@@ -1,17 +1,53 @@
 #section-main {
     display: flex;
     padding: 0;
-    /*overflow-y: scroll;*/
+    margin-left: -190px;
+    transition: margin-left 500ms ease-out;
+
+    min-height: 100vh;
+}
+
+#section-main.open {
+    margin-left: 0;
+    transition: margin-left 500ms ease-in;
 }
 
 #section-main-content {
-    padding: 0 38px 20px;
+    padding: 20px 38px 20px 38px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 38px;
 
+    min-width: 0;
+
     flex: 1;
     order: 1;
+}
+
+.section-board-content-divider {
+    width: 100%;
+    height: 1px;
+
+    background: black;
+
+    transform: scaleY(0.1);
+
+    flex: none;
+    flex-grow: 0;
+}
+
+@media (max-width: 768px) {
+    #section-main.open {
+        margin-left: 0;
+        transition: margin-left 500ms ease-in;
+    }
+
+    #section-main {
+        margin-left: 0;
+        transition: margin-left 500ms ease-in;
+        overflow: hidden;
+        position: relative;
+    }
 }
