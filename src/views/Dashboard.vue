@@ -41,7 +41,6 @@ import SideBar from "@/components/sidebar/SideBar";
 import DashboardCards from "@/components/DashboardCards";
 import BoardItemType1 from "@/components/list/BoardItemType1";
 import BoardItemType2 from "@/components/list/BoardItemType2";
-
 export default {
   name: "DashBoard",
   components: {BoardItemType2, BoardItemType1, DashboardCards, SideBar, NavigationBar},
@@ -53,11 +52,9 @@ export default {
     getTestFreeArticleList() {
       let articleDatas = []
       let writeTime = new Date();
-
       for (let i = 0;i < 5;i++) {
         const author = Math.random().toString(36).substring(2, 12)
         writeTime = new Date(writeTime - ((Math.random(24 * 60) + 90) * 60000))
-
         articleDatas.push({
           title: '제목' + i,
           content: '내용' + i,
@@ -72,11 +69,9 @@ export default {
     getTestNoticeArticleList() {
       let articleDatas = []
       let writeTime = new Date();
-
       for (let i = 0;i < 5;i++) {
         const author = Math.random().toString(36).substring(2, 12)
         writeTime = new Date(writeTime - ((Math.random(24 * 60) + 90) * 60000))
-
         articleDatas.push({
           title: '제목' + i,
           author: author,
@@ -97,13 +92,10 @@ export default {
     getDimensions() {
       const graphCanvas = document.getElementById("dashboard-section-graph-view");
       // console.log(graphCanvas)
-
       this.graphCanvasWidth = graphCanvas.offsetWidth * 2;
       this.graphCanvasHeight = graphCanvas.offsetHeight * 2;
-
       // console.log(this.graphCanvasWidth);
       // console.log(this.graphCanvasHeight);
-
       const data = [
         {
           'month': '5월',
@@ -131,20 +123,16 @@ export default {
           'our': 123435,
         }
       ]
-
       const canvasWidth = this.graphCanvasWidth;
       const canvasHeight = this.graphCanvasHeight;
       graphCanvas.width = canvasWidth;
       graphCanvas.height = canvasHeight;
-
       const yAxisHeight = 60 * 2;
       const yPaddingTop = 20 * 2;
       const xAxisHeight = 60 * 2;
-
       const maxCost = 250000 + 50000
       if (graphCanvas.getContext) {
         var ctx = graphCanvas.getContext("2d");
-
         const line_y = [];
         let nowCost = maxCost;
         let i = yPaddingTop;
@@ -154,7 +142,6 @@ export default {
           ctx.textAlign = "center";
           ctx.fillText(nowCost, xAxisHeight / 2, i + 7.5);
           nowCost -= maxCost / 5
-
           line_y.push(i);
           ctx.beginPath();
           ctx.lineTo(xAxisHeight, i);
@@ -162,11 +149,9 @@ export default {
           ctx.closePath();
           ctx.strokeStyle = '#00000044';
           ctx.stroke();
-
           i += (canvasHeight - (yAxisHeight + yPaddingTop)) / 5
         }
         // console.log(line_y);
-
         const line_x = [];
         const barchart_y = [];
         const xGraphPadding = 60 * 2;
@@ -178,7 +163,6 @@ export default {
           ctx.fillStyle = '#00000044';
           ctx.textAlign = "center";
           ctx.fillText(data[j].month, i, canvasHeight - yAxisHeight / 2);
-
           const ys = canvasHeight - yAxisHeight;
           let ye1 = -(data[j].our / maxCost) * (canvasHeight - yAxisHeight);
           let grd = ctx.createLinearGradient(0, ys, 0, 0);
@@ -186,19 +170,16 @@ export default {
           grd.addColorStop(1, "#f12711");
           ctx.fillStyle = grd;
           ctx.fillRect(i, ys, 40, ye1);
-
           let ye2 = -(data[j].avg / maxCost) * (canvasHeight - yAxisHeight);
           grd = ctx.createLinearGradient(0, ys, 0, 0);
           grd.addColorStop(0, "#4286f4");
           grd.addColorStop(1, "#373B44");
           ctx.fillStyle = grd;
           ctx.fillRect(i, ys, -40, ye2);
-
           line_x.push(i);
           barchart_y.push([[i, i + 40, ys, ye1], [i - 40, i, ys, ye2]])
           i += (xAxisEnd - xAxisStart) / (data.length - 1)
         }
-
         let grd = ctx.createLinearGradient(0, 40, 0, 0);
         grd.addColorStop(0, "#f5af19");
         grd.addColorStop(1, "#f12711");
@@ -208,7 +189,6 @@ export default {
         ctx.fillStyle = '#00000044';
         ctx.textAlign = "start";
         ctx.fillText('우리집', canvasWidth - 320 + 50, 30);
-
         grd = ctx.createLinearGradient(0, 40, 0, 0);
         grd.addColorStop(0, "#4286f4");
         grd.addColorStop(1, "#373B44");
@@ -221,7 +201,6 @@ export default {
         // console.log((xAxisEnd - xAxisStart) / (data.length - 1))
         // console.log(line_x);
         // console.log(barchart_y);
-
         // graphCanvas.onmousemove = function(e) {
         //   const rect = this.getBoundingClientRect();
         //   let mouseX = Math.round(e.clientX - rect.left) * 2;
