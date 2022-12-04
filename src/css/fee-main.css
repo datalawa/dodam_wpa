@@ -1,0 +1,55 @@
+.section-top-right {
+    /*width: 100%;*/
+
+    font-style: normal;
+    /*font-weight: 500;*/
+    font-size: 14px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+    top: 9px;
+    right: 0;
+
+    color: var(--secondary-text-color);
+}
+
+.section-fee-contents {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+}
+
+.section-fee-contents-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.section-fee-contents-right {
+    flex: 1;
+    /*background: aqua;*/
+    display: flex;
+    height: 504px;
+}
+
+.section-fee-monthly {
+    display: flex;
+    width: 100%;
+    height: 200px;
+
+    background: var(--point-color);
+    box-sizing: border-box;
+    padding: 18px;
+}
+
+.section-fee-monthly-detail {
+    display: flex;
+    width: 100%;
+    height: 280px;
+}

@@ -4,7 +4,25 @@
     <SideBar :is-hidden="false"></SideBar>
     <div id="section-main-transparent" class="open"></div>
     <div id="section-main-content">
-      charge
+      <div class="section-board-root">
+        <div class="section-board-top">
+          <div class="section-board-title">이번달 관리비</div>
+          <div class="section-top-right">
+            101동 102호
+          </div>
+        </div>
+        <div class="section-fee-contents">
+          <div class="section-fee-contents-left">
+            <div class="card background-shadow section-fee-monthly">
+
+            </div>
+            <div class="card background-shadow section-fee-monthly-detail"></div>
+          </div>
+          <div class="section-fee-contents-right card background-shadow">
+
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -21,4 +39,5 @@ export default {
 
 <style>
 @import "../css/view-main.css";
+@import "../css/fee-main.css";
 </style>
