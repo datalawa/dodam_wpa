@@ -3,12 +3,11 @@ import App from './App.vue'
 import router from './routers/router'
 import store from './store'
 import vuetify from './plugins/vuetify'
-import { loadFonts } from './plugins/webfontloader'
-
-loadFonts()
+import getConfig from './secrets/secret'
 
 createApp(App)
-  .use(router)
-  .use(store)
-  .use(vuetify)
-  .mount('#app')
+    .use(router)
+    .use(vuetify)
+    .use(store)
+    .use(getConfig)
+    .mount('#app')

@@ -4,28 +4,13 @@
     <SideBar :is-hidden="true"></SideBar>
     <div id="section-main-transparent" class="open"></div>
     <div id="section-main-content">
-      <v-container
-      class="fill-height"
-      fluid
-    >
-      <v-row
-        align="center"
-        justify="center"
-      >
-        <v-col
-          cols="12"
-          sm="8"
-          md="4"
-        >
+      <v-container class="fill-height" fluid>
+      <v-row align="center" justify="center">
+        <v-col cols="12" sm="8" md="4">
           <v-card width="530" height="600" class="elevation-12">
-            <v-toolbar
-              color="white"
-              dark
-              flat
-            >
-              <v-toolbar-title class="flex text-center">LOGIN</v-toolbar-title>
-            </v-toolbar>
-
+            <v-toolbar color="white" dark flat></v-toolbar>
+            <div class="pa-2">
+                <h1 style="text-align: center">LOGIN</h1>
             <v-container grid-list-md fluid>
               <v-layout row wrap>
                 <v-divider></v-divider>
@@ -42,6 +27,7 @@
                   prepend-icon="mdi-account"
                   type="text"
                   hint="@ 포함하여 입력하세요."
+                  color="red"
                 ></v-text-field>
 
                 <v-text-field
@@ -51,14 +37,20 @@
                   prepend-icon="mdi-lock"
                   type="password"
                   hint="최소 6자입니다."
+                  color="red"
+                  counter
                 ></v-text-field>
 
-                <v-btn
-                  block
-                  color="#7C12A6"
-                  text
-                  rounded
-                >로그인</v-btn>
+                <div class="mt-3 d-flex flex-row-reverse">
+                  <v-btn
+                      color="#7C12A6"
+                      block
+                      rounded
+                      size="45px"
+                  >
+                    로그인
+                  </v-btn>
+                </div>
               </v-form>
             </v-card-text>
 
@@ -68,15 +60,34 @@
               <v-btn color="black" @click="$router.push('/signup')">회원가입</v-btn>
               <!-- <router-link to="/signup">SignUp</router-link> -->
             </v-card-actions>
+           </div>
           </v-card>
         </v-col>
       </v-row>
-    </v-container>
+     </v-container>
     </div>
   </div>
 </template>
 
 <script>
+  import { initializeApp } from 'firebase/app';
+  import { getAuth } from 'firebase/auth'
+  import getConfig from '../secrets/secret'
+  // // Use this to initialize the firebase App
+  var firebaseConfig = getConfig();
+  console.log(firebaseConfig);
+  const firebase = initializeApp(firebaseConfig);
+  console.log(firebase)
+
+  // // // // Use these for db & auth
+  // const db = firebaseApp.firestore();
+  const auth = getAuth(firebase);
+  console.log(auth)
+
+  var firebaseui = require('firebaseui');
+  const ui = new firebaseui.auth.AuthUI(auth);
+  console.log(ui)
+
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 export default {
@@ -88,8 +99,46 @@ export default {
         password: ''
       }
     },
-    methods: {}
-}
+    methods: {
+      initUI: function() {
+      // template에 존재하는 div에 ui.start 명령어를 사용하면 firebaseui가 알아서 그림.
+      ui.start("#firebaseui-auth-container", {
+        signInoptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
+        callbacks: {
+          // 로그인이 성공하면,
+          signInSuccessWithAuthResult: (authResult) => {
+            // 로그인 정보를 각각의 data에 저장
+            alert(`${authResult.user.displayName}로그인 성공!`);
+            return false;
+          }
+        }
+      });
+    }
+    // sendPassword: function() {
+    // 임시: 비밀번호 재설정하는 함수.
+    //     sendPasswordResetEmail(auth, email)
+    // .then(() => {
+    //   // Password reset email sent!
+    //   // ..
+    // })
+    // .catch((error) => {
+    //   const errorCode = error.code;
+    //   const errorMessage = error.message;
+    //   // ..
+    // });
+    }
+    // mounted: function() {
+    // 임시 : 현재 로그인한 회원의 정보를 알 수 있는 함수. 존재하면 딕셔너리가, 아니면 null값.
+    // auth.onAuthStateChanged((user) =>{
+    //     if (user) {
+    //       alert("이미 로그인 한 사용자입니다!");
+    //     }
+    //     현재 유저가 존재하지 않으면 로그인창을 보여주기
+    //     this.initUI()
+    // })
+    // }
+  }
+
 </script>
 
 <style>

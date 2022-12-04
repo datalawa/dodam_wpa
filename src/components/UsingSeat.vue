@@ -26,6 +26,8 @@ export default {
 
     background: #C7C7C7;
 
+    text-align: center;
+
     border: 1px solid #FFFFFF;
     border-radius: 18px;
 }

@@ -62,6 +62,8 @@ export default {
     width:45px;
     height: 100px;
     bottom: 10 0px;
+    left: 47%;
+    position: absolute;
     /* display: flex; */
     /* padding: center; */
 }
@@ -79,5 +81,9 @@ export default {
 .section-test {
   position: relative;
   height: 115px;
+}
+
+.Largebox {
+    padding-left: 10px;
 }
 </style>

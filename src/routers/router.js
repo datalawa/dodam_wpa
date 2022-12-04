@@ -1,9 +1,9 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import DashBoard from '../views/DashBoard';
-import FreeBoard from '../views/FreeBoard';
-import ComplainBoard from '../views/ComplainBoard';
-import SurveyBoard from '../views/SurveyBoard';
-import LoginPage from '../views/LoginPage';
+import DashBoard from '@/views/DashBoard';
+import FreeBoard from '@/views/FreeBoard';
+import ComplainBoard from '@/views/ComplainBoard';
+import SurveyBoard from '@/views/SurveyBoard';
+import LoginPage from '@/views/LoginPage';
 import NoticeBoard from "@/views/NoticeBoard";
 import WritePage from "@/views/WritePage";
 import PaymentPage from "@/views/PaymentPage";
