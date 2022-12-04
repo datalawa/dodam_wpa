@@ -1,12 +1,17 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
-import DashBoard from '../views/DashBoard';
-import FreeBoard from '../views/FreeBoard';
-import ComplainBoard from '../views/ComplainBoard';
-import SurveyBoard from '../views/SurveyBoard';
-import LoginPage from '../views/LoginPage';
+import DashBoard from '@/views/DashBoard';
+import FreeBoard from '@/views/FreeBoard';
+import ComplainBoard from '@/views/ComplainBoard';
+import SurveyBoard from '@/views/SurveyBoard';
+import LoginPage from '@/views/LoginPage';
 import NoticeBoard from "@/views/NoticeBoard";
 import WritePage from "@/views/WritePage";
 import PaymentPage from "@/views/PaymentPage";
+import InOutListView from '@/views/datalawa/InOutListView';
+import InOutCardView from '@/views/datalawa/InOutCardView';
+import MyCarView from '@/views/datalawa/MyCarView';
+import ParkingLotView from '@/views/datalawa/ParkingLotView';
+import ParkingLotB1View from '@/views/datalawa/ParkingLotB1View';
 
 // Vue 라우터 인스턴스 생성
 const router = new createRouter({
@@ -21,7 +26,12 @@ const router = new createRouter({
         {path: "/survey", component: SurveyBoard},
         {path: "/login", component: LoginPage},
         {path: "/write", component: WritePage, name: 'write'},
-        {path: '/payments', component: PaymentPage}
+        {path: '/payments', component: PaymentPage},
+        {path: '/datalawa/inout', name: 'InOutListView', component: InOutListView},
+        {path: '/datalawa/inoutcard', name: 'InOutCardView', component: InOutCardView},
+        {path: '/datalawa/mycar', name: 'MyCarView', component: MyCarView},
+        {path: '/datalawa/parkinglot', name: 'ParkingLotView', component: ParkingLotView},
+        {path: '/datalawa/parkinglotB1', name: 'ParkingLotB1View', component: ParkingLotB1View}
     ]
 });
 

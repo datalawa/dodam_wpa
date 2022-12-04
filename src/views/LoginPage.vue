@@ -70,20 +70,23 @@
 </template>
 
 <script>
-  import * as firebaseui from 'firebaseui'
-  import firebase from 'firebase/compat/app';
-  import 'firebase/compat/auth'
-  import 'firebase/compat/firestore'
+  import { initializeApp } from 'firebase/app';
+  import { getAuth } from 'firebase/auth'
   import getConfig from '../secrets/secret'
   // // Use this to initialize the firebase App
   var firebaseConfig = getConfig();
   console.log(firebaseConfig);
-  firebase.initializeApp(firebaseConfig);
+  const firebase = initializeApp(firebaseConfig);
+  console.log(firebase)
 
   // // // // Use these for db & auth
   // const db = firebaseApp.firestore();
-  const auth = firebase.auth();
+  const auth = getAuth(firebase);
+  console.log(auth)
+
+  var firebaseui = require('firebaseui');
   const ui = new firebaseui.auth.AuthUI(auth);
+  console.log(ui)
 
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
