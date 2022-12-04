@@ -6,7 +6,7 @@
     <div id="section-main-content">
       <div class="section-board-root">
         <div class="section-board-top">
-          <div class="section-board-title">민원/QnA</div>
+          <div class="section-board-title">공지게시판</div>
           <div class="section-board-search-root background-shadow">
             <input class="section-board-search-text" type="text" placeholder="글 검색"/>
             <div class="section-board-search-border"></div>
@@ -14,13 +14,13 @@
           </div>
         </div>
         <div class="card background-shadow section-board-content-root type2">
-          <ComplainItem v-for="item in getTestArticleList" v-bind:key="item"
+          <BoardItemType2 v-for="item in getTestArticleList" v-bind:key="item"
                           :title="item.title" :author="item.author"
-                          :write-time="item.writeTime" :is-complain="item.isComplain"></ComplainItem>
+                          :write-time="item.writeTime"></BoardItemType2>
         </div>
       </div>
     </div>
-    <div class="main-floating-write-button" @click="onArticleWriteButtonClicked('complain')">
+    <div class="main-floating-write-button" @click="onArticleWriteButtonClicked('notice')">
       <v-icon icon="mdi-pencil"></v-icon>
     </div>
   </div>
@@ -29,17 +29,17 @@
 <script>
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
-import ComplainItem from "@/components/list/ComplainItem";
+import BoardItemType2 from "@/components/list/BoardItemType2";
 import { onArticleWriteButtonClicked } from "@/components/js/write-button";
 export default {
-  name: "ComplainBoard",
-  components: {ComplainItem, SideBar, NavigationBar},
+  name: "NoticeBoard",
+  components: {BoardItemType2, SideBar, NavigationBar},
   computed: {
     getTestArticleList() {
       let articleDatas = []
       let writeTime = new Date();
 
-      for (let i = 0; i < 50; i++) {
+      for (let i = 0;i < 50;i++) {
         const author = Math.random().toString(36).substring(2, 12)
         writeTime = new Date(writeTime - ((Math.random(24 * 60) + 90) * 60000))
 
@@ -47,7 +47,6 @@ export default {
           title: '제목' + i,
           author: author,
           writeTime: writeTime,
-          isComplain: Math.random() < 0.5
         })
       }
       return articleDatas
@@ -61,4 +60,5 @@ export default {
 
 <style>
 @import "../css/view-main.css";
+@import "../css/board-main.css";
 </style>

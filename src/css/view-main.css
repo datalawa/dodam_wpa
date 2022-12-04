@@ -20,6 +20,8 @@
     align-items: center;
     gap: 38px;
 
+    min-width: 0;
+
     flex: 1;
     order: 1;
 }

@@ -141,6 +141,8 @@
         left: -190px;
         transition: left 500ms ease-out;
         overflow:hidden;
+
+        border-right: none;
     }
 
     #sidebar-root.open {
