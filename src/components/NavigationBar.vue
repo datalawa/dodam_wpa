@@ -1,0 +1,47 @@
+<template>
+  <nav class="navbar-top">
+    <div class="navbar-right">
+      <span class="material-icons-round navbar-button-menu" @click="onOpenButtonClicked">menu</span>
+      <div class="navbar-title">도담도담</div>
+    </div>
+    <v-badge :content="63" dot color="#F25672">
+      <v-icon icon="mdi-bell" size="x-small" color="#C7C7C7"></v-icon>
+    </v-badge>
+<!--    <div class="navbar-alert">-->
+<!--      <v-badge :content="63">-->
+<!--        <v-icon icon="mdi-bell" size="x-small"></v-icon>-->
+<!--      </v-badge>-->
+<!--&lt;!&ndash;      <span class="material-icons-outlined icon-color-button-gray">notifications</span>&ndash;&gt;-->
+<!--    </div>-->
+    <div class="navbar-user-left">
+      <div class="navbar-user-name">userName</div>
+      <div class="navbar-user-profile"></div>
+    </div>
+  </nav>
+</template>
+
+<script>
+export default {
+  name: "NavigationBar",
+  methods: {
+    onOpenButtonClicked() {
+      let sideBar = document.getElementById('sidebar-root')
+      let mainContentSection = document.getElementById('section-main')
+      let blackSection = document.getElementById('section-main-transparent')
+      if (sideBar.className === 'open') {
+        sideBar.className = '';
+        mainContentSection.className = ''
+        blackSection.className = ''
+      } else {
+        sideBar.className = 'open';
+        mainContentSection.className = 'open'
+        blackSection.className = 'open'
+      }
+    }
+  }
+}
+</script>
+
+<style scoped>
+@import "../css/navbar-main.css";
+</style>

@@ -1,4 +1,4 @@
-# project
+# 2022-database-project
 
 ## Project setup
 ```

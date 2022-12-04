@@ -1,0 +1,152 @@
+#sidebar-root {
+    width: 190px;
+    height: auto;
+
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 32px 0 20px 23px;
+    gap: 32px;
+
+    /*left: -190px;*/
+    /*position: absolute;*/
+
+    border-right: 0.25px solid var(--secondary-text-color);
+    flex: none;
+    order: 1;
+    align-self: stretch;
+
+    background: var(--primary-background-color);
+}
+
+/*#sidebar-root.open {*/
+/*    left: 0;*/
+/*}*/
+
+.sidebar-index-root {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 14px;
+
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.sidebar-index-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 15px;
+    color: var(--secondary-text-color);
+
+    flex: none;
+    flex-grow: 0;
+}
+
+.sidebar-index-list-items {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0;
+
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.sidebar-index-items {
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.sidebar_item_active {
+    color: var(--point-color) !important;
+    visibility: visible !important;
+}
+
+.sidebar-item-root {
+    cursor: pointer;
+    gap: 20px;
+    height: 28px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    flex: none;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    color: var(--secondary-text-color);
+}
+
+.sidebar-item-list {
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 5px 0px 5px 5px;
+    gap: 10px;
+
+    flex: 1;
+
+    box-sizing: border-box;
+
+    border-radius: 5px;
+}
+
+.sidebar-item-list:hover {
+    background: var(--sidebar-hovering-color);
+}
+
+.sidebar-item-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 18px;
+}
+
+.sidebar-item-text {
+    font-weight: 700;
+    font-size: 14px;
+    height: 18px;
+}
+
+.sidebar-item-selected {
+    visibility: hidden;
+    height: 100%;
+    width: 3px;
+    background: var(--point-color);
+    box-sizing: border-box;
+    border-radius: 3px 0 0 3px;
+
+    display: flex;
+    flex: none;
+}
+
+@media (max-width: 768px) {
+    #sidebar-root {
+        position: absolute;
+        top: 0;
+        z-index: 100;
+        height: 100%;
+
+        left: -190px;
+        transition: left 500ms ease-out;
+        overflow:hidden;
+
+        border-right: none;
+    }
+
+    #sidebar-root.open {
+        left: 0;
+        transition: left 500ms ease-in;
+    }
+}
