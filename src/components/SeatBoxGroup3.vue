@@ -1,15 +1,15 @@
 <template>
     <div class="container">
-        <UsingSeat>21</UsingSeat>
-        <UsingSeat>22</UsingSeat>
-        <UsingSeat>23</UsingSeat>
-        <UsingSeat>24</UsingSeat>
-        <UsingSeat>25</UsingSeat>
-        <UsingSeat>26</UsingSeat>
-        <UsingSeat>27</UsingSeat>
-        <UsingSeat>28</UsingSeat>
-        <UsingSeat>29</UsingSeat>
-        <UsingSeat>30</UsingSeat>
+        <UsingSeat :number="21"/>
+        <UsingSeat :number="22"/>
+        <UsingSeat :number="23"/>
+        <UsingSeat :number="24"/>
+        <UsingSeat :number="25"/>
+        <UsingSeat :number="26"/>
+        <UsingSeat :number="27"/>
+        <UsingSeat :number="28"/>
+        <UsingSeat :number="29"/>
+        <UsingSeat :number="30"/>
     </div>
 </template>
 <script>

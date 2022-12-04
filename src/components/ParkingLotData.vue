@@ -1,7 +1,7 @@
 <template>
     <div class="Largebox">
         <h4>주차장 자리 정보</h4>
-        <div class="left-right-corner-floor">F1</div>
+        <div class="left-right-corner-floor">{{floor}}</div>
         <div class="floorF1">F1 {{F1seat}}/40</div>
         <!-- <div align="right" class="line"></div> -->
         <div class="floorB1">B1 {{B1seat}}/40</div>
@@ -20,7 +20,7 @@
         <br>
         <br>
         <br>
-        <button class="btn" >B1</button> <button class="btn" >F1</button>
+        <button onclick="location.href='./parkinglotB1'" class="btn" >B1</button> <button onclick="location.href='./parkinglot'" class="btn" >F1</button>
         <SeatInf />
     </div>
 </template>
