@@ -4,7 +4,6 @@ import FreeBoard from '../views/FreeBoard';
 import ComplainBoard from '../views/ComplainBoard';
 import SurveyBoard from '../views/SurveyBoard';
 import LoginPage from '../views/LoginPage';
-import SignUpPage from '../views/SignUpPage';
 
 // Vue 라우터 인스턴스 생성
 const router = new createRouter({
@@ -17,7 +16,6 @@ const router = new createRouter({
         {path: "/complain", component: ComplainBoard},
         {path: "/survey", component: SurveyBoard},
         {path: "/login", component: LoginPage},
-        {path: "/signup", component: SignUpPage},
     ]
 });
 
