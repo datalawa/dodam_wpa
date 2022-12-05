@@ -1,5 +1,5 @@
 <template>
-    <div class="Largebox">
+    <div class="Largebox background-shadow card">
         <h4>주차장 자리 정보</h4>
         <div class="left-right-corner-floor">{{floor}}</div>
         <div class="floorF1">F1 {{F1seat}}/40</div>
@@ -85,5 +85,6 @@ export default {
 
 .Largebox {
     padding-left: 10px;
+  width: 100%;
 }
 </style>
