@@ -33,7 +33,6 @@
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
@@ -159,7 +158,7 @@ export default {
         const xAxisStart = xAxisHeight + xGraphPadding;
         const xAxisEnd = canvasWidth - xGraphPadding;
         i = xAxisStart;
-        for (let j = 0;j < data.length;j++) {
+        for (let j = 0; j < data.length; j++) {
           ctx.font = "700 25px Roboto";
           ctx.fillStyle = '#00000044';
           ctx.textAlign = "center";
@@ -226,6 +225,7 @@ export default {
         //     }
         //   }
         // }
+        }
       }
     }
   }
