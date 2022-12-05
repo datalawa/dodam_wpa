@@ -22,8 +22,8 @@
       </div>
       <div class="parking-bottom">
         <div class="parking-button-another">
-          <button onclick="location.href='./parkinglotB1'" class="btn background-shadow" >B1</button>
-          <button onclick="location.href='./parkinglot'" class="btn background-shadow" >F1</button>
+          <button @click="onLayerButtonCLicked" class="btn background-shadow" >B1</button>
+          <button @click="onLayerButtonCLicked" class="btn background-shadow" >F1</button>
         </div>
         <SeatInf />
       </div>
@@ -35,6 +35,7 @@ import SeatBoxGroup2 from "@/components/SeatBoxGroup2";
 import SeatBoxGroup3 from "@/components/SeatBoxGroup3";
 import SeatBoxGroup4 from "@/components/SeatBoxGroup4";
 import SeatInf from "@/components/SeatInf";
+import router from "@/routers/router";
 
 export default {
     props:{
@@ -51,19 +52,33 @@ export default {
     setup() {},
     created() {},
     unmounted() {},
-    methods:{}
+    methods:{
+      onLayerButtonCLicked(e) {
+        switch (e.target.textContent) {
+          case 'F1': {
+            router.push({name: 'ParkingLotInform', params: { layer: 'F1' }})
+            break
+          }
+          case 'B1': {
+            router.push({name: 'ParkingLotInform', params: { layer: 'B1' }})
+            break
+          }
+          default: {
+            console.error('layer button error')
+          }
+        }
+      }
+    }
 }
 </script>
 <style scoped>
 @import "../assets/css/ParkingLot.css";
 
 .svg1{
-    width:150px;
+    width:50px;
     height: 90px;
-    display: flex;
-    padding-left: 100px;
-
-
+  position: relative;
+  left: 10%;
 }
 .svg2{
     width:45px;

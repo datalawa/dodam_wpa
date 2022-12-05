@@ -93,7 +93,5 @@
 
 .parking-middle-arrow {
     height: 90px;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
+    position: relative;
 }
