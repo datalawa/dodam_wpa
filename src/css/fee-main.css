@@ -32,7 +32,7 @@
     gap: 24px;
 }
 .section-fee-contents-right {
-    flex: 1;
+    flex: 1.5;
     /*background: aqua;*/
     display: flex;
     height: 504px;
@@ -43,13 +43,59 @@
     width: 100%;
     height: 200px;
 
+    flex-direction: column;
+    gap: 10px;
+
     background: var(--point-color);
     box-sizing: border-box;
-    padding: 18px;
+    padding: 28px;
 }
 
 .section-fee-monthly-detail {
     display: flex;
     width: 100%;
     height: 280px;
+}
+
+.section-fee-monthly-selector {
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+
+    order: 1;
+}
+
+.section-fee-selector {
+    color: white;
+    /*background-color: white;*/
+}
+
+.section-fee-montly-middle {
+    order: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    padding-top: 10px;
+}
+
+.section-fee-monthly-fee {
+    /*order: 1;*/
+    color: white;
+
+    font-weight: 800;
+    font-size: 30px;
+    vertical-align: bottom;
+    line-height: 50px;
+
+    /*padding-top: 15px;*/
+
+    /*height: 50px;*/
+    flex: 1;
+}
+
+.section-fee-monthly-deadline {
+    order: 2;
+    color: white;
+    font-size: 12px;
 }

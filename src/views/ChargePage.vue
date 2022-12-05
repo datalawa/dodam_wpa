@@ -14,7 +14,24 @@
         <div class="section-fee-contents">
           <div class="section-fee-contents-left">
             <div class="card background-shadow section-fee-monthly">
-
+              <div class="section-fee-monthly-selector">
+                <select class="section-fee-selector">
+                  <option v-for="(d, i) in year" :key="i" :value="d">{{ d }}</option>
+                </select>
+                <select class="section-fee-selector">
+                  <option v-for="(d, i) in month" :key="i" :value="d">{{ d }}</option>
+                </select>
+              </div>
+              <div class="section-fee-montly-middle">
+                <div class="section-fee-monthly-fee">{{ numberWithCommas(fee) }}원</div>
+                <v-btn
+                  icon="mdi-credit-card-outline"
+                  variant="tonal"
+                  color="primary"
+                  @click="onCLickedPayments"
+                ></v-btn>
+              </div>
+              <div class="section-fee-monthly-deadline">납부 마감일: 2022.09.25</div>
             </div>
             <div class="card background-shadow section-fee-monthly-detail"></div>
           </div>
@@ -27,13 +44,44 @@
   </div>
 </template>
 
+<script setup>
+function numberWithCommas(x) {
+  return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+}
+</script>
+
 <script>
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
+import router from "@/routers/router";
+
 export default {
-  //TODO: name 변경
   name: "ChargePage",
-  components: {SideBar, NavigationBar},
+  components: {
+    SideBar,
+    NavigationBar,
+  },
+  data: () => {
+    let month = []
+    for (let i = 1;i < 13;i++) {
+      month.push(i + "월")
+    }
+    let year = []
+    for (let i = 2018;i < 2023;i++) {
+      year.push(i + "년")
+    }
+    return {
+      month: month,
+      year: year,
+      fee: 150000
+    }
+  },
+  methods: {
+    onCLickedPayments() {
+      console.log('ccc')
+      router.push({path: '/payments'})
+    }
+  }
 }
 </script>
 
