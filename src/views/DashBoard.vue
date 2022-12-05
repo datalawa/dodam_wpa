@@ -1,33 +1,34 @@
 <template>
-  <NavigationBar></NavigationBar>
-  <div id="section-main" class="open">
-    <SideBar :is-hidden="false"></SideBar>
-    <div id="section-main-transparent" class="open"></div>
-    <div id="section-main-content">
-      <div class="dashboard-root">
-        <div class="dashboard-section-top-cards">
-          <DashboardCards icon="wallet" middle-text="₩ 240,030" bottom-text="저번달 납부금액"></DashboardCards>
-          <DashboardCards icon="local_parking" middle-text="11.12 13:24:52" bottom-text="최근 입차 시각" end-text="32가 1234"></DashboardCards>
-          <DashboardCards></DashboardCards>
-        </div>
-        <div class="dashboard-section-graph card background-shadow">
-          <div class="dashboard-text-title">납부금액 추이</div>
-          <canvas id="dashboard-section-graph-view"></canvas>
-        </div>
-        <div class="dashboard-section-notice card background-shadow">
-          <div class="dashboard-text-title">최근 공지사항</div>
-          <div class="section-board-content-root dashboard-section-article-list">
-            <BoardItemType2 v-for="item in getTestNoticeArticleList" v-bind:key="item"
-                            :title="item.title" :author="item.author"
-                            :write-time="item.writeTime"></BoardItemType2>
+    <NavigationBar></NavigationBar>
+    <div id="section-main" class="open">
+      <SideBar :is-hidden="false"></SideBar>
+      <div id="section-main-transparent" class="open"></div>
+      <div id="section-main-content">
+        <div class="dashboard-root">
+          <div class="dashboard-section-top-cards">
+            <DashboardCards icon="wallet" middle-text="₩ 240,030" bottom-text="저번달 납부금액"></DashboardCards>
+            <DashboardCards icon="local_parking" middle-text="11.12 13:24:52" bottom-text="최근 입차 시각" end-text="32가 1234"></DashboardCards>
+            <DashboardCards></DashboardCards>
           </div>
-        </div>
-        <div class="dashboard-section-free card background-shadow">
-          <div class="dashboard-text-title">자유게시판 인기글</div>
-          <div class="section-board-content-root dashboard-section-article-list">
-            <BoardItemType1 v-for="item in getTestFreeArticleList" v-bind:key="item"
-                            :title="item.title" :content="item.content" :author="item.author"
-                            :write-time="item.writeTime" :like-count="item.like" :comment-count="item.comment"></BoardItemType1>
+          <div class="dashboard-section-graph card background-shadow">
+            <div class="dashboard-text-title">납부금액 추이</div>
+            <canvas id="dashboard-section-graph-view"></canvas>
+          </div>
+          <div class="dashboard-section-notice card background-shadow">
+            <div class="dashboard-text-title">최근 공지사항</div>
+            <div class="section-board-content-root dashboard-section-article-list">
+              <BoardItemType2 v-for="item in getTestNoticeArticleList" v-bind:key="item"
+                              :title="item.title" :author="item.author"
+                              :write-time="item.writeTime"></BoardItemType2>
+            </div>
+          </div>
+          <div class="dashboard-section-free card background-shadow">
+            <div class="dashboard-text-title">자유게시판 인기글</div>
+            <div class="section-board-content-root dashboard-section-article-list">
+              <BoardItemType1 v-for="item in getTestFreeArticleList" v-bind:key="item"
+                              :title="item.title" :content="item.content" :author="item.author"
+                              :write-time="item.writeTime" :like-count="item.like" :comment-count="item.comment"></BoardItemType1>
+            </div>
           </div>
         </div>
       </div>
@@ -228,13 +229,12 @@ export default {
       }
     }
   }
-}
-</script>
+  </script>
 
-<style scoped>
-@import "../css/dashboard-main.css";
-</style>
+  <style scoped>
+  @import "../css/dashboard-main.css";
+  </style>
 
-<style>
-@import "../css/view-main.css";
-</style>
+  <style>
+  @import "../css/view-main.css";
+  </style>

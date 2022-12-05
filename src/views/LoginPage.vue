@@ -68,63 +68,71 @@
 </template>
 
 <script>
+
   import { initializeApp } from 'firebase/app';
-  import { getAuth } from 'firebase/auth'
   import getConfig from '../secrets/secret'
+  import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+
   // // Use this to initialize the firebase App
   var firebaseConfig = getConfig();
   console.log(firebaseConfig);
   const firebase = initializeApp(firebaseConfig);
   console.log(firebase)
 
-  // // // // Use these for db & auth
+  // // Use these for db & auth
   // const db = firebaseApp.firestore();
-  const auth = getAuth(firebase);
-  console.log(auth)
+  // var firebaseui = require('firebaseui');
+  // const ui = new firebaseui.auth.AuthUI(auth);
+  // console.log(ui)
 
-  var firebaseui = require('firebaseui');
-  const ui = new firebaseui.auth.AuthUI(auth);
-  console.log(ui)
+// 현재 접속한 사용자 인증 정보 가져오기
+const auth = getAuth();
+console.log(auth)
+const user = auth.currentUser;
+
+// 현재 접속한 사용자의 프로필 정보 가져오기
+// console.log(user.photoURL);  // 프로필 사진 URL
+// console.log(user.phoneNumber);  // 휴대폰 번호
+// console.log(user.email);  // 이메일
+// console.log(user.displayName);  // 표시 이름
+// console.log(user.emailVerified);  // 이메일 인증 여부(boolean)
+// console.log(user.isAnonymous);  // 익명 여부(boolean)
 
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
+import Login from './Login.vue';
+
 export default {
   name: "LoginPage",
   components: {SideBar, NavigationBar},
   data () {
       return {
         email: '',
-        password: ''
+        password: '',
       }
     },
     methods: {
-      initUI: function() {
-      // template에 존재하는 div에 ui.start 명령어를 사용하면 firebaseui가 알아서 그림.
-      ui.start("#firebaseui-auth-container", {
-        signInoptions: [firebase.auth.EmailAuthProvider.PROVIDER_ID],
-        callbacks: {
-          // 로그인이 성공하면,
-          signInSuccessWithAuthResult: (authResult) => {
-            // 로그인 정보를 각각의 data에 저장
-            alert(`${authResult.user.displayName}로그인 성공!`);
-            return false;
+      login () {
+        const login = async (email, password) => {
+          try {
+            const auth = getAuth();
+            console.log(1)
+            const { user } = await signInWithEmailAndPassword(auth, email, password);
+            console.log(2)
+            const { stsTokenManager, uid } = user;
+            console.log(3)
+            setAuthInfo({ uid, email, authToken: stsTokenManager });
+            console.log(4)
+            navigate('/');
+            console.log(5)
+          } catch ({ error }) {
+              const errorCode = error.code;
+              const errorMessage = error.message;
+              console.log(errorCode)
           }
-        }
-      });
+      }
     }
-    // sendPassword: function() {
-    // 임시: 비밀번호 재설정하는 함수.
-    //     sendPasswordResetEmail(auth, email)
-    // .then(() => {
-    //   // Password reset email sent!
-    //   // ..
-    // })
-    // .catch((error) => {
-    //   const errorCode = error.code;
-    //   const errorMessage = error.message;
-    //   // ..
-    // });
-    }
+  }
     // mounted: function() {
     // 임시 : 현재 로그인한 회원의 정보를 알 수 있는 함수. 존재하면 딕셔너리가, 아니면 null값.
     // auth.onAuthStateChanged((user) =>{
@@ -135,8 +143,7 @@ export default {
     //     this.initUI()
     // })
     // }
-  }
-
+}
 </script>
 
 <style>
