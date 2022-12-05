@@ -6,7 +6,7 @@
     <div id="section-main-content">
       <div class="section-board-root">
         <div class="section-board-top">
-          <div class="section-board-title">이번달 관리비</div>
+          <div class="section-board-title">관리비</div>
           <div class="section-top-right">
             101동 102호
           </div>
@@ -16,10 +16,10 @@
             <div class="card background-shadow section-fee-monthly">
               <div class="section-fee-monthly-selector">
                 <select class="section-fee-selector">
-                  <option v-for="(d, i) in year" :key="i" :value="d">{{ d }}</option>
+                  <option class="section-fee-selector-item" v-for="(d, i) in year" :key="i" :value="d">{{ d }}</option>
                 </select>
                 <select class="section-fee-selector">
-                  <option v-for="(d, i) in month" :key="i" :value="d">{{ d }}</option>
+                  <option class="section-fee-selector-item" v-for="(d, i) in month" :key="i" :value="d">{{ d }}</option>
                 </select>
               </div>
               <div class="section-fee-montly-middle">
@@ -33,10 +33,62 @@
               </div>
               <div class="section-fee-monthly-deadline">납부 마감일: 2022.09.25</div>
             </div>
-            <div class="card background-shadow section-fee-monthly-detail"></div>
+            <div class="card background-shadow section-fee-monthly-detail">
+              <div class="section-fee-detail-top">
+                <div class="section-fee-detail-top-title dashboard-text-title">관리비 분석</div>
+                <div class="section-fee-detail-top-sub">
+                  평균대비 <div class="section-fee-detail-top-sub-money text-blue">-15300원</div>
+                </div>
+              </div>
+              <div class="section-fee-detail-middle">
+                <div class="section-fee-detail-info">
+                  <div class="section-fee-detail-info-top">
+                    <div class="section-fee-detail-info-top-title">우리집</div>
+                    <div class="section-fee-detail-info-top-price">{{ numberWithCommas(fee) }}원</div>
+                  </div>
+                  <canvas id="section-fee-graph-our"></canvas>
+                </div>
+                <div class="section-fee-detail-info">
+                  <div class="section-fee-detail-info-top">
+                    <div class="section-fee-detail-info-top-title">전체평균</div>
+                    <div class="section-fee-detail-info-top-price">{{ numberWithCommas(fee) }}원</div>
+                  </div>
+                  <canvas id="section-fee-graph-avg"></canvas>
+                </div>
+              </div>
+            </div>
           </div>
           <div class="section-fee-contents-right card background-shadow">
-<!--            <canvas id="section-fee-graph-view"></canvas>-->
+            <div class="dashboard-text-title">납부금액 추이</div>
+            <canvas id="section-fee-graph-view"></canvas>
+          </div>
+        </div>
+        <div class="section-fee-list">
+          <div class="section-fee-personal background-shadow card">
+            <div class="fee-text-title">개인부과 목록</div>
+            <hr class="dashed">
+            <div class="section-board-content-root dashboard-section-article-list">
+              <PaymentDetailItem v-for="item in getTestDetailArticleList" v-bind:key="item"
+                                 :title="item.title" :price="item.price"></PaymentDetailItem>
+            </div>
+            <hr class="sec dashed">
+            <div class="section-fee-total">
+              <div class="section-fee-total-title">합계</div>
+              <div class="section-fee-total-amount">{{ numberWithCommas(9483) + '원' }}</div>
+            </div>
+          </div>
+          <div class="section-fee-common background-shadow card">
+            <div class="fee-text-title">공동부과 목록</div>
+            <hr class="dashed">
+            <div class="section-board-content-root dashboard-section-article-list">
+              <PaymentDetailItem v-for="item in getTestDetailArticleList" v-bind:key="item"
+                              :title="item.title" :price="item.price"></PaymentDetailItem>
+            </div>
+            <hr class="sec dashed">
+            <div class="section-fee-total">
+              <div class="section-fee-total-title">합계</div>
+              <div class="section-fee-total-amount">{{ numberWithCommas(9483) + '원' }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -45,6 +97,8 @@
 </template>
 
 <script setup>
+import PaymentDetailItem from "@/components/list/PaymentDetailItem";
+
 function numberWithCommas(x) {
   return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
 }
@@ -77,11 +131,19 @@ export default {
     }
   },
   mounted() {
-    // window.addEventListener('resize', this.drawGraph);
-    // this.drawGraph()
+    // const graphCanvas = document.getElementById("section-fee-graph-view");
+    window.addEventListener('resize', this.drawGraph);
+    // graphCanvas.addEventListener("animationstart", this.drawGraph);
+    // graphCanvas.addEventListener("animationend", this.drawGraph);
+    // graphCanvas.addEventListener("animationiteration", this.drawGraph);
+    this.drawGraph()
   },
   unmounted() {
+    // const graphCanvas = document.getElementById("section-fee-graph-view");
     window.removeEventListener('resize', this.drawGraph);
+    // graphCanvas.removeEventListener("animationstart", this.drawGraph);
+    // graphCanvas.removeEventListener("animationend", this.drawGraph);
+    // graphCanvas.removeEventListener("animationiteration", this.drawGraph);
   },
   methods: {
     onCLickedPayments() {
@@ -91,21 +153,9 @@ export default {
     drawGraph() {
       const graphCanvas = document.getElementById("section-fee-graph-view");
       // console.log(graphCanvas)
-      this.graphCanvasWidth = graphCanvas.offsetWidth * 2;
-      this.graphCanvasHeight = graphCanvas.offsetHeight * 2;
       // console.log(this.graphCanvasWidth);
       // console.log(this.graphCanvasHeight);
       const data = [
-        {
-          'month': '5월',
-          'avg': 130000,
-          'our': 120000
-        },
-        {
-          'month': '6월',
-          'avg': 140000,
-          'our': 134596
-        },
         {
           'month': '7월',
           'avg': 193000,
@@ -122,8 +172,8 @@ export default {
           'our': 123435,
         }
       ]
-      const canvasWidth = this.graphCanvasWidth;
-      const canvasHeight = this.graphCanvasHeight;
+      const canvasWidth = graphCanvas.offsetWidth * 2;
+      const canvasHeight = graphCanvas.offsetHeight * 2;
       graphCanvas.width = canvasWidth;
       graphCanvas.height = canvasHeight;
       const yAxisHeight = 60 * 2;
@@ -157,6 +207,8 @@ export default {
         const xAxisStart = xAxisHeight + xGraphPadding;
         const xAxisEnd = canvasWidth - xGraphPadding;
         i = xAxisStart;
+
+        const barLengthX = 20
         for (let j = 0;j < data.length;j++) {
           ctx.font = "700 25px Roboto";
           ctx.fillStyle = '#00000044';
@@ -168,15 +220,15 @@ export default {
           grd.addColorStop(0, "#f5af19");
           grd.addColorStop(1, "#f12711");
           ctx.fillStyle = grd;
-          ctx.fillRect(i, ys, 40, ye1);
+          ctx.fillRect(i, ys, barLengthX, ye1);
           let ye2 = -(data[j].avg / maxCost) * (canvasHeight - yAxisHeight);
           grd = ctx.createLinearGradient(0, ys, 0, 0);
           grd.addColorStop(0, "#4286f4");
           grd.addColorStop(1, "#373B44");
           ctx.fillStyle = grd;
-          ctx.fillRect(i, ys, -40, ye2);
+          ctx.fillRect(i, ys, -barLengthX, ye2);
           line_x.push(i);
-          barchart_y.push([[i, i + 40, ys, ye1], [i - 40, i, ys, ye2]])
+          barchart_y.push([[i, i + barLengthX, ys, ye1], [i - barLengthX, i, ys, ye2]])
           i += (xAxisEnd - xAxisStart) / (data.length - 1)
         }
         let grd = ctx.createLinearGradient(0, 40, 0, 0);
@@ -197,34 +249,55 @@ export default {
         ctx.fillStyle = '#00000044';
         ctx.textAlign = "start";
         ctx.fillText('전체평균', canvasWidth - 160 + 50, 30);
-        // console.log((xAxisEnd - xAxisStart) / (data.length - 1))
-        // console.log(line_x);
-        // console.log(barchart_y);
-        // graphCanvas.onmousemove = function(e) {
-        //   const rect = this.getBoundingClientRect();
-        //   let mouseX = Math.round(e.clientX - rect.left) * 2;
-        //   let mouseY = Math.round(e.clientY - rect.top) * 2;
-        //
-        //   console.log('X ' + mouseX)
-        //   console.log('Y ' + mouseY)
-        //
-        //   console.log(canvasWidth)
-        //   console.log(canvasHeight)
-        //
-        //   for (const element of barchart_y) {
-        //     for (const bar of element) {
-        //       if ((bar[0] <= mouseX && mouseX <= bar[1]) && (bar[2] + bar[3] <= mouseY && mouseY <= bar[2])) {
-        //         // console.log('in')
-        //         // let grd = ctx.createLinearGradient(0, bar[2], 0, 0);
-        //         // grd.addColorStop(0, "rgba(245,175,25,0.63)");
-        //         // grd.addColorStop(1, "rgba(241,39,17,0.71)");
-        //         ctx.fillStyle = 'black';
-        //         ctx.fillRect(bar[0], bar[2], bar[1] - bar[0], bar[3]);
-        //       }
-        //     }
-        //   }
-        // }
+
+        const graphCanvasOur = document.getElementById("section-fee-graph-our");
+        const canvasWidthOur = graphCanvasOur.offsetWidth;
+        const canvasHeightOur = graphCanvasOur.offsetHeight;
+        graphCanvasOur.width = canvasWidthOur;
+        graphCanvasOur.height = canvasHeightOur;
+
+        const max = Math.max(data[2].avg, data[2].our);
+        if (graphCanvasOur.getContext) {
+          let ctx = graphCanvasOur.getContext("2d");
+          ctx.fillStyle = '#F1F1F1';
+          ctx.fillRect(0, 0, canvasWidthOur, canvasHeightOur);
+          grd = ctx.createLinearGradient(0, 0, canvasWidthOur, 0);
+          grd.addColorStop(0, "#f5af19");
+          grd.addColorStop(1, "#f12711");
+          ctx.fillStyle = grd;
+          ctx.fillRect(0, 0, (data[2].our / max) * canvasWidthOur, canvasHeightOur);
+        }
+
+        const graphCanvasAvg = document.getElementById("section-fee-graph-avg");
+        const canvasWidthAvg = graphCanvasAvg.offsetWidth;
+        const canvasHeightAvg = graphCanvasAvg.offsetHeight;
+        graphCanvasAvg.width = canvasWidthAvg;
+        graphCanvasAvg.height = canvasHeightAvg;
+
+        if (graphCanvasAvg.getContext) {
+          let ctx = graphCanvasAvg.getContext("2d");
+          ctx.fillStyle = '#F1F1F1';
+          ctx.fillRect(0, 0, canvasWidthAvg, canvasHeightAvg);
+          grd = ctx.createLinearGradient(0, 0, canvasWidthAvg, 0);
+          grd.addColorStop(0, "#4286f4");
+          grd.addColorStop(1, "#373B44");
+          ctx.fillStyle = grd;
+          ctx.fillRect(0, 0, (data[2].avg / max) * canvasWidthAvg, canvasHeightAvg);
+        }
       }
+    }
+  },
+  computed: {
+    getTestDetailArticleList() {
+      let articleDatas = []
+      for (let i = 0;i < 5;i++) {
+        const price = (Math.random() + 1) * 1000
+        articleDatas.push({
+          title: '제목' + i,
+          price: price,
+        })
+      }
+      return articleDatas
     }
   }
 }
