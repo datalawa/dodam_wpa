@@ -82,14 +82,14 @@ export default {
     }
   },
   mounted() {
-    window.addEventListener('resize', this.getDimensions);
-    this.getDimensions()
+    window.addEventListener('resize', this.drawGraph);
+    this.drawGraph()
   },
   unmounted() {
-    window.removeEventListener('resize', this.getDimensions);
+    window.removeEventListener('resize', this.drawGraph);
   },
   methods: {
-    getDimensions() {
+    drawGraph() {
       const graphCanvas = document.getElementById("dashboard-section-graph-view");
       // console.log(graphCanvas)
       this.graphCanvasWidth = graphCanvas.offsetWidth * 2;

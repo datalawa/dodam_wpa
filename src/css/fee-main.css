@@ -99,3 +99,8 @@
     color: white;
     font-size: 12px;
 }
+
+.section-fee-graph-view {
+    width: 100%;
+    height: 100%;
+}
