@@ -6,6 +6,7 @@
     align-items: center;
     padding: 16px 20px;
     gap: 19px;
+    height: 64px;
 }
 .navbar-title {
     font-style: normal;
@@ -74,4 +75,6 @@
 
 .navbar-button-menu {
     cursor: pointer;
+    text-align: center;
+    line-height: 19px;
 }
