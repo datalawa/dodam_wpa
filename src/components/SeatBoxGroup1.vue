@@ -1,15 +1,19 @@
 <template>
     <div class="container">
-        <UsingSeat :number="1"/>
-        <UsingSeat :number="2"/>
-        <UsingSeat :number="3"/>
-        <UsingSeat :number="4"/>
-        <UsingSeat :number="5"/>
-        <UsingSeat :number="6"/>
-        <UsingSeat :number="7"/>
-        <UsingSeat :number="8"/>
-        <UsingSeat :number="9"/>
-        <UsingSeat :number="10"/>
+        <div class="group-top">
+          <UsingSeat :number="1"/>
+          <UsingSeat :number="2"/>
+          <UsingSeat :number="3"/>
+          <UsingSeat :number="4"/>
+          <UsingSeat :number="5"/>
+        </div>
+        <div class="group-bottom">
+          <UsingSeat :number="6"/>
+          <UsingSeat :number="7"/>
+          <UsingSeat :number="8"/>
+          <UsingSeat :number="9"/>
+          <UsingSeat :number="10"/>
+        </div>
     </div>
 </template>
 <script>
@@ -35,15 +39,19 @@ export default {
 <style scoped>
 .container{
   position: absolute;
-  left: 107.5px;
-
-  width: 370px;
-  padding: 50px 50px 50px 50px;
-
+  width: 250px;
   box-sizing: border-box;
+  left: 22.5%;
+  transform: translateX(-50%);
+}
 
-  display: inline-flex;
+.group-top {
+  display: flex;
   flex-direction: row;
-  flex-wrap: wrap;
+}
+
+.group-bottom {
+  display: flex;
+  flex-direction: row;
 }
 </style>

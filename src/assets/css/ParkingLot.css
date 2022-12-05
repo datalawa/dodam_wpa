@@ -1,41 +1,99 @@
 .Largebox{
-    width: 1000px;
-    height: 667px;
-    left: 459px;
-    top: 139px;
+    max-width: 1000px;
+    min-width: 700px;
+    width: 100%;
+    height: 567px;
     background: #FFFFFF;
-}
-.left-right-corner-floor{
-    width: 76.98px;
-    height: 22.89px;
-    /* left: 475.13px;
-    top: 165.97px; */
-    padding-left: 20px;
 
+    display: flex;
+    flex-direction: column;
+
+    padding: 28px;
+    box-sizing: border-box;
+}
+
+.parking-top {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.parking-title {
+    flex: 1;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.left-right-corner-floor{
     font-weight: 600;
     font-size: 24px;
-    line-height: 29px;
     display: flex;
     align-items: flex-end;
     text-align: center;
     color: #000000;
 }
+
+.parking-remain {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    text-align: right;
+}
+
 .floorB1{
-    text-align: right;
-    padding-right: 15px;
     font-weight: 600;
     font-size: 13px;
+    margin-top: -5px;
 }
+
 .floorF1{
-    text-align: right;
-    padding-right: 15px;
     font-weight: 600;
     font-size: 13px;
 }
+
+.parking-tile-top {
+    position: relative;
+    height: 140px;
+    width: 100%;
+}
+
 .line{
     box-align: right;
     width: 137px;
     height: 0px;
     border: 1px solid #F1F1F1;
     box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.parking-button-another {
+    display: flex;
+    flex-direction: row;
+    gap: 12px;
+    flex: 1;
+    /*justify-content: center;*/
+    align-content: center;
+}
+
+.btn{
+    border-radius: 50px;
+    width: 40px;
+    height: 40px;
+    background: #FFFFFF;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.parking-bottom {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.parking-middle-arrow {
+    height: 90px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
