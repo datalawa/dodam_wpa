@@ -1,15 +1,30 @@
 <template>
+  <div class="content-box-root background-shadow card">
     <div class="content-box">
-        <br>
-        <h3><CarNum :carnum="carnum" /></h3>
-        <p>최근 입차 시간 {{intime}}</p>
-        <br>
-        <nav>
-        <router-link to="/datalawa/mycar" class="link">본인 차량 조회</router-link>|
-        <router-link to="/datalawa/inout" class="link">입출차 기록</router-link>
-        </nav>
-        <router-view/>
+      <div class="car-number">{{ carNum }}</div>
+      <div class="car-inout-time-root">
+        <div class="car-inout-time-time">
+          {{("00" + inTime.getMonth().toString()).slice(-2) +
+        '.' + ("00" + inTime.getDay().toString()).slice(-2) + " " +
+        ("00" + inTime.getHours().toString()).slice(-2)
+        + ":" + ("00" + inTime.getMinutes().toString()).slice(-2)  +
+        ":" + ("00" + inTime.getSeconds().toString()).slice(-2)}}
+        </div>
+        <div class="car-inout-time-text">
+          최근 입차 시간
+        </div>
+      </div>
     </div>
+    <div class="content-box-buttons">
+      <v-btn
+        class="content-box-buttons-button"
+        icon="mdi-car-search"
+        color="primary"
+        variant="tonal"
+        size="x-small"
+      ></v-btn>
+    </div>
+  </div>
 </template>
 <script>
 import CarNum from '@/components/CarNum';
@@ -18,14 +33,13 @@ export default {
   name: 'InOutCard',
   components: {CarNum},
   props:{
-    intime:{
-      type:String,
-      default:"intime"
-    }
-  },
-  data() {
-    return {
-    //   carnum: '12가 1234'
+    inTime:{
+      type: Date,
+      default: () => {return new Date()}
+    },
+    carNum: {
+      type: String,
+      default: '12가 1234'
     }
   },
   setup() {},
@@ -35,21 +49,53 @@ export default {
 }
 </script>
 <style scoped>
-.content-box{
-    /* position: relative; */
-    float : left;
-    margin : 30px;
-    width: 260px;
-    height: 182px;
-    left: 328px;
-    top: 131px;
-    background: #FFFFFF;
-    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.08);
-    border-radius: 18px;
-    text-align: center;
+.content-box-root {
+  display: flex;
+  flex-direction: row;
+  background: #FFFFFF;
+  padding: 18px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  width: 220px;
+
+  gap: 18px;
 }
-a {
-    font-size: '10px';
-    text-decoration: none;
+
+.content-box{
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+}
+
+.car-number {
+  width: 100%;
+  /*text-align: center;*/
+
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.car-inout-time-root {
+  display: flex;
+  flex-direction: column;
+}
+
+.car-inout-time-time {
+  font-weight: 600;
+}
+
+.car-inout-time-text {
+  font-size: 14px;
+}
+
+.content-box-buttons {
+  position: relative;
+}
+
+.content-box-buttons-button {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
 }
 </style>

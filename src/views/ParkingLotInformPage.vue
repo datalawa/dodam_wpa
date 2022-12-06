@@ -26,7 +26,7 @@ export default {
     }
   },
   created() {
-    console.log(this.layer)
+    // console.log(this.layer)
     if (this.layer === '') {
       alert('error')
       router.go(-1)

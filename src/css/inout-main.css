@@ -1,0 +1,7 @@
+.section-inout-cards {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    overflow-x: scroll;
+    width: 100%;
+}
