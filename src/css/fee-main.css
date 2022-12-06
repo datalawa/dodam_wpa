@@ -1,0 +1,273 @@
+.section-top-right {
+    /*width: 100%;*/
+
+    font-style: normal;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+
+    position: absolute;
+    top: 9px;
+    right: 0;
+
+    color: var(--secondary-text-color);
+}
+
+.section-fee-contents {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 24px;
+}
+
+.section-fee-contents-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 100%;
+    height: 604px;
+}
+.section-fee-contents-right {
+    flex: 1.25;
+    /*background: aqua;*/
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    height: 604px;
+
+    padding: 24px 24px 0px 24px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.section-fee-monthly {
+    display: flex;
+    width: 100%;
+    height: 200px;
+
+    flex-direction: column;
+    gap: 10px;
+
+    background: var(--point-color);
+    box-sizing: border-box;
+    padding: 28px;
+}
+
+.section-fee-monthly-detail {
+    display: flex;
+    width: 100%;
+    height: 380px;
+
+    flex-direction: column;
+    gap: 24px;
+    padding: 28px;
+}
+
+.section-fee-detail-top {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.section-fee-monthly-selector {
+    display: flex;
+    flex-direction: row;
+    gap: 18px;
+
+    order: 1;
+}
+
+.section-fee-selector {
+    color: white;
+    /*background-color: white;*/
+}
+
+.section-fee-montly-middle {
+    order: 2;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    padding-top: 10px;
+}
+
+.section-fee-monthly-fee {
+    /*order: 1;*/
+    color: white;
+
+    font-weight: 800;
+    font-size: 30px;
+    vertical-align: bottom;
+    line-height: 50px;
+
+    /*padding-top: 15px;*/
+
+    /*height: 50px;*/
+    flex: 1;
+}
+
+.section-fee-monthly-deadline {
+    order: 2;
+    color: white;
+    font-size: 12px;
+}
+
+#section-fee-graph-view {
+    width: 100%;
+    height: 534px;
+    /*flex: 1;*/
+    box-sizing: border-box;
+}
+
+.section-fee-detail-top-sub-money {
+    display: inline;
+    font-weight: 600;
+}
+
+.section-fee-detail-top-sub {
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.text-red {
+    color: #EF5350;
+}
+
+.text-blue {
+    color: #507def;
+}
+
+.section-fee-selector-item {
+    color: black;
+}
+
+.section-fee-detail-middle {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1;
+    gap: 24px;
+}
+
+.section-fee-detail-info {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.section-fee-detail-info-top {
+    display: flex;
+}
+
+.section-fee-detail-info-top-title {
+    flex: 1;
+}
+
+#section-fee-graph-our {
+    height: 25px;
+    width: 100%;
+}
+
+#section-fee-graph-avg {
+    height: 25px;
+    width: 100%;
+}
+
+.section-fee-list {
+    margin-top: 6px;
+    width: 100%;
+
+    flex-direction: row;
+    display: flex;
+    gap: 24px;
+}
+
+.section-fee-personal {
+    padding: 20px;
+    gap: 13px;
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.section-fee-common {
+    padding: 20px;
+    gap: 13px;
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.fee-text-title {
+    justify-content: center;
+    width: 100%;
+    height: 22px;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+
+    color: var(--secondary-text-color);
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+hr.dashed {
+    border-top: 3px dashed #bbb;
+}
+
+hr.sec {
+    order: 4;
+}
+
+.section-fee-total {
+    order: 5;
+    display: flex;
+    flex-direction: row;
+    font-weight: 600;
+}
+
+.section-fee-total-title {
+    flex: 1;
+}
+
+.section-fee-detail-info-top-price {
+    font-weight: 600;
+}
+
+@media (max-width: 680px) {
+    .section-fee-list {
+        flex-direction: column;
+    }
+}
+
+@media (max-width: 980px) {
+    .section-fee-contents {
+        margin-top: -50px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .section-fee-contents {
+        flex-direction: column;
+    }
+
+    #section-fee-graph-view {
+        height: 340px;
+    }
+}

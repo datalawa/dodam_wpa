@@ -5,9 +5,10 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import getConfig from './secrets/secret'
 
-createApp(App)
-    .use(router)
-    .use(vuetify)
-    .use(store)
-    .use(getConfig)
-    .mount('#app')
+let app = createApp(App)
+
+app.use(router)
+  .use(vuetify)
+  .use(store)
+  .use(getConfig)
+  .mount('#app')
