@@ -5,3 +5,17 @@
     overflow-x: scroll;
     width: 100%;
 }
+
+.section-inout-title {
+    width: 100%;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+
+    color: var(--secondary-text-color);
+}
