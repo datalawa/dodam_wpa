@@ -47,6 +47,7 @@
                       block
                       rounded
                       size="45px"
+                      v-on:click="login"
                   >
                     로그인
                   </v-btn>
@@ -70,35 +71,77 @@
 </template>
 
 <script>
+  // Import the functions
+  import firebase from 'firebase/compat/app';
+  // import 'firebaseui';
+  import 'firebase/compat/app';
+  import 'firebase/compat/analytics';
+  import 'firebase/compat/firestore';
+  import 'firebase/compat/auth';
+  import { signInWithEmailAndPassword } from '@firebase/auth';
+  import getConfig from '../secrets/secret';
 
-  import { initializeApp } from 'firebase/app';
-  import getConfig from '../secrets/secret'
-  import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+  // Initialize Firebase
+  const firebaseConfig = getConfig();
+  const app = firebase.initializeApp(firebaseConfig);
+  // const analytics = firebase.getAnalytics(app);
+  // const db = firebase.getFirestore(app);
+  // const auth = firebase.getAuth(app);
 
-  // // Use this to initialize the firebase App
-  var firebaseConfig = getConfig();
-  console.log(firebaseConfig);
-  const firebase = initializeApp(firebaseConfig);
-  console.log(firebase)
+//   // 데이터베이스에서 리스트 가져오기
+// async function getCities(db) {
+//   const citiesCol = collection(db, 'cities');
+//   const citySnapshot = await getDocs(citiesCol);
+//   const cityList = citySnapshot.docs.map(doc => doc.data());
+//   return cityList;
+// }
 
-  // // Use these for db & auth
-  // const db = firebaseApp.firestore();
-  // var firebaseui = require('firebaseui');
-  // const ui = new firebaseui.auth.AuthUI(auth);
-  // console.log(ui)
+// Initialize the FirebaseUI Widget using Firebase.
+// var ui = new firebaseui.auth.AuthUI(firebase.auth());
 
-// 현재 접속한 사용자 인증 정보 가져오기
-const auth = getAuth();
-console.log(auth)
-const user = auth.currentUser;
+// ui.start('#firebaseui-auth-container', {
+//   signInOptions: [
+//     {
+//       provider: firebase.auth.EmailAuthProvider.PROVIDER_ID, // 이메일 ID 추가
+//       signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD // 이메일 링크 인증
+//     }
+//   ]
+//   // Other config options...
+// })
 
-// 현재 접속한 사용자의 프로필 정보 가져오기
-// console.log(user.photoURL);  // 프로필 사진 URL
-// console.log(user.phoneNumber);  // 휴대폰 번호
-// console.log(user.email);  // 이메일
-// console.log(user.displayName);  // 표시 이름
-// console.log(user.emailVerified);  // 이메일 인증 여부(boolean)
-// console.log(user.isAnonymous);  // 익명 여부(boolean)
+// // FirebaseUI 구성
+// var uiConfig = {
+//   callbacks: {
+//     signInSuccessWithAuthResult: function(authResult, redirectUrl) {
+//       // User successfully signed in.
+//       // Return type determines whether we continue the redirect automatically
+//       // or whether we leave that to developer to handle.
+//       return true;
+//     },
+//     uiShown: function() {
+//       // The widget is rendered.
+//       // Hide the loader.
+//       document.getElementById('loader').style.display = 'none';
+//     }
+//   },
+//   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
+//   signInFlow: 'popup',
+//   signInSuccessUrl: '/',
+//   signInOptions: [
+//     firebase.auth.EmailAuthProvider.PROVIDER_ID,
+//   ]
+// };
+
+// // 이메일 링크가 있는지 여부 확인
+// if (ui.isPendingRedirect()) {
+//   ui.start('#firebaseui-auth-container', uiConfig);
+// }
+// if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
+//   ui.start('#firebaseui-auth-container', uiConfig);
+// }
+
+// // FirebaseUI 인증 인터페이스 렌더링
+// ui.start('#firebaseui-auth-container', uiConfig);
 
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
@@ -115,36 +158,37 @@ export default {
     },
     methods: {
       login () {
-        const login = async (email, password) => {
-          try {
-            const auth = getAuth();
-            console.log(1)
-            const { user } = await signInWithEmailAndPassword(auth, email, password);
-            console.log(2)
-            const { stsTokenManager, uid } = user;
-            console.log(3)
-            setAuthInfo({ uid, email, authToken: stsTokenManager });
-            console.log(4)
-            navigate('/');
-            console.log(5)
-          } catch ({ error }) {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              console.log(errorCode)
-          }
-      }
+        const email = document.getElementById('email').value;
+        const password = document.getElementById('password').value;
+        console.log(email," ",password),
+
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          // ...
+        })
+         .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+        });
+      },
+      // 로그인 상태가 변경될 때마다 호출
+      user_data() {
+        const auth = getAuth();
+        onAuthStateChanged(auth, (user) => {
+        if (user) {
+      // User is signed in, see docs for a list of available properties
+      // https://firebase.google.com/docs/reference/js/firebase.User
+          const uid = user.uid;
+        // ...
+        } else {
+      // User is signed out
+      // ...
+        }
+      });
     }
   }
-    // mounted: function() {
-    // 임시 : 현재 로그인한 회원의 정보를 알 수 있는 함수. 존재하면 딕셔너리가, 아니면 null값.
-    // auth.onAuthStateChanged((user) =>{
-    //     if (user) {
-    //       alert("이미 로그인 한 사용자입니다!");
-    //     }
-    //     현재 유저가 존재하지 않으면 로그인창을 보여주기
-    //     this.initUI()
-    // })
-    // }
 }
 </script>
 
