@@ -16,13 +16,38 @@
       </div>
     </div>
     <div class="content-box-buttons">
-      <v-btn
-        class="content-box-buttons-button"
-        icon="mdi-car-search"
-        color="primary"
-        variant="tonal"
-        size="x-small"
-      ></v-btn>
+      <v-dialog
+        v-model="dialog" z-index="999999" max-width="500px">
+        <template v-slot:activator="{ props }">
+
+          <v-btn
+            class="content-box-buttons-button"
+            icon="mdi-car-search"
+            color="primary"
+            variant="tonal"
+            size="x-small"
+            v-bind="props"
+          ></v-btn>
+        </template>
+
+        <div class="card dialog-root">
+          <div class="dialog-title">차량 상세정보</div>
+          <div class="dialog-summary">
+            <div class="dialog-summary-title">차량 번호</div>
+            <div class="dialog-summary-sub">{{ carNum }}</div>
+          </div>
+          <hr>
+          <div class="dialog-summary">
+            <div class="dialog-summary-title">목적</div>
+            <div class="dialog-summary-sub">거주/방문</div>
+          </div>
+          <hr>
+          <div class="dialog-summary">
+            <div class="dialog-summary-title">차종</div>
+            <div class="dialog-summary-sub">소형/중형/대형</div>
+          </div>
+        </div>
+      </v-dialog>
     </div>
   </div>
 </template>
@@ -45,7 +70,12 @@ export default {
   setup() {},
   created() {},
   unmounted() {},
-  methods: {}
+  methods: {},
+  data () {
+    return {
+      dialog: false,
+    }
+  },
 }
 </script>
 <style scoped>
@@ -97,5 +127,51 @@ export default {
   position: relative;
   top: 50%;
   transform: translateY(-50%);
+}
+
+.dialog-root {
+  padding: 28px;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*gap: 18px;*/
+  /*max-width: 800px;*/
+}
+
+.dialog-title {
+  width: 100%;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+
+  display: flex;
+  align-items: center;
+
+  color: var(--secondary-text-color);
+  margin-bottom: 20px;
+}
+
+.dialog-summary {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+.dialog-summary-title {
+  flex: 1;
+  font-weight: 600;
+}
+
+.dialog-summary-sub {
+  flex: 3;
+}
+
+.dialog-root > hr {
+  border: 0;
+  height: 1px;
+  background: rgba(44, 44, 44, 0.22);
+  margin-bottom: 6px;
+  margin-top: 6px;
 }
 </style>
