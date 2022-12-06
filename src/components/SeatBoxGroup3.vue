@@ -1,18 +1,18 @@
 <template>
   <div class="container">
     <div class="group-top">
-      <UsingSeat :number="1"/>
-      <UsingSeat :number="2"/>
-      <UsingSeat :number="3"/>
-      <UsingSeat :number="4"/>
-      <UsingSeat :number="5"/>
+      <UsingSeat :number="1" type="disabled"/>
+      <UsingSeat :number="2" type="disabled"/>
+      <UsingSeat :number="3" type="disabled"/>
+      <UsingSeat :number="4" type="women"/>
+      <UsingSeat :number="5" type="women"/>
     </div>
     <div class="group-bottom">
-      <UsingSeat :number="6"/>
-      <UsingSeat :number="7"/>
-      <UsingSeat :number="8"/>
-      <UsingSeat :number="9"/>
-      <UsingSeat :number="10"/>
+      <UsingSeat :number="6" type="using"/>
+      <UsingSeat :number="7" type="using"/>
+      <UsingSeat :number="8" type="using"/>
+      <UsingSeat :number="9" type="using"/>
+      <UsingSeat :number="10" type="using"/>
     </div>
   </div>
 </template>
