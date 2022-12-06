@@ -15,6 +15,7 @@ import ParkingLotB1View from '@/views/datalawa/ParkingLotB1View';
 import ChargePage from "@/views/ChargePage";
 import ParkingLotInformPage from "@/views/ParkingLotInformPage";
 import NotFound from "@/views/NotFound";
+import CarInOutPage from "@/views/CarInOutPage.vue";
 
 // Vue 라우터 인스턴스 생성
 const router = new createRouter({
@@ -31,6 +32,7 @@ const router = new createRouter({
         {path: "/survey", component: SurveyBoard},
         {path: "/login", component: LoginPage},
         {path: "/fee", component: ChargePage},
+        {path: "/inout", component: CarInOutPage},
         {path: "/write", component: WritePage, name: 'write'},
         {path: '/payments', component: PaymentPage},
         {path: '/parkinglot/:layer', name:'ParkingLotInform', component: ParkingLotInformPage, props: true},
