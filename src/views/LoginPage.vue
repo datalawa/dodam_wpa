@@ -22,6 +22,7 @@
                 <v-card-text class="text-center">로그인을 하시면 더욱 편리하게 이용하실 수 있습니다.</v-card-text>
 
                 <v-text-field
+                v-model="email"
                   label="이메일 주소를 입력하세요."
                   name="login"
                   prepend-icon="mdi-account"
@@ -31,6 +32,7 @@
                 ></v-text-field>
 
                 <v-text-field
+                v-model="password"
                   id="password"
                   label="비밀번호를 입력하세요."
                   name="password"
@@ -79,69 +81,13 @@
   import 'firebase/compat/firestore';
   import 'firebase/compat/auth';
   import { signInWithEmailAndPassword } from '@firebase/auth';
+  import { getAuth } from '@firebase/auth';
   import getConfig from '../secrets/secret';
 
   // Initialize Firebase
   const firebaseConfig = getConfig();
   const app = firebase.initializeApp(firebaseConfig);
-  // const analytics = firebase.getAnalytics(app);
-  // const db = firebase.getFirestore(app);
-  // const auth = firebase.getAuth(app);
 
-//   // 데이터베이스에서 리스트 가져오기
-// async function getCities(db) {
-//   const citiesCol = collection(db, 'cities');
-//   const citySnapshot = await getDocs(citiesCol);
-//   const cityList = citySnapshot.docs.map(doc => doc.data());
-//   return cityList;
-// }
-
-// Initialize the FirebaseUI Widget using Firebase.
-// var ui = new firebaseui.auth.AuthUI(firebase.auth());
-
-// ui.start('#firebaseui-auth-container', {
-//   signInOptions: [
-//     {
-//       provider: firebase.auth.EmailAuthProvider.PROVIDER_ID, // 이메일 ID 추가
-//       signInMethod: firebase.auth.EmailAuthProvider.EMAIL_LINK_SIGN_IN_METHOD // 이메일 링크 인증
-//     }
-//   ]
-//   // Other config options...
-// })
-
-// // FirebaseUI 구성
-// var uiConfig = {
-//   callbacks: {
-//     signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-//       // User successfully signed in.
-//       // Return type determines whether we continue the redirect automatically
-//       // or whether we leave that to developer to handle.
-//       return true;
-//     },
-//     uiShown: function() {
-//       // The widget is rendered.
-//       // Hide the loader.
-//       document.getElementById('loader').style.display = 'none';
-//     }
-//   },
-//   // Will use popup for IDP Providers sign-in flow instead of the default, redirect.
-//   signInFlow: 'popup',
-//   signInSuccessUrl: '/',
-//   signInOptions: [
-//     firebase.auth.EmailAuthProvider.PROVIDER_ID,
-//   ]
-// };
-
-// // 이메일 링크가 있는지 여부 확인
-// if (ui.isPendingRedirect()) {
-//   ui.start('#firebaseui-auth-container', uiConfig);
-// }
-// if (firebase.auth().isSignInWithEmailLink(window.location.href)) {
-//   ui.start('#firebaseui-auth-container', uiConfig);
-// }
-
-// // FirebaseUI 인증 인터페이스 렌더링
-// ui.start('#firebaseui-auth-container', uiConfig);
 
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
@@ -158,19 +104,22 @@ export default {
     },
     methods: {
       login () {
-        const email = document.getElementById('email').value;
-        const password = document.getElementById('password').value;
-        console.log(email," ",password),
-
-        signInWithEmailAndPassword(auth, email, password)
+        // const email = document.getElementById('email').vt;
+        // const password = document.getElementById('password').textContent;
+        console.log(this.email," ",this.password)
+        const auth = getAuth();
+        signInWithEmailAndPassword(auth, this.email, this.password)
           .then((userCredential) => {
           // Signed in
           const user = userCredential.user;
+          console.log(user)
           // ...
         })
          .catch((error) => {
             const errorCode = error.code;
             const errorMessage = error.message;
+          console.log(errorMessage)
+          console.log(errorCode)
         });
       },
       // 로그인 상태가 변경될 때마다 호출
