@@ -6,13 +6,13 @@
         </div>
         <div class="item-root">
           <div style="background:#5AA6EF" class="item">
-            <img src="156822.svg" />
+            <span class="material-icons-round">accessible</span>
           </div>
           <div class="item-text">장애인석</div>
         </div>
         <div class="item-root">
           <div style="background:#F25672" class="item">
-            <img src="female.svg" />
+            <span class="material-icons-round">woman</span>
           </div>
           <div class="item-text">여성전용석</div>
         </div>
@@ -68,5 +68,12 @@ export default {
     box-sizing: border-box;
     height: 30px;
     width: 30px;
+}
+
+.material-icons-round {
+  color: white;
+  box-sizing: border-box;
+  padding-left: 3px;
+  padding-top: 3px;
 }
 </style>
