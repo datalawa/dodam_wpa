@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-  </div>
+
 </template>
 
 <script>
@@ -229,7 +229,8 @@ export default {
       }
     }
   }
-  </script>
+}
+</script>
 
   <style scoped>
   @import "../css/dashboard-main.css";
