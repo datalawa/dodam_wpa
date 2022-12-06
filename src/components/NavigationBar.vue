@@ -4,7 +4,7 @@
       <span class="material-icons-round navbar-button-menu" @click="onOpenButtonClicked">menu</span>
       <div class="navbar-title">도담도담</div>
     </div>
-    <v-badge v-if="isLogin" :content="63" dot color="#F25672">
+    <v-badge v-if="authIsReady && user !== null" :content="63" dot color="#F25672">
       <v-icon icon="mdi-bell" size="x-small" color="#C7C7C7"></v-icon>
     </v-badge>
 <!--    <div class="navbar-alert">-->
@@ -13,10 +13,10 @@
 <!--      </v-badge>-->
 <!--&lt;!&ndash;      <span class="material-icons-outlined icon-color-button-gray">notifications</span>&ndash;&gt;-->
 <!--    </div>-->
-    <div v-if="isLogin"  class="navbar-user-left">
+    <div v-if="authIsReady && user !== null"  class="navbar-user-left">
 <!--      <div class="navbar-user-name">userName</div>-->
-      <v-btn class="navbar-user-name" variant="text" size="small" @click="onLoginButtonClicked">
-        {{ userName }}
+      <v-btn class="navbar-user-name" variant="text" size="small" @click="logoutAction">
+        {{ user.email }}
       </v-btn>
 <!--      <div class="navbar-user-profile"></div>-->
     </div>
@@ -30,21 +30,32 @@
 
 <script>
 import router from "@/routers/router";
-import firebaseData from "@/plugins/firbase";
+import {computed, ref} from "vue";
+import {useStore} from "vuex";
+import {useRouter} from "vue-router";
 
 export default {
   name: "NavigationBar",
-  data: () => {
-    const isLogin = firebaseData().auth.currentUser != null
-    if (isLogin) {
-      return {
-        isLogin: isLogin,
-        userName: firebaseData().auth.currentUser.email
+  setup: () => {
+    const error = ref(null)
+
+    const store = useStore()
+    const router = useRouter()
+
+    const logoutAction = async () => {
+      try {
+        await store.dispatch('logOut')
+        router.push('/login')
       }
-    } else {
-      return {
-        isLogin: isLogin
+      catch (err) {
+        error.value = err.message
       }
+    }
+    return {
+      logoutAction,
+      error,
+      user: computed(() => store.state.user),
+      authIsReady: computed(() => store.state.authIsReady),
     }
   },
   methods: {
