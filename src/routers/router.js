@@ -12,6 +12,7 @@ import InOutCardView from '@/views/datalawa/InOutCardView';
 import MyCarView from '@/views/datalawa/MyCarView';
 import ParkingLotView from '@/views/datalawa/ParkingLotView';
 import ParkingLotB1View from '@/views/datalawa/ParkingLotB1View';
+import PayListView from '@/views/datalawa/PayListView';
 
 // Vue 라우터 인스턴스 생성
 const router = new createRouter({
@@ -31,7 +32,8 @@ const router = new createRouter({
         {path: '/datalawa/inoutcard', name: 'InOutCardView', component: InOutCardView},
         {path: '/datalawa/mycar', name: 'MyCarView', component: MyCarView},
         {path: '/datalawa/parkinglot', name: 'ParkingLotView', component: ParkingLotView},
-        {path: '/datalawa/parkinglotB1', name: 'ParkingLotB1View', component: ParkingLotB1View}
+        {path: '/datalawa/parkinglotB1', name: 'ParkingLotB1View', component: ParkingLotB1View},
+        {path: '/datalawa/paylist', name: 'PayListView', component: PayListView}
     ]
 });
 
