@@ -4,7 +4,7 @@
       <span class="material-icons-round navbar-button-menu" @click="onOpenButtonClicked">menu</span>
       <div class="navbar-title">도담도담</div>
     </div>
-    <v-badge :content="63" dot color="#F25672">
+    <v-badge v-if="isLogin" :content="63" dot color="#F25672">
       <v-icon icon="mdi-bell" size="x-small" color="#C7C7C7"></v-icon>
     </v-badge>
 <!--    <div class="navbar-alert">-->
@@ -13,16 +13,35 @@
 <!--      </v-badge>-->
 <!--&lt;!&ndash;      <span class="material-icons-outlined icon-color-button-gray">notifications</span>&ndash;&gt;-->
 <!--    </div>-->
-    <div class="navbar-user-left">
+    <div v-if="isLogin"  class="navbar-user-left">
       <div class="navbar-user-name">userName</div>
       <div class="navbar-user-profile"></div>
+    </div>
+    <div v-else class="navbar-user-left">
+      <v-btn variant="text" size="small" @click="onLoginButtonClicked">
+        로그인
+      </v-btn>
     </div>
   </nav>
 </template>
 
 <script>
+import { initializeApp } from 'firebase/app';
+import { getAuth } from 'firebase/auth'
+import getConfig from '../secrets/secret'
+import router from "@/routers/router";
+
+var firebaseConfig = getConfig();
+const firebase = initializeApp(firebaseConfig);
+const auth = getAuth(firebase);
+
 export default {
   name: "NavigationBar",
+  data: () => {
+    return {
+      isLogin: auth.currentUser != null
+    }
+  },
   methods: {
     onOpenButtonClicked() {
       let sideBar = document.getElementById('sidebar-root')
@@ -37,6 +56,9 @@ export default {
         mainContentSection.className = 'open'
         blackSection.className = 'open'
       }
+    },
+    onLoginButtonClicked() {
+      router.push({path: "/login"})
     }
   }
 }

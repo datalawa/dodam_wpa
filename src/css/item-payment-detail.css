@@ -1,0 +1,86 @@
+.board-item-complain-root {
+  width: 100%;
+  max-width: 100%;
+
+  display: flex;
+  flex-direction: column;
+  gap: 13px;
+}
+
+.board-item-complain-up {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px 0;
+  gap: 13px;
+
+  width: 100%;
+
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.board-item-complain-head {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 12px;
+
+  text-align: center;
+  color: #FFFFFF;
+
+  border-radius: 5px;
+
+  flex: 0.5;
+  min-width: 0;
+}
+
+.board-item-detail-title {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+
+  word-wrap: break-word;
+  word-break: keep-all;
+
+  color: var(--primary-text-color);
+
+  flex: 4;
+  min-width: 0;
+}
+
+.board-item-complain-author {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+
+  text-align: center;
+
+  color: var(--primary-text-color);
+
+  flex: 1;
+  min-width: 0;
+}
+
+.board-item-detail-fee {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+
+  text-align: end;
+
+  color: var(--primary-text-color);
+
+  flex: 1;
+  min-width: 0;
+}
+
+.head-red {
+  background: #EF5350;
+}
+
+.head-blue {
+  background: #507def;
+}

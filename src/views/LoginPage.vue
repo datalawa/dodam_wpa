@@ -1,16 +1,15 @@
 <template>
   <NavigationBar></NavigationBar>
-  <div id="section-main" class="open">
+  <div id="section-main">
     <SideBar :is-hidden="true"></SideBar>
-    <div id="section-main-transparent" class="open"></div>
+    <div id="section-main-transparent"></div>
     <div id="section-main-content">
       <v-container class="fill-height" fluid>
       <v-row align="center" justify="center">
-        <v-col cols="12" sm="8" md="4">
-          <v-card width="530" height="600" class="elevation-12">
-            <v-toolbar color="white" dark flat></v-toolbar>
-            <div class="pa-2">
-                <h1 style="text-align: center">LOGIN</h1>
+        <v-card width="530" height="600" class="elevation-12">
+          <v-toolbar color="white" dark flat></v-toolbar>
+          <div class="pa-2">
+            <h1 style="text-align: center">LOGIN</h1>
             <v-container grid-list-md fluid>
               <v-layout row wrap>
                 <v-divider></v-divider>
@@ -45,11 +44,18 @@
 
                 <div class="mt-3 d-flex flex-row-reverse">
                   <v-btn
+<<<<<<< HEAD
                       color="#7C12A6"
                       block
                       rounded
                       size="45px"
                       v-on:click="login"
+=======
+                    color="#7C12A6"
+                    block
+                    rounded
+                    size="45px"
+>>>>>>> 768cd0ba4255870a9307160e30da21dc67e45880
                   >
                     로그인
                   </v-btn>
@@ -63,9 +69,8 @@
               <v-btn color="black" @click="$router.push('/signup')">회원가입</v-btn>
               <!-- <router-link to="/signup">SignUp</router-link> -->
             </v-card-actions>
-           </div>
-          </v-card>
-        </v-col>
+          </div>
+        </v-card>
       </v-row>
      </v-container>
     </div>
