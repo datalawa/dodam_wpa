@@ -1,16 +1,20 @@
 <template>
-    <div class="container">
-      <UsingSeat :number="11"/>
-        <UsingSeat :number="12"/>
-        <UsingSeat :number="13"/>
-        <UsingSeat :number="14"/>
-        <UsingSeat :number="15"/>
-        <UsingSeat :number="16"/>
-        <UsingSeat :number="17"/>
-        <UsingSeat :number="18"/>
-        <UsingSeat :number="19"/>
-        <UsingSeat :number="20"/>
+  <div class="container">
+    <div class="group-top">
+      <UsingSeat :number="1"/>
+      <UsingSeat :number="2"/>
+      <UsingSeat :number="3"/>
+      <UsingSeat :number="4"/>
+      <UsingSeat :number="5"/>
     </div>
+    <div class="group-bottom">
+      <UsingSeat :number="6"/>
+      <UsingSeat :number="7"/>
+      <UsingSeat :number="8"/>
+      <UsingSeat :number="9"/>
+      <UsingSeat :number="10"/>
+    </div>
+  </div>
 </template>
 <script>
 import UsingSeat from '@/components/UsingSeat'
@@ -35,16 +39,19 @@ export default {
 <style scoped>
 .container{
   position: absolute;
-  right: 107.5px;
-    width: 370px;
-    padding: 50px 50px 50px 50px;
+  width: 250px;
+  box-sizing: border-box;
+  right: 22.5%;
+  transform: translateX(50%);
+}
 
-    box-sizing: border-box;
+.group-top {
+  display: flex;
+  flex-direction: row;
+}
 
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    /*justify-content: flex-start;*/
-    /*align-content: flex-start;*/
+.group-bottom {
+  display: flex;
+  flex-direction: row;
 }
 </style>

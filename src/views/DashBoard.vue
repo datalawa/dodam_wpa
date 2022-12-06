@@ -198,33 +198,6 @@ export default {
         ctx.fillStyle = '#00000044';
         ctx.textAlign = "start";
         ctx.fillText('전체평균', canvasWidth - 160 + 50, 30);
-        // console.log((xAxisEnd - xAxisStart) / (data.length - 1))
-        // console.log(line_x);
-        // console.log(barchart_y);
-        // graphCanvas.onmousemove = function(e) {
-        //   const rect = this.getBoundingClientRect();
-        //   let mouseX = Math.round(e.clientX - rect.left) * 2;
-        //   let mouseY = Math.round(e.clientY - rect.top) * 2;
-        //
-        //   console.log('X ' + mouseX)
-        //   console.log('Y ' + mouseY)
-        //
-        //   console.log(canvasWidth)
-        //   console.log(canvasHeight)
-        //
-        //   for (const element of barchart_y) {
-        //     for (const bar of element) {
-        //       if ((bar[0] <= mouseX && mouseX <= bar[1]) && (bar[2] + bar[3] <= mouseY && mouseY <= bar[2])) {
-        //         // console.log('in')
-        //         // let grd = ctx.createLinearGradient(0, bar[2], 0, 0);
-        //         // grd.addColorStop(0, "rgba(245,175,25,0.63)");
-        //         // grd.addColorStop(1, "rgba(241,39,17,0.71)");
-        //         ctx.fillStyle = 'black';
-        //         ctx.fillRect(bar[0], bar[2], bar[1] - bar[0], bar[3]);
-        //       }
-        //     }
-        //   }
-        // }
         }
       }
     }

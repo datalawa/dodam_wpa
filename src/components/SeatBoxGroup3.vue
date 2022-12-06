@@ -1,16 +1,20 @@
 <template>
-    <div class="container">
-        <UsingSeat :number="21"/>
-        <UsingSeat :number="22"/>
-        <UsingSeat :number="23"/>
-        <UsingSeat :number="24"/>
-        <UsingSeat :number="25"/>
-        <UsingSeat :number="26"/>
-        <UsingSeat :number="27"/>
-        <UsingSeat :number="28"/>
-        <UsingSeat :number="29"/>
-        <UsingSeat :number="30"/>
+  <div class="container">
+    <div class="group-top">
+      <UsingSeat :number="1" type="disabled"/>
+      <UsingSeat :number="2" type="disabled"/>
+      <UsingSeat :number="3" type="disabled"/>
+      <UsingSeat :number="4" type="women"/>
+      <UsingSeat :number="5" type="women"/>
     </div>
+    <div class="group-bottom">
+      <UsingSeat :number="6" type="using"/>
+      <UsingSeat :number="7" type="using"/>
+      <UsingSeat :number="8" type="using"/>
+      <UsingSeat :number="9" type="using"/>
+      <UsingSeat :number="10" type="using"/>
+    </div>
+  </div>
 </template>
 <script>
 import UsingSeat from '@/components/UsingSeat';
@@ -35,14 +39,19 @@ export default {
 <style scoped>
 .container{
   position: absolute;
-  left: 107.5px;
-    width: 370px;
-    padding: 50px 50px 50px 50px;
+  width: 250px;
+  box-sizing: border-box;
+  left: 22.5%;
+  transform: translateX(-50%);
+}
 
-    display: inline-flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: flex-start;
+.group-top {
+  display: flex;
+  flex-direction: row;
+}
+
+.group-bottom {
+  display: flex;
+  flex-direction: row;
 }
 </style>
