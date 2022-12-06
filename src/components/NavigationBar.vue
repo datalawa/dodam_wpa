@@ -14,8 +14,11 @@
 <!--&lt;!&ndash;      <span class="material-icons-outlined icon-color-button-gray">notifications</span>&ndash;&gt;-->
 <!--    </div>-->
     <div v-if="isLogin"  class="navbar-user-left">
-      <div class="navbar-user-name">userName</div>
-      <div class="navbar-user-profile"></div>
+<!--      <div class="navbar-user-name">userName</div>-->
+      <v-btn class="navbar-user-name" variant="text" size="small" @click="onLoginButtonClicked">
+        {{ userName }}
+      </v-btn>
+<!--      <div class="navbar-user-profile"></div>-->
     </div>
     <div v-else class="navbar-user-left">
       <v-btn variant="text" size="small" @click="onLoginButtonClicked">
@@ -26,20 +29,22 @@
 </template>
 
 <script>
-import { initializeApp } from 'firebase/app';
-import { getAuth } from 'firebase/auth'
-import getConfig from '../secrets/secret'
 import router from "@/routers/router";
-
-var firebaseConfig = getConfig();
-const firebase = initializeApp(firebaseConfig);
-const auth = getAuth(firebase);
+import firebaseData from "@/plugins/firbase";
 
 export default {
   name: "NavigationBar",
   data: () => {
-    return {
-      isLogin: auth.currentUser != null
+    const isLogin = firebaseData().auth.currentUser != null
+    if (isLogin) {
+      return {
+        isLogin: isLogin,
+        userName: firebaseData().auth.currentUser.email
+      }
+    } else {
+      return {
+        isLogin: isLogin
+      }
     }
   },
   methods: {

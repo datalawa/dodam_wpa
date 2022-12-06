@@ -44,18 +44,11 @@
 
                 <div class="mt-3 d-flex flex-row-reverse">
                   <v-btn
-<<<<<<< HEAD
                       color="#7C12A6"
                       block
                       rounded
                       size="45px"
                       v-on:click="login"
-=======
-                    color="#7C12A6"
-                    block
-                    rounded
-                    size="45px"
->>>>>>> 768cd0ba4255870a9307160e30da21dc67e45880
                   >
                     로그인
                   </v-btn>
