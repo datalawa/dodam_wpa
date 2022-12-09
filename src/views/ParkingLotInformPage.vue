@@ -40,22 +40,25 @@ export default {
       router.go(-1)
     }
     console.log(this.layer)
-    // this.$axios.get(
-    //   "/api/v1/parking/1f", {
-    //     timeout: 2500
-    //   }
-    // )
-    //   .then(function (response) {
-    //     // 성공 핸들링
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     // 에러 핸들링
-    //     console.log(error);
-    //   })
-    //   .then(function () {
-    //     // 항상 실행되는 영역
-    //   });
+    this.$axios.get(
+      "/api/v1/parking/1f", {
+        timeout: 5000,
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        }
+      },
+    )
+      .then(function (response) {
+        // 성공 핸들링
+        console.log(response);
+      })
+      .catch(function (error) {
+        // 에러 핸들링
+        console.log(error);
+      })
+      .then(function () {
+        // 항상 실행되는 영역
+      });
   },
   mounted() {
     sseClient = this.$sse.create({
