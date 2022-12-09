@@ -48,7 +48,7 @@
                       block
                       rounded
                       size="45px"
-                      v-on:click="login"
+                      v-on:click="loginAction"
                   >
                     로그인
                   </v-btn>
@@ -71,68 +71,51 @@
 </template>
 
 <script>
-// Import the functions
-import firebase from 'firebase/compat/app'
-// import 'firebaseui';
-import 'firebase/compat/app'
-import 'firebase/compat/analytics'
-import 'firebase/compat/firestore'
-import 'firebase/compat/auth'
-import { signInWithEmailAndPassword, getAuth } from '@firebase/auth'
-import getConfig from '../secrets/secret'
+import NavigationBar from "@/components/NavigationBar";
+import SideBar from "@/components/sidebar/SideBar";
+import Login from './Login.vue';
+import {auth} from "@/plugins/firebase";
+import {useStore} from "vuex";
+import {useRouter} from 'vue-router';
+import {ref} from "vue";
 
-import NavigationBar from '@/components/NavigationBar'
-import SideBar from '@/components/sidebar/SideBar'
-import Login from './Login.vue'
-
-// Initialize Firebase
-const firebaseConfig = getConfig()
-const app = firebase.initializeApp(firebaseConfig)
+const store = useStore()
 
 export default {
-  name: 'LoginPage',
-  components: { SideBar, NavigationBar },
-  data () {
-    return {
-      email: '',
-      password: ''
-    }
-  },
-  methods: {
-    login () {
-      // const email = document.getElementById('email').vt;
-      // const password = document.getElementById('password').textContent;
-      console.log(this.email, ' ', this.password)
-      const auth = getAuth()
-      signInWithEmailAndPassword(auth, this.email, this.password)
-        .then((userCredential) => {
-          // Signed in
-          const user = userCredential.user
-          console.log(user)
-          // ...
+  name: "LoginPage",
+  components: {SideBar, NavigationBar},
+  // data () {
+  //     return {
+  //       email: '',
+  //       password: '',
+  //     }
+  //   },
+  //   methods: {
+  //     login () {
+  //       console.log(this.email," ",this.password)
+  //     }
+  // },
+  setup: () => {
+    const email = ref('')
+    const password = ref('')
+    const error = ref(null)
+
+    const store = useStore()
+    const router = useRouter()
+
+    const loginAction = async () => {
+      try {
+        await store.dispatch('logIn', {
+          email: email.value,
+          password: password.value
         })
-        .catch((error) => {
-          const errorCode = error.code
-          const errorMessage = error.message
-          console.log(errorMessage)
-          console.log(errorCode)
-        })
-    },
-    // 로그인 상태가 변경될 때마다 호출
-    user_data () {
-      const auth = getAuth()
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          // User is signed in, see docs for a list of available properties
-          // https://firebase.google.com/docs/reference/js/firebase.User
-          const uid = user.uid
-        // ...
-        } else {
-          // User is signed out
-          // ...
-        }
-      })
+        router.push('/')
+      }
+      catch (err) {
+        error.value = err.message
+      }
     }
+    return { loginAction, email, password, error }
   }
 }
 </script>
