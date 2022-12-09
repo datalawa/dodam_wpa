@@ -71,69 +71,67 @@
 </template>
 
 <script>
-  // Import the functions
-  import firebase from 'firebase/compat/app';
-  // import 'firebaseui';
-  import 'firebase/compat/app';
-  import 'firebase/compat/analytics';
-  import 'firebase/compat/firestore';
-  import 'firebase/compat/auth';
-  import { signInWithEmailAndPassword } from '@firebase/auth';
-  import { getAuth } from '@firebase/auth';
-  import getConfig from '../secrets/secret';
+// Import the functions
+import firebase from 'firebase/compat/app'
+// import 'firebaseui';
+import 'firebase/compat/app'
+import 'firebase/compat/analytics'
+import 'firebase/compat/firestore'
+import 'firebase/compat/auth'
+import { signInWithEmailAndPassword, getAuth } from '@firebase/auth'
+import getConfig from '../secrets/secret'
 
-  // Initialize Firebase
-  const firebaseConfig = getConfig();
-  const app = firebase.initializeApp(firebaseConfig);
+import NavigationBar from '@/components/NavigationBar'
+import SideBar from '@/components/sidebar/SideBar'
+import Login from './Login.vue'
 
-
-import NavigationBar from "@/components/NavigationBar";
-import SideBar from "@/components/sidebar/SideBar";
-import Login from './Login.vue';
+// Initialize Firebase
+const firebaseConfig = getConfig()
+const app = firebase.initializeApp(firebaseConfig)
 
 export default {
-  name: "LoginPage",
-  components: {SideBar, NavigationBar},
+  name: 'LoginPage',
+  components: { SideBar, NavigationBar },
   data () {
-      return {
-        email: '',
-        password: '',
-      }
-    },
-    methods: {
-      login () {
-        // const email = document.getElementById('email').vt;
-        // const password = document.getElementById('password').textContent;
-        console.log(this.email," ",this.password)
-        const auth = getAuth();
-        signInWithEmailAndPassword(auth, this.email, this.password)
-          .then((userCredential) => {
+    return {
+      email: '',
+      password: ''
+    }
+  },
+  methods: {
+    login () {
+      // const email = document.getElementById('email').vt;
+      // const password = document.getElementById('password').textContent;
+      console.log(this.email, ' ', this.password)
+      const auth = getAuth()
+      signInWithEmailAndPassword(auth, this.email, this.password)
+        .then((userCredential) => {
           // Signed in
-          const user = userCredential.user;
+          const user = userCredential.user
           console.log(user)
           // ...
         })
-         .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
+        .catch((error) => {
+          const errorCode = error.code
+          const errorMessage = error.message
           console.log(errorMessage)
           console.log(errorCode)
-        });
-      },
-      // 로그인 상태가 변경될 때마다 호출
-      user_data() {
-        const auth = getAuth();
-        onAuthStateChanged(auth, (user) => {
+        })
+    },
+    // 로그인 상태가 변경될 때마다 호출
+    user_data () {
+      const auth = getAuth()
+      onAuthStateChanged(auth, (user) => {
         if (user) {
-      // User is signed in, see docs for a list of available properties
-      // https://firebase.google.com/docs/reference/js/firebase.User
-          const uid = user.uid;
+          // User is signed in, see docs for a list of available properties
+          // https://firebase.google.com/docs/reference/js/firebase.User
+          const uid = user.uid
         // ...
         } else {
-      // User is signed out
-      // ...
+          // User is signed out
+          // ...
         }
-      });
+      })
     }
   }
 }
