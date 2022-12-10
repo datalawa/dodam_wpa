@@ -1,12 +1,12 @@
 import { createStore } from 'vuex'
-import { auth } from "@/plugins/firebase";
+import { auth } from '@/plugins/firebase'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged
 } from 'firebase/auth'
-import {tr} from "vuetify/lib/locale";
+import { tr } from 'vuetify/lib/locale'
 
 const store = createStore({
   state: {
@@ -14,44 +14,49 @@ const store = createStore({
     authIsReady: false
   },
   mutations: {
-    setUser(state, payload) {
-      state.user = payload;
+    setUser (state, payload) {
+      state.user = payload
       console.log(state.user)
     },
-    setAuthIsReady(state, payload) {
+    setAuthIsReady (state, payload) {
       state.authIsReady = payload
     }
   },
   actions: {
-    async signUp(context, { email, password }) {
-      const response = await createUserWithEmailAndPassword(auth, email, password);
+    async signUp (context, { email, password }) {
+      const response = await createUserWithEmailAndPassword(auth, email, password)
       if (response) {
-        context.commit('setUser', response.user);
+        context.commit('setUser', response.user)
       } else {
-        throw new Error('signup failed');
+        throw new Error('signup failed')
       }
     },
-    async logIn(context, { email, password }) {
-      const response = await signInWithEmailAndPassword(auth, email, password);
+    async logIn (context, { email, password }) {
+      const response = await signInWithEmailAndPassword(auth, email, password)
       if (response) {
         context.commit('setUser', response.user)
       } else {
         throw new Error('login failed')
       }
     },
-    async logOut(context){
+    async logOut (context) {
       await signOut(auth)
       console.log('logout')
       context.commit('setUser', null)
+    },
+    async getIdToken (context) {
+      const idToken = await firebase.auth().currentUser?.getIdToken(true)
+      context.commit('set_userIdToken', idToken ? idToken : "");
     }
+    // firebase.auth().onAuthStateChanged(user => {
+    //     user.getIdToken(/*forceRefresh*/ true)
+    //       .then(idToken => {
+    //         store.dispatch("updateUserStore", {'token': idToken, 'uid': user.uid});
+    //       }).catch(function(error) {
+    //         // Handle error
+    //       });
+    // })
   }
-});
-
-const unsub = onAuthStateChanged(auth, (user) => {
-  store.commit('setAuthIsReady', true)
-  store.commit('setUser', user)
-  console.log(user)
-  unsub()
 })
 
-export default store;
+export default store
