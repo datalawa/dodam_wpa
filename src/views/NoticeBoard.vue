@@ -13,7 +13,7 @@
             <span class="material-icons-outlined section-board-search-image">search</span>
           </div>
         </div>
-        <div class="card background-shadow section-board-content-root type2">
+        <div v-if="total_count > 0" class="card background-shadow section-board-content-root type2">
           <BoardItemType2 v-for="item in article_data" v-bind:key="item"
                           :title="item.post_title"
                           :author="item.user_user_pk.user_nm"

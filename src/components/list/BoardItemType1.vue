@@ -3,7 +3,7 @@
     <div class="board-item-type1-up">
       <div class="board-item-type1-section-left">
         <div class="board-item-type1-section-title">{{ title }}</div>
-        <div class="board-item-type1-section-content">{{ content }}</div>
+        <div class="board-item-type1-section-content">{{ content.substring(0,100) }}</div>
         <div class="board-item-type1-section-information">
           <div class="board-item-type1-section-author">{{ author }}</div>
           <div class="board-item-type1-section-border"></div>
