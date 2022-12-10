@@ -3,7 +3,7 @@
     <div class="board-item-type2-up">
       <div class="board-item-type2-title">{{ title }}</div>
       <div class="board-item-type2-author">{{ author }}</div>
-      <div class="board-item-type2-writetime">{{ writeTime.toISOString().substring(0, 10) }}</div>
+      <div class="board-item-type2-writetime">{{ writeTime }}</div>
     </div>
     <div class="section-board-content-divider"></div>
   </div>
@@ -22,8 +22,8 @@ export default {
       type: String
     },
     writeTime: {
-      default: () => {return new Date()},
-      type: Date
+      default: () => {return new Date().toISOString().substring(0, 10)},
+      type: String
     },
   },
 

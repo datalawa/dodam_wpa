@@ -4,10 +4,15 @@ module.exports = defineConfig({
   lintOnSave: false,
   devServer: {
     proxy: {
-      '/api': {
-        // 프록시 요청을 보낼 서버의 주소
-        target: 'https://datalawa-api.hrabit64.xyz'
-      }
+      '^/hub': {
+        target: 'http://127.0.0.1',
+        changeOrigin: true,
+        port: 8000
+      },
+      '^/api': {
+        target: 'https://datalawa-api.hrabit64.xyz',
+        changeOrigin: true
+      },
     }
   },
   pluginOptions: {
