@@ -77,10 +77,26 @@
   min-width: 0;
 }
 
+.board-item-complain-finish {
+  height: 18px;
+}
+
+.board-item-complain-finish > span {
+  font-size: 18px;
+}
+
 .head-red {
   background: #EF5350;
 }
 
 .head-blue {
   background: #507def;
+}
+
+.green {
+  color: #2e7d32;
+}
+
+.orange {
+  color: #d84315;
 }

@@ -5,7 +5,11 @@
       <div v-else class="board-item-complain-head head-blue">QnA</div>
       <div class="board-item-complain-title">{{ title }}</div>
       <div class="board-item-complain-author">{{ author }}</div>
-      <div class="board-item-complain-writetime">{{ writeTime.toISOString().substring(0, 10) }}</div>
+      <div class="board-item-complain-writetime">{{ writeTime }}</div>
+      <div class="board-item-complain-finish">
+        <span v-if="finish" class="material-icons-round orange">hourglass_empty</span>
+        <span v-else class="material-icons-round green">check_circle_outline</span>
+      </div>
     </div>
     <div class="section-board-content-divider"></div>
   </div>
@@ -28,9 +32,13 @@ export default {
       type: String
     },
     writeTime: {
-      default: () => {return new Date()},
-      type: Date
+      default: () => {return new Date().toISOString().substring(0, 10)},
+      type: String
     },
+    finish: {
+      default: false,
+      type: Boolean
+    }
   }
 }
 </script>
