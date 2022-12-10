@@ -4,6 +4,8 @@
   display: flex;
   flex-direction: column;
   gap: 13px;
+
+  cursor: pointer;
 }
 
 .board-item-type2-up {

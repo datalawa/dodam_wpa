@@ -1,5 +1,5 @@
 <template>
-  <div class="board-item-complain-root">
+  <div class="board-item-complain-root" @click="moveToPost">
     <div class="board-item-complain-up">
       <div v-if="isComplain" class="board-item-complain-head head-red">민원</div>
       <div v-else class="board-item-complain-head head-blue">QnA</div>
@@ -16,6 +16,8 @@
 </template>
 
 <script>
+import router from "@/routers/router";
+
 export default {
   name: "ComplainItem",
   props: {
@@ -38,6 +40,15 @@ export default {
     finish: {
       default: false,
       type: Boolean
+    },
+    pk: {
+      default: 0,
+      type: Number
+    }
+  },
+  methods: {
+    moveToPost() {
+      router.push({ name: 'post', params: { post_pk: this.pk }})
     }
   }
 }

@@ -15,7 +15,7 @@
         </div>
         <div v-if="total_count > 0" class="card background-shadow section-board-content-root type2">
           <BoardItemType2 v-for="item in article_data" v-bind:key="item"
-                          :title="item.post_title"
+                          :title="item.post_title" :pk="item.post_pk"
                           :author="item.user_user_pk.user_nm"
                           :write-time="item.post_write_time.substring(0, 10)"></BoardItemType2>
         </div>

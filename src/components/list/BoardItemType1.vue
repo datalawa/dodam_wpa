@@ -1,5 +1,5 @@
 <template>
-  <div class="board-item-type1-root">
+  <div class="board-item-type1-root" @click="moveToPost">
     <div class="board-item-type1-up">
       <div class="board-item-type1-section-left">
         <div class="board-item-type1-section-title">{{ title }}</div>
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import router from "@/routers/router";
+
 export default {
   name: "BoardItemType1",
   props: {
@@ -53,6 +55,10 @@ export default {
       default: 0,
       type: Number
     },
+    pk: {
+      default: 0,
+      type: Number
+    }
   },
   computed: {
     getWriteTime() {
@@ -79,6 +85,11 @@ export default {
       // }
 
       return Math.floor(diff) + '일 전'
+    }
+  },
+  methods: {
+    moveToPost() {
+      router.push({ name: 'post', params: { post_pk: this.pk }})
     }
   }
 }

@@ -14,7 +14,7 @@
           </div>
         </div>
         <div v-if="total_count > 0" class="card background-shadow section-board-content-root type2">
-          <ComplainItem v-for="item in article_data" v-bind:key="item"
+          <ComplainItem v-for="item in article_data" v-bind:key="item" :pk="item.post_pk"
                           :title="item.post_title" :author="item.user_user_pk.user_nm"
                           :write-time="item.post_write_time.substring(0, 10)" :is-complain="item.post_tag"
                           :finish="post_refer !== null"></ComplainItem>
