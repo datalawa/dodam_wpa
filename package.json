@@ -20,7 +20,7 @@
     "event-source-polyfill": "^1.0.31",
     "firebase": "^9.14.0",
     "firebaseui": "^6.0.2",
-    "md-editor-v3": "^2.4.2",
+    "md-editor-v3": "2.6.0",
     "package": "^1.0.1",
     "package.json": "^2.0.1",
     "roboto-fontface": "*",

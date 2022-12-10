@@ -85,13 +85,6 @@ export default {
   },
   async mounted() {
     this.getArticles
-    // if (result !== null && result.status == 200) {
-    //   console.log(result)
-    //   this.total_count = result.data.total_count;
-    //   this.article_data = result.data.results
-    // } else {
-    //   this.article_data = []
-    // }
   },
 }
 </script>
