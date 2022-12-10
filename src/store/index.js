@@ -59,4 +59,11 @@ const store = createStore({
   }
 })
 
+const unsub = onAuthStateChanged(auth, (user) => {
+  store.commit('setAuthIsReady', true)
+  store.commit('setUser', user)
+  console.log(user)
+  unsub()
+})
+
 export default store
