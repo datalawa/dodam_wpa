@@ -150,8 +150,9 @@ export default {
       const selectedHead = this.selectedHead
       const contentInput = this.contentInput
       const uid = this.uid
+      const idToken = this.idToken
       console.log('role', role)
-      if (role === undefined || uid === '') {
+      if (role === undefined || uid === '' || idToken === '') {
         alert("권한 undefined")
         return
       }
@@ -166,10 +167,58 @@ export default {
         return
       }
 
+      let board_id = 1
+      switch (selectedBoard) {
+        case "자유게시판":
+          board_id = 2
+          break
+        case "공지사항":
+          board_id = 1
+          break
+        case "민원/QnA":
+          board_id = 3
+          break
+      }
+
+      let tag = null
+      if (board_id === 3) {
+        tag = selectedHead === '민원' ? 1 : 0;
+      }
+
       const articleData = {
-        user_user_pk: uid
+        user_user_pk: uid,
+        post_text: contentInput,
+        post_title: title,
+        board_board_pk: board_id,
+        post_tag: tag,
+        post_refer: null,
+        post_write_time: null,
+        post_update_time: null,
       }
       console.log("post data", articleData)
+      try {
+        const response = await this.$axios.post(
+          "http://127.0.0.1:8000/hub/board/post/",
+          articleData,
+          {
+            headers: {
+              Authorization: "Bearer " + idToken
+            },
+            timeout: 5000
+          },
+        )
+        if (response.status === 201) {
+          const pk = response.data.post_pk
+          console.log(pk)
+          this.$router.push({ name: 'post', params: { post_pk: pk }})
+        } else {
+          alert("글 생성중 오류 발생")
+        }
+      } catch (e) {
+        console.error(e.response.data)
+        alert("서버 통신 오류")
+        return
+      }
     }
   }
 }
