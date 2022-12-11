@@ -12,14 +12,9 @@
           </div>
         </div>
         <div class="section-fee-contents">
-          <div class="section-inout-cards">
-            <InOutCard></InOutCard>
-<!--            <InOutCard></InOutCard>-->
-<!--            <InOutCard></InOutCard>-->
-<!--            <InOutCard></InOutCard>-->
-<!--            <InOutCard></InOutCard>-->
-<!--            <InOutCard></InOutCard>-->
-<!--            <InOutCard></InOutCard>-->
+          <div class="section-inout-cards" v-if="myCars.length > 0">
+            <InOutCard v-for="item in myCars" :key="item"
+            :car-num="item.id" :is-visiting="item.is_visiting" :vhcl-type="item.vhcl_type_name"></InOutCard>
           </div>
           <div class="card background-shadow inout-root">
             <div class="section-inout-title">입출차 기록</div>
@@ -101,6 +96,7 @@ export default {
       carIdInput: '',
       carPurposeInput: '거주',
       carTypeInput: '소형',
+      myCars: []
     }
   },
   setup() {
@@ -109,46 +105,117 @@ export default {
       user: computed(() => store.state.user),
     }
   },
+  async mounted() {
+    this.myCars = await this.getVchlInfo()
+    console.log(this.myCars)
+  },
   methods: {
     async addCar() {
-      if (this.carIdInput === "") {
-        alert("번호 입력")
+      if (this.carIdInput.length < 7) {
+        alert("번호 7자 이상 입력")
         return
       }
       if (this.user === null) {
         alert('로그인 안됨')
         return;
       }
-      // const regex = new RegExp("\\d{2,3}[가-힣]{1}\\d{4}^", 'gm');
-      // if (!this.carIdInput.match(regex)) {
-      //   alert("올바른 번호 입력")
-      //   return
-      // }
 
       const idToken = await this.user.getIdToken()
       const uid = await this.user.uid
-      const userData = await this.$axios.get(
-        "https://api.springnote.blog/api/v1/user/" + uid,
-        {
-          headers: {
-            Authorization: "Bearer " + idToken
+      let userData = null
+      try {
+        userData = await this.$axios.get(
+          "https://api.springnote.blog/api/v1/user/" + uid,
+          {
+            headers: {
+              Authorization: "Bearer " + idToken
+            }
           }
-        }
-      )
-
-      if (userData.status === 200) {
-        const bodyData = {
-          "id": this.carIdInput,
-          "name": "string",
-          "is_visiting": Boolean(carpd.indexOf(this.carPurposeInput)),
-          "vhcl_type_id": cartd.indexOf(this.carTypeInput),
-          "house_hold_id": userData.data.house_hold_id
-        }
-        console.log(bodyData)
-      } else {
-        alert('통신 오류')
+        )
+      } catch (e) {
+        alert('통신 오류0')
         return;
       }
+      console.log(userData)
+      if (userData.status === 200) {
+        const bodyData = {
+          id: this.carIdInput,
+          name: "string",
+          is_visiting: Boolean(carpd.indexOf(this.carPurposeInput)),
+          vhcl_type_id: cartd.indexOf(this.carTypeInput) + 1,
+          house_hold_id: userData.data.household_id,
+        }
+        console.log(bodyData)
+        try {
+          const response = await this.$axios.post(
+            "https://api.springnote.blog/api/v1/vhcl/", bodyData, {
+              headers: {
+                Authorization: "Bearer " + idToken
+              }
+            }
+          )
+          if (response.status === 200) {
+            await this.getVchlInfo()
+          } else {
+            console.error(response.data)
+            alert('통신 오류3')
+            return;
+          }
+        } catch (e) {
+          console.log(e)
+          alert('통신 오류2')
+          return;
+        }
+      } else {
+        alert('통신 오류1')
+        return;
+      }
+    },
+    async getVchlInfo() {
+      const idToken = await this.user.getIdToken()
+      const uid = await this.user.uid
+      let userData = null
+      try {
+        userData = await this.$axios.get(
+          "https://api.springnote.blog/api/v1/user/" + uid,
+          {
+            headers: {
+              Authorization: "Bearer " + idToken,
+            }
+          }
+        )
+      } catch (e) {
+        alert('통신 오류0')
+        return [];
+      }
+
+      if (userData.status === 200) {
+        let response = null
+        try {
+          response = await this.$axios.get(
+            "https://api.springnote.blog/api/v1/vhcl?houseHoldId=" + userData.data.household_id,
+            {
+              headers: {
+                Authorization: "Bearer " + idToken
+              }
+            }
+          )
+        } catch (e) {
+          alert('통신 오류3')
+          return;
+        }
+
+        if (response.status === 200) {
+          return response.data
+        } else {
+          alert('통신 오류2')
+          return [];
+        }
+      } else {
+        alert('통신 오류1')
+        return [];
+      }
+      return [];
     }
   },
   computed: {

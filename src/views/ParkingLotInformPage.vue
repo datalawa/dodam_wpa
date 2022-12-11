@@ -4,10 +4,10 @@
     <SideBar :is-hidden="false"></SideBar>
     <div id="section-main-transparent" class="open"></div>
     <div id="section-main-content">
-      <ParkingLotData  v-if="layer === 'B1'" :total-b1seat="parkB1Data.length" :statusData="parkB1Data"
+      <ParkingLotData  v-if="layer === 'B1' && parkB1Data.length > 0" :total-b1seat="parkB1Data.length" :statusData="parkB1Data"
                        :B1seat="getUsingCount(parkB1Data)" :F1seat="getUsingCount(parkF1Data)"
                        :floor="'B1'" :total-f1seat="parkF1Data.length" />
-      <ParkingLotData v-else-if="layer === 'F1'" :total-b1seat="parkB1Data.length" :statusData="parkF1Data"
+      <ParkingLotData v-else-if="layer === 'F1' && parkF1Data.length > 0" :total-b1seat="parkB1Data.length" :statusData="parkF1Data"
                       :B1seat="getUsingCount(parkB1Data)" :F1seat="getUsingCount(parkF1Data)"
                       :floor="'F1'"  :total-f1seat="parkF1Data.length" />
     </div>
@@ -21,22 +21,26 @@ import router from "@/routers/router";
 import ParkingLotB1View from "@/views/datalawa/ParkingLotB1View";
 import ParkingLotView from "@/views/datalawa/ParkingLotView";
 import ParkingLotData from "@/components/ParkingLotData";
+import {useStore} from "vuex";
+import {computed} from "vue";
 
 let sseF1, sseB1;
 
 export default {
   name: "ParkingLotInformPage",
   components: {ParkingLotData, ParkingLotView, ParkingLotB1View, SideBar, NavigationBar},
-  data() {
-    return {
-      parkF1Data: [],
-      parkB1Data: [],
-    }
-  },
   props: {
     layer: {
       default: '',
       type: String
+    }
+  },
+  setup() {
+    const store = useStore()
+
+    return {
+      parkF1Data: computed(() => store.state.parkingB1Data),
+      parkB1Data: computed(() => store.state.parking1FData),
     }
   },
   created() {
@@ -61,10 +65,10 @@ export default {
       .then(sse => {
         console.log('We\'re connected!');
         console.log(sse)
-        setTimeout(() => {
-          sseF1.off('message', this.handleMessage);
-          console.log('Stopped listening to event-less messages!');
-        }, 7000);
+        // setTimeout(() => {
+        //   sseF1.off('message', this.handleMessage);
+        //   console.log('Stopped listening to event-less messages!');
+        // }, 100000);
       })
       .catch((err) => {
         console.error('Failed to connect to server', err);
@@ -84,10 +88,10 @@ export default {
       .then(sse => {
         console.log('We\'re connected!');
         console.log(sse)
-        setTimeout(() => {
-          sseB1.off('message', this.handleB1Message);
-          console.log('Stopped listening to event-less messages!');
-        }, 7000);
+        // setTimeout(() => {
+        //   sseB1.off('message', this.handleB1Message);
+        //   console.log('Stopped listening to event-less messages!');
+        // }, 100000);
       })
       .catch((err) => {
         console.error('Failed to connect to server', err);
@@ -96,15 +100,15 @@ export default {
   methods: {
     handleMessage(message, lastEventId) {
       // console.log('Received a message w/o an event!', message, lastEventId);
-      this.parkF1Data = eval(message);
-      console.log('Received a message w/o an event!', this.parkF1Data, lastEventId);
-      this.$store.commit("setParking1FData", this.parkF1Data)
+      const parkF1Data = eval(message);
+      console.log('Received a message w/o an event!', parkF1Data, lastEventId);
+      this.$store.commit("setParking1FData", parkF1Data)
     },
     handleB1Message(message, lastEventId) {
       // console.log('Received a message w/o an event!', message, lastEventId);
-      this.parkB1Data = eval(message);
-      console.log('Received a message w/o an event!', this.parkB1Data, lastEventId);
-      this.$store.commit("setParkingB1Data", this.parkB1Data)
+      const parkB1Data = eval(message);
+      console.log('Received a message w/o an event!', parkB1Data, lastEventId);
+      this.$store.commit("setParkingB1Data", parkB1Data)
     },
     getUsingCount(data) {
       let count = 0
