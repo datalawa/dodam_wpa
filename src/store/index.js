@@ -1,5 +1,5 @@
 import { createStore } from 'vuex'
-import { auth } from "@/plugins/firebase";
+import { auth } from '@/plugins/firebase'
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -7,6 +7,7 @@ import {
   onAuthStateChanged
 } from 'firebase/auth'
 import axios from "axios";
+import { tr } from 'vuetify/lib/locale'
 
 const store = createStore({
   state: {
@@ -19,11 +20,11 @@ const store = createStore({
     uid: ""
   },
   mutations: {
-    setUser(state, payload) {
-      state.user = payload;
+    setUser (state, payload) {
+      state.user = payload
       console.log(state.user)
     },
-    setAuthIsReady(state, payload) {
+    setAuthIsReady (state, payload) {
       state.authIsReady = payload
     },
     setTokenUID(state, payload) {
@@ -44,23 +45,23 @@ const store = createStore({
     }
   },
   actions: {
-    async signUp(context, { email, password }) {
-      const response = await createUserWithEmailAndPassword(auth, email, password);
+    async signUp (context, { email, password }) {
+      const response = await createUserWithEmailAndPassword(auth, email, password)
       if (response) {
-        context.commit('setUser', response.user);
+        context.commit('setUser', response.user)
       } else {
-        throw new Error('signup failed');
+        throw new Error('signup failed')
       }
     },
-    async logIn(context, { email, password }) {
-      const response = await signInWithEmailAndPassword(auth, email, password);
+    async logIn (context, { email, password }) {
+      const response = await signInWithEmailAndPassword(auth, email, password)
       if (response) {
         context.commit('setUser', response.user)
       } else {
         throw new Error('login failed')
       }
     },
-    async logOut(context){
+    async logOut (context) {
       await signOut(auth)
       console.log('logout')
       context.commit('setUser', null)
@@ -108,4 +109,4 @@ const unsub = onAuthStateChanged(auth, (user) => {
   unsub()
 })
 
-export default store;
+export default store

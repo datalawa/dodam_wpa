@@ -76,7 +76,7 @@ import SideBar from "@/components/sidebar/SideBar";
 import Login from './Login.vue';
 import {auth} from "@/plugins/firebase";
 import {useStore} from "vuex";
-import {useRouter} from 'vue-router'
+import {useRouter} from 'vue-router';
 import {ref} from "vue";
 
 const store = useStore()
