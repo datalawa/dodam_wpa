@@ -77,7 +77,6 @@ export default {
   methods: {
     handleMessage(message, lastEventId) {
       // console.log('Received a message w/o an event!', message, lastEventId);
-      console.log(message)
       const parkData = JSON.parse(message);
       const parkF1Data = parkData.f1
       const parkB1Data = parkData.b1
