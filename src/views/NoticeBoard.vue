@@ -73,7 +73,8 @@ export default {
           timeout: 5000
         },
       )
-      // console.log(result);
+      console.log(result);
+
       if (result !== null && result.status == 200) {
         console.log(result)
         this.total_count = result.data.total_count;
@@ -82,6 +83,9 @@ export default {
         this.article_data = []
       }
     }
+  },
+  methods: {
+    onArticleWriteButtonClicked
   },
   async mounted() {
     this.getArticles

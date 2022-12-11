@@ -24,7 +24,7 @@ import ParkingLotData from "@/components/ParkingLotData";
 import {useStore} from "vuex";
 import {computed} from "vue";
 
-let sseF1, sseB1;
+let sse;
 
 export default {
   name: "ParkingLotInformPage",
@@ -51,17 +51,17 @@ export default {
     console.log(this.layer)
   },
   mounted() {
-    sseF1 = this.$sse.create({
-      url: 'https://api.springnote.blog/api/v1/parking/1f',
+    sse = this.$sse.create({
+      url: 'https://api.springnote.blog/api/v1/parking',
       format: 'plain',
       // withCredentials: true,
       // polyfill: true,
     });
 
     // Handle messages without a specific event
-    sseF1.on('message', this.handleMessage);
+    sse.on('message', this.handleMessage);
 
-    sseF1.connect()
+    sse.connect()
       .then(sse => {
         console.log('We\'re connected!');
         console.log(sse)
@@ -73,41 +73,16 @@ export default {
       .catch((err) => {
         console.error('Failed to connect to server', err);
       });
-
-    sseB1 = this.$sse.create({
-      url: 'https://api.springnote.blog/api/v1/parking/b1',
-      format: 'plain',
-      // withCredentials: true,
-      // polyfill: true,
-    });
-
-    // Handle messages without a specific event
-    sseB1.on('message', this.handleB1Message);
-
-    sseB1.connect()
-      .then(sse => {
-        console.log('We\'re connected!');
-        console.log(sse)
-        // setTimeout(() => {
-        //   sseB1.off('message', this.handleB1Message);
-        //   console.log('Stopped listening to event-less messages!');
-        // }, 100000);
-      })
-      .catch((err) => {
-        console.error('Failed to connect to server', err);
-      });
   },
   methods: {
     handleMessage(message, lastEventId) {
       // console.log('Received a message w/o an event!', message, lastEventId);
-      const parkF1Data = eval(message);
+      console.log(message)
+      const parkData = JSON.parse(message);
+      const parkF1Data = parkData.f1
+      const parkB1Data = parkData.b1
       console.log('Received a message w/o an event!', parkF1Data, lastEventId);
       this.$store.commit("setParking1FData", parkF1Data)
-    },
-    handleB1Message(message, lastEventId) {
-      // console.log('Received a message w/o an event!', message, lastEventId);
-      const parkB1Data = eval(message);
-      console.log('Received a message w/o an event!', parkB1Data, lastEventId);
       this.$store.commit("setParkingB1Data", parkB1Data)
     },
     getUsingCount(data) {
@@ -119,8 +94,7 @@ export default {
     }
   },
   beforeDestroy() {
-    sseF1.disconnect();
-    sseB1.disconnect();
+    sse.disconnect();
   },
 }
 </script>
