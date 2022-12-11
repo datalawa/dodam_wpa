@@ -17,7 +17,8 @@ const store = createStore({
     parking1FData: [],
     parkingB1Data: [],
     role: 0,
-    uid: ""
+    uid: "",
+    name: ""
   },
   mutations: {
     setUser (state, payload) {
@@ -42,6 +43,10 @@ const store = createStore({
     },
     seUid(state, payload) {
       state.uid = payload
+    },
+    setName(state, payload) {
+      state.name = payload
+      console.log(payload)
     }
   },
   actions: {
@@ -52,6 +57,7 @@ const store = createStore({
       } else {
         throw new Error('signup failed')
       }
+      unsub()
     },
     async logIn (context, { email, password }) {
       const response = await signInWithEmailAndPassword(auth, email, password)
@@ -60,11 +66,16 @@ const store = createStore({
       } else {
         throw new Error('login failed')
       }
+      unsub()
     },
     async logOut (context) {
       await signOut(auth)
       console.log('logout')
+      context.commit('setAuthIsReady', false)
       context.commit('setUser', null)
+      context.commit('seUid', "")
+      context.commit('seUserRole', 0)
+      context.commit('setTokenUID', "")
     },
     async getToken(context) {
       const response = await auth.currentUser.getIdToken()
@@ -89,6 +100,7 @@ const store = createStore({
       if (userData) {
         console.log(userData)
         context.commit('seUserRole', userData.data.role_id)
+        store.commit('setName', userData.data.name)
       } else {
         throw new Error('get role failed')
       }
@@ -106,7 +118,6 @@ const unsub = onAuthStateChanged(auth, (user) => {
   store.commit('setUser', user)
   console.log(user)
   getUserInfo(user)
-  unsub()
 })
 
 export default store

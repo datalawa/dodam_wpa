@@ -14,6 +14,8 @@
               <div class="post-top-sub-author">{{ article.user_user_pk.user_nm }}</div>
               <hr class="updown">
               <div class="post-top-sub-author">{{ article.post_write_time.substring(0, 10) }}</div>
+              <hr v-if="uid === article.user_user_pk.user_pk || role >= 100" class="updown">
+              <span v-if="uid === article.user_user_pk.user_pk || role >= 100" class="material-icons-round">delete</span>
             </div>
           </div>
           <md-editor class="post-content" v-model="article.post_text" language="en-US" :previewOnly="true"/>
@@ -40,30 +42,38 @@
   </div>
 </template>
 
-<script setup>
-import Comment from "@/components/Comment";
-
-function numberWithCommas(x) {
-  return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-}
-
-import MdEditor from 'md-editor-v3';
-import 'md-editor-v3/lib/style.css';
-</script>
-
 <script>
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 import router from "@/routers/router";
+import {useStore} from "vuex";
+import {computed} from "vue";
+
+import Comment from "@/components/Comment";
+
+import MdEditor from 'md-editor-v3';
+import 'md-editor-v3/lib/style.css';
+
+
 export default {
   //TODO: name 변경
   name: "ArticlePage",
-  components: {SideBar, NavigationBar},
+  components: {SideBar, NavigationBar, MdEditor, Comment},
   data() {
     return {
       article: {},
       comment_list: [],
       exist: false
+    }
+  },
+  setup: () => {
+    console.log("article setup")
+    const store = useStore()
+    return {
+      user: computed(() => store.state.user),
+      role: computed(() => store.state.role),
+      idToken: computed(() => store.state.idToken),
+      uid: computed(() => store.state.uid),
     }
   },
   props: {
@@ -77,7 +87,7 @@ export default {
         },
       )
       // console.log(result);
-      if (result !== null && result.status == 200) {
+      if (result !== null && result.status === 200) {
         console.log(result)
         this.article = result.data
         this.exist = true;
@@ -92,7 +102,7 @@ export default {
         },
       )
       // console.log(result);
-      if (result !== null && result.status == 200) {
+      if (result !== null && result.status === 200) {
         console.log(result)
         this.comment_list = result.data.results
       } else {
@@ -107,6 +117,9 @@ export default {
   methods: {
     goBack() {
       router.back(-1)
+    },
+    numberWithCommas(x) {
+      return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     }
   }
 }

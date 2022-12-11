@@ -229,3 +229,10 @@
 .icon-pink-f {
     color: #E44E9F !important;
 }
+
+.post-top-sub > span {
+    height: 15px;
+    width: 15px;
+    font-size: 15px;
+    color: var(--secondary-text-color);
+}

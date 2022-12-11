@@ -16,7 +16,7 @@
     <div v-if="authIsReady && user !== null"  class="navbar-user-left">
 <!--      <div class="navbar-user-name">userName</div>-->
       <v-btn class="navbar-user-name" variant="text" size="small" @click="logoutAction">
-        {{ user.email }}
+        {{ name }}
       </v-btn>
 <!--      <div class="navbar-user-profile"></div>-->
     </div>
@@ -56,6 +56,7 @@ export default {
       error,
       user: computed(() => store.state.user),
       authIsReady: computed(() => store.state.authIsReady),
+      name: computed(() => store.state.name),
     }
   },
   methods: {
