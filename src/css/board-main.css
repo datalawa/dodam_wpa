@@ -200,3 +200,7 @@
         transition: background 500ms ease-in;
     }
 }
+
+.paginator {
+    order: 3;
+}

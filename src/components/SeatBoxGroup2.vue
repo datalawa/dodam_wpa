@@ -1,18 +1,18 @@
 <template>
   <div class="container">
     <div class="group-top">
-      <UsingSeat :number="1"/>
-      <UsingSeat :number="2"/>
-      <UsingSeat :number="3"/>
-      <UsingSeat :number="4"/>
-      <UsingSeat :number="5"/>
+      <UsingSeat v-if="datas.length > 0" :number="11" :type="type2string(datas[0].type, datas[0].status)"/>
+      <UsingSeat v-if="datas.length > 1" :number="12" :type="type2string(datas[1].type, datas[1].status)"/>
+      <UsingSeat v-if="datas.length > 2" :number="13" :type="type2string(datas[2].type, datas[2].status)"/>
+      <UsingSeat v-if="datas.length > 3" :number="14" :type="type2string(datas[3].type, datas[3].status)"/>
+      <UsingSeat v-if="datas.length > 4" :number="15" :type="type2string(datas[4].type, datas[4].status)"/>
     </div>
     <div class="group-bottom">
-      <UsingSeat :number="6"/>
-      <UsingSeat :number="7"/>
-      <UsingSeat :number="8"/>
-      <UsingSeat :number="9"/>
-      <UsingSeat :number="10"/>
+      <UsingSeat v-if="datas.length > 5" :number="16" :type="type2string(datas[5].type, datas[5].status)"/>
+      <UsingSeat v-if="datas.length > 6" :number="17" :type="type2string(datas[6].type, datas[6].status)"/>
+      <UsingSeat v-if="datas.length > 7" :number="18" :type="type2string(datas[7].type, datas[7].status)"/>
+      <UsingSeat v-if="datas.length > 8" :number="19" :type="type2string(datas[8].type, datas[8].status)"/>
+      <UsingSeat v-if="datas.length > 9" :number="20" :type="type2string(datas[9].type, datas[9].status)"/>
     </div>
   </div>
 </template>
@@ -23,7 +23,7 @@ import FemaleSeat from './FemaleSeat'
 import DisabledSeat from './DisabledSeat'
 export default {
   props: {
-    number: Number
+    datas: [],
   },
   components: { UsingSeat,EmptySeat, FemaleSeat, DisabledSeat },
   data() {
@@ -33,7 +33,24 @@ export default {
   setup() {},
   created() {},
   unmounted() {},
-  methods: {}
+  methods:{
+    type2string(t, state) {
+      if (state) {
+        return 'using'
+      }
+      switch (t){
+        case "일반": {
+          return "normal"
+        }
+        case "장애인": {
+          return "disabled"
+        }
+        case "여성": {
+          return "women"
+        }
+      }
+    }
+  }
 }
 </script>
 <style scoped>

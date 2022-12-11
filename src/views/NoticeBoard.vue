@@ -13,11 +13,19 @@
             <span class="material-icons-outlined section-board-search-image">search</span>
           </div>
         </div>
-        <div class="card background-shadow section-board-content-root type2">
-          <BoardItemType2 v-for="item in getTestArticleList" v-bind:key="item"
-                          :title="item.title" :author="item.author"
-                          :write-time="item.writeTime"></BoardItemType2>
+        <div v-if="total_count > 0" class="card background-shadow section-board-content-root type2">
+          <BoardItemType2 v-for="item in article_data" v-bind:key="item"
+                          :title="item.post_title" :pk="item.post_pk"
+                          :author="item.user_user_pk.user_nm"
+                          :write-time="item.post_write_time.substring(0, 10)"></BoardItemType2>
         </div>
+        <v-pagination
+          v-if="total_count > 0"
+          class="paginator"
+          v-model="page"
+          :length="Math.ceil(total_count / 25)"
+          @update:modelValue="getArticles"
+        ></v-pagination>
       </div>
     </div>
     <div class="main-floating-write-button" @click="onArticleWriteButtonClicked('notice')">
@@ -31,9 +39,17 @@ import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 import BoardItemType2 from "@/components/list/BoardItemType2";
 import { onArticleWriteButtonClicked } from "@/components/js/write-button";
+
 export default {
   name: "NoticeBoard",
   components: {BoardItemType2, SideBar, NavigationBar},
+  data() {
+    return {
+      article_data: [],
+      total_count: 0,
+      page: 1
+    }
+  },
   computed: {
     getTestArticleList() {
       let articleDatas = []
@@ -50,11 +66,30 @@ export default {
         })
       }
       return articleDatas
+    },
+    async getArticles() {
+      const result = await this.$axios.get(
+        "https://api.springnote.blog/hub/board/post/?board_board_pk=1&page_size=25&page=" + this.page, {
+          timeout: 5000
+        },
+      )
+      console.log(result);
+
+      if (result !== null && result.status == 200) {
+        console.log(result)
+        this.total_count = result.data.total_count;
+        this.article_data = result.data.results
+      } else {
+        this.article_data = []
+      }
     }
   },
   methods: {
     onArticleWriteButtonClicked
-  }
+  },
+  async mounted() {
+    this.getArticles
+  },
 }
 </script>
 
