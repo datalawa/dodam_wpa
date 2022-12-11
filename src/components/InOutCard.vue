@@ -39,12 +39,12 @@
           <hr>
           <div class="dialog-summary">
             <div class="dialog-summary-title">목적</div>
-            <div class="dialog-summary-sub">거주/방문</div>
+            <div class="dialog-summary-sub">{{ isVisiting ? "방문":"거주" }}</div>
           </div>
           <hr>
           <div class="dialog-summary">
             <div class="dialog-summary-title">차종</div>
-            <div class="dialog-summary-sub">소형/중형/대형</div>
+            <div class="dialog-summary-sub">{{ vhclType }}</div>
           </div>
         </div>
       </v-dialog>
@@ -65,7 +65,9 @@ export default {
     carNum: {
       type: String,
       default: '12가 1234'
-    }
+    },
+    isVisiting: false,
+    vhclType: false,
   },
   setup() {},
   created() {},
