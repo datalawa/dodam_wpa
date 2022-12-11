@@ -6,7 +6,7 @@ import {
   signOut,
   onAuthStateChanged
 } from 'firebase/auth'
-import {tr} from "vuetify/lib/locale";
+import axios from "axios";
 
 const store = createStore({
   state: {
@@ -14,7 +14,9 @@ const store = createStore({
     authIsReady: false,
     idToken: '',
     parking1FData: [],
-    parkingB1Data: []
+    parkingB1Data: [],
+    role: 0,
+    uid: ""
   },
   mutations: {
     setUser(state, payload) {
@@ -33,6 +35,12 @@ const store = createStore({
     },
     setParkingB1Data(state, payload) {
       state.parkingB1Data = payload
+    },
+    seUserRole(state, payload) {
+      state.role = payload
+    },
+    seUid(state, payload) {
+      state.uid = payload
     }
   },
   actions: {
@@ -57,22 +65,46 @@ const store = createStore({
       console.log('logout')
       context.commit('setUser', null)
     },
-    async getToken(context){
+    async getToken(context) {
       const response = await auth.currentUser.getIdToken()
       console.log(response)
       if (response) {
         context.commit('setTokenUID', response)
+        await store.dispatch('getRole', response)
       } else {
         throw new Error('login failed')
+      }
+    },
+    async getRole(context, token){
+      const uid = await auth.currentUser.uid
+      let userData = await axios.get(
+        "https://api.springnote.blog/api/v1/user/" + uid,
+        {
+          headers: {
+            Authorization: "Bearer " + token,
+          }
+        }
+      )
+      if (userData) {
+        console.log(userData)
+        context.commit('seUserRole', userData.data.role_id)
+      } else {
+        throw new Error('get role failed')
       }
     }
   }
 });
 
+const getUserInfo = async (user) => {
+  await store.dispatch('getToken')
+  store.commit('seUid', await user.uid)
+}
+
 const unsub = onAuthStateChanged(auth, (user) => {
   store.commit('setAuthIsReady', true)
   store.commit('setUser', user)
   console.log(user)
+  getUserInfo(user)
   unsub()
 })
 

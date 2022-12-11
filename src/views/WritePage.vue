@@ -18,10 +18,17 @@
       <div class="section-text-form-root">
         <div class="section-text-selector-root">
           <v-select
+            v-if="role >= 100"
               v-model="selectedBoard"
               class="section-text-selector-board"
               label="게시판" density="comfortable"
-              :items="['공지사항', '자유게시판', '민원/QnA']"></v-select>
+              :items="boardListAdmin"></v-select>
+          <v-select
+            v-else
+              v-model="selectedBoard"
+              class="section-text-selector-board"
+              label="게시판" density="comfortable"
+              :items="boardList"></v-select>
           <v-select
             v-model="selectedHead"
             :disabled="selectedBoard !== '민원/QnA'"
@@ -41,12 +48,13 @@
   </div>
 </template>
 
-<script setup>
+<script>
+import SideBar from "@/components/sidebar/SideBar";
+import NavigationBar from "@/components/NavigationBar";
+import {computed} from "vue";
+import {useStore} from "vuex";
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
-
-const boardList = ['공지사항', '자유게시판', '민원/QnA']
-const headList = ['민원', 'QnA']
 
 const toolbars = [
   'bold',
@@ -77,14 +85,10 @@ const toolbars = [
   'preview',
   'catalog'
 ]
-</script>
-
-<script>
-import SideBar from "@/components/sidebar/SideBar";
-import NavigationBar from "@/components/NavigationBar";
 
 export default {
   name: "WritePage",
+  components: {SideBar, NavigationBar, MdEditor},
   data: () => {
     return {
       board: "",
@@ -94,7 +98,21 @@ export default {
       contentInput: "",
     }
   },
-  components: {SideBar, NavigationBar},
+  setup: () => {
+    const store = useStore()
+    const boardListAdmin = ['공지사항', '자유게시판', '민원/QnA']
+    const boardList = ['자유게시판', '민원/QnA']
+    const headList = ['민원', 'QnA']
+    return {
+      user: computed(() => store.state.user),
+      role: computed(() => store.state.role),
+      idToken: computed(() => store.state.idToken),
+      uid: computed(() => store.state.uid),
+      boardListAdmin,
+      boardList,
+      headList
+    }
+  },
   created() {
     const type = this.$route.query.board;
     if (type === undefined) {
@@ -118,55 +136,40 @@ export default {
         break
     }
   },
+  async mounted() {
+
+  },
   methods: {
     cancle() {
       this.$router.back(-1)
     },
     async upload() {
-      const idToken = await this.user.getIdToken()
-      const uid = await this.user.uid
-      let userData = null
-      try {
-        userData = await this.$axios.get(
-          "https://api.springnote.blog/api/v1/user/" + uid,
-          {
-            headers: {
-              Authorization: "Bearer " + idToken,
-            }
-          }
-        )
-      } catch (e) {
-        alert('통신 오류0')
+      const role = this.role
+      const title = this.titleInput
+      const selectedBoard = this.selectedBoard
+      const selectedHead = this.selectedHead
+      const contentInput = this.contentInput
+      const uid = this.uid
+      console.log('role', role)
+      if (role === undefined || uid === '') {
+        alert("권한 undefined")
         return
       }
 
-      if (userData.status === 200) {
-        let response = null
-        try {
-          response = await this.$axios.get(
-            "https://api.springnote.blog/api/v1/vhcl?houseHoldId=" + userData.data.household_id,
-            {
-              headers: {
-                Authorization: "Bearer " + idToken
-              }
-            }
-          )
-        } catch (e) {
-          alert('통신 오류3')
-          return;
-        }
-
-        if (response.status === 200) {
-          return response.data
-        } else {
-          alert('통신 오류2')
-          return
-        }
-      } else {
-        alert('통신 오류1')
+      if (this.selectedBoard === "공지사항" && role < 100) {
+        alert("권한 거부")
         return
       }
-      return
+
+      if (title === '' || contentInput === '') {
+        alert('제목/내용을 작성')
+        return
+      }
+
+      const articleData = {
+        user_user_pk: uid
+      }
+      console.log("post data", articleData)
     }
   }
 }
