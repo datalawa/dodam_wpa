@@ -24,6 +24,7 @@ const store = createStore({
     setUser (state, payload) {
       state.user = payload
       console.log(state.user)
+      unsub()
     },
     setAuthIsReady (state, payload) {
       state.authIsReady = payload
@@ -54,28 +55,28 @@ const store = createStore({
       const response = await createUserWithEmailAndPassword(auth, email, password)
       if (response) {
         context.commit('setUser', response.user)
+        unsub()
       } else {
         throw new Error('signup failed')
       }
-      unsub()
     },
     async logIn (context, { email, password }) {
       const response = await signInWithEmailAndPassword(auth, email, password)
       if (response) {
         context.commit('setUser', response.user)
+        unsub()
       } else {
         throw new Error('login failed')
       }
-      unsub()
     },
     async logOut (context) {
+      context.commit('setUser', null)
       await signOut(auth)
       console.log('logout')
-      context.commit('setAuthIsReady', false)
-      context.commit('setUser', null)
-      context.commit('seUid', "")
-      context.commit('seUserRole', 0)
-      context.commit('setTokenUID', "")
+      // context.commit('setAuthIsReady', false)
+      // context.commit('seUid', "")
+      // context.commit('seUserRole', 0)
+      // context.commit('setTokenUID', "")
     },
     async getToken(context) {
       const response = await auth.currentUser.getIdToken()

@@ -15,7 +15,8 @@
               <hr class="updown">
               <div class="post-top-sub-author">{{ article.post_write_time.substring(0, 10) }}</div>
               <hr v-if="uid === article.user_user_pk.user_pk || role >= 100" class="updown">
-              <span v-if="uid === article.user_user_pk.user_pk || role >= 100" class="material-icons-round">delete</span>
+              <span v-if="uid === article.user_user_pk.user_pk || role >= 100"
+                    class="material-icons-round" @click="articleDelete">delete</span>
             </div>
           </div>
           <md-editor class="post-content" v-model="article.post_text" language="en-US" :previewOnly="true"/>
@@ -120,6 +121,34 @@ export default {
     },
     numberWithCommas(x) {
       return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    },
+    async articleDelete() {
+      const role = this.role
+      const uid = this.uid
+      const article = this.article
+      const post_pk = this.post_pk
+      if (uid === article.user_user_pk.user_pk || role >= 100) {
+        try {
+          const response = await this.$axios.delete(
+            "http://127.0.0.1:8000/hub/board/post/" + post_pk,
+            {
+              timeout: 5000
+            },
+          )
+          if (response.status === 204) {
+            console.log(post_pk + ' deleted')
+            this.$router.back(-1)
+          } else {
+            alert("글 삭제 오류 발생")
+          }
+        } catch (e) {
+          console.error(e.response.data)
+          alert("서버 통신 오류")
+          return
+        }
+      } else {
+        alert("삭제 권한 없음")
+      }
     }
   }
 }

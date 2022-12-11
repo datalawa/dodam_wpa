@@ -28,7 +28,7 @@
         ></v-pagination>
       </div>
     </div>
-    <div class="main-floating-write-button" @click="onArticleWriteButtonClicked('notice')">
+    <div v-if="role >= 100" class="main-floating-write-button" @click="onArticleWriteButtonClicked('notice')">
       <v-icon icon="mdi-pencil"></v-icon>
     </div>
   </div>
@@ -39,6 +39,8 @@ import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 import BoardItemType2 from "@/components/list/BoardItemType2";
 import { onArticleWriteButtonClicked } from "@/components/js/write-button";
+import {useStore} from "vuex";
+import {computed} from "vue";
 
 export default {
   name: "NoticeBoard",
@@ -48,6 +50,15 @@ export default {
       article_data: [],
       total_count: 0,
       page: 1
+    }
+  },
+  setup: () => {
+    const store = useStore()
+    return {
+      user: computed(() => store.state.user),
+      role: computed(() => store.state.role),
+      idToken: computed(() => store.state.idToken),
+      uid: computed(() => store.state.uid),
     }
   },
   computed: {
