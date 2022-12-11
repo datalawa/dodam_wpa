@@ -43,8 +43,9 @@
                     :writer-name="item.user_user_pk.user_nm" :content="item.comment_text"
                     :wirte-time="item.comment_write_time.substring(0, 10) + ' ' + item.comment_write_time.substring(11, 19)"></Comment>
           </div>
-          <div v-else class="post-right">
-            <div v-if="exist" class="post-right-top">
+          <div v-else-if="article.board_board_pk !== 3 && article.post_refer !== null"
+               class="post-right">
+            <div class="post-right-top">
               <div class="post-top-title">{{ article.post_title }}</div>
               <div class="post-top-view">{{ numberWithCommas(article.view_count) }}회</div>
               <div class="post-top-sub">
@@ -58,8 +59,17 @@
             </div>
             <md-editor class="post-content" v-model="article.post_text" language="en-US" :previewOnly="true"/>
           </div>
+          <div v-else-if="writeMode">
+
+          </div>
+          <div v-else>
+            답변 대기중입니다.
+          </div>
         </div>
       </div>
+    </div>
+    <div v-if="role >= 100" class="main-floating-write-button" @click="writeMode = true">
+      <v-icon icon="mdi-pencil"></v-icon>
     </div>
   </div>
 </template>
@@ -85,7 +95,8 @@ export default {
     return {
       article: {},
       comment_list: [],
-      exist: false
+      exist: false,
+      writeMode: false
     }
   },
   setup: () => {
