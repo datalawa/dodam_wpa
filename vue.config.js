@@ -7,6 +7,9 @@ module.exports = defineConfig({
       '/hub': {
         target: 'https://api.springnote.blog',
       },
+      '/user': {
+        target: 'https://api.springnote.blog/api/v1',
+      },
       // '^/api': {
       //   target: 'https://datalawa-api.hrabit64.xyz',
       //   changeOrigin: true

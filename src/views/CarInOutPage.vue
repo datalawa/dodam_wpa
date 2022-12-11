@@ -6,7 +6,7 @@
     <div id="section-main-content">
       <div class="section-board-root">
         <div class="section-board-top">
-          <div class="section-board-title">입출차 기록</div>
+          <div class="section-board-title">등록 자동차 정보</div>
           <div class="section-top-right">
             101동 102호
           </div>
@@ -14,12 +14,12 @@
         <div class="section-fee-contents">
           <div class="section-inout-cards">
             <InOutCard></InOutCard>
-            <InOutCard></InOutCard>
-            <InOutCard></InOutCard>
-            <InOutCard></InOutCard>
-            <InOutCard></InOutCard>
-            <InOutCard></InOutCard>
-            <InOutCard></InOutCard>
+<!--            <InOutCard></InOutCard>-->
+<!--            <InOutCard></InOutCard>-->
+<!--            <InOutCard></InOutCard>-->
+<!--            <InOutCard></InOutCard>-->
+<!--            <InOutCard></InOutCard>-->
+<!--            <InOutCard></InOutCard>-->
           </div>
           <div class="card background-shadow inout-root">
             <div class="section-inout-title">입출차 기록</div>
@@ -49,20 +49,106 @@
         </div>
       </div>
     </div>
+    <v-dialog
+      v-model="dialog" z-index="999999" max-width="500px">
+      <template v-slot:activator="{ props }">
+
+        <div class="main-floating-write-button" @click="dialog = true">
+          <v-icon icon="mdi-plus"></v-icon>
+        </div>
+      </template>
+
+      <div class="card dialog-root">
+        <div class="dialog-title">차량 추가</div>
+        <v-text-field
+          :placeholder="'12가3456'"
+          v-model="carIdInput" label="차량번호"></v-text-field>
+        <v-combobox
+          v-model="carPurposeInput"
+          label="목적"
+          :items="['거주', '방문']"
+        ></v-combobox>
+        <v-combobox
+          v-model="carTypeInput"
+          label="차종"
+          :items="['소형', '중형', '대형']"
+        ></v-combobox>
+        <v-btn class="vadd-secc" variant="text" @click="addCar">
+          추가
+        </v-btn>
+      </div>
+    </v-dialog>
   </div>
 </template>
 
 <script>
+const carpd = ['거주', '방문']
+const cartd = ['소형', '중형', '대형']
+
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 import InOutCard from "@/components/InOutCard.vue";
 import InOutListView from "@/views/datalawa/InOutListView.vue";
+import {computed, ref} from "vue";
+import {useStore} from "vuex";
 export default {
   name: "CarInOutPage",
   components: {InOutListView, InOutCard, SideBar, NavigationBar},
   data: () => {
     return {
-      selectedCarNum: '12가 3456'
+      selectedCarNum: '12가 3456',
+      dialog: false,
+      carIdInput: '',
+      carPurposeInput: '거주',
+      carTypeInput: '소형',
+    }
+  },
+  setup() {
+    const store = useStore()
+    return {
+      user: computed(() => store.state.user),
+    }
+  },
+  methods: {
+    async addCar() {
+      if (this.carIdInput === "") {
+        alert("번호 입력")
+        return
+      }
+      if (this.user === null) {
+        alert('로그인 안됨')
+        return;
+      }
+      // const regex = new RegExp("\\d{2,3}[가-힣]{1}\\d{4}^", 'gm');
+      // if (!this.carIdInput.match(regex)) {
+      //   alert("올바른 번호 입력")
+      //   return
+      // }
+
+      const idToken = await this.user.getIdToken()
+      const uid = await this.user.uid
+      const userData = await this.$axios.get(
+        "https://api.springnote.blog/api/v1/user/" + uid,
+        {
+          headers: {
+            Authorization: "Bearer " + idToken
+          }
+        }
+      )
+
+      if (userData.status === 200) {
+        const bodyData = {
+          "id": this.carIdInput,
+          "name": "string",
+          "is_visiting": Boolean(carpd.indexOf(this.carPurposeInput)),
+          "vhcl_type_id": cartd.indexOf(this.carTypeInput),
+          "house_hold_id": userData.data.house_hold_id
+        }
+        console.log(bodyData)
+      } else {
+        alert('통신 오류')
+        return;
+      }
     }
   },
   computed: {
@@ -92,6 +178,11 @@ export default {
 </style>
 
 <style scoped>
+.vadd-secc {
+  float: right;
+  color: var(--point-color2);
+}
+
 .section-fee-contents {
   flex-direction: column !important;
 }
@@ -112,5 +203,101 @@ td {
   text-align: center;
   color: #FFFFFF;
   border-radius: 5px;
+}
+
+.content-box-root {
+  display: flex;
+  flex-direction: row;
+  background: #FFFFFF;
+  padding: 18px;
+  flex-shrink: 0;
+  flex-grow: 0;
+  width: 220px;
+
+  gap: 18px;
+}
+
+.content-box{
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+}
+
+.car-number {
+  width: 100%;
+  /*text-align: center;*/
+
+  font-weight: 800;
+  font-size: 20px;
+}
+
+.car-inout-time-root {
+  display: flex;
+  flex-direction: column;
+}
+
+.car-inout-time-time {
+  font-weight: 600;
+}
+
+.car-inout-time-text {
+  font-size: 14px;
+}
+
+.content-box-buttons {
+  position: relative;
+}
+
+.content-box-buttons-button {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.dialog-root {
+  padding: 28px;
+  /*display: flex;*/
+  /*flex-direction: column;*/
+  /*gap: 18px;*/
+  /*max-width: 800px;*/
+}
+
+.dialog-title {
+  width: 100%;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 22px;
+
+  display: flex;
+  align-items: center;
+
+  color: var(--secondary-text-color);
+  margin-bottom: 20px;
+}
+
+.dialog-summary {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+}
+
+.dialog-summary-title {
+  flex: 1;
+  font-weight: 600;
+}
+
+.dialog-summary-sub {
+  flex: 3;
+}
+
+.dialog-root > hr {
+  border: 0;
+  height: 1px;
+  background: rgba(44, 44, 44, 0.22);
+  margin-bottom: 6px;
+  margin-top: 6px;
 }
 </style>
