@@ -18,9 +18,9 @@
           </thead>
           <tbody>
               <tr :key="i.idx" v-for="i in (0,20)">
-                          <td><PayData :payox="payox"/>payox</td>
-                          <td><PayData :date="date"/>date</td>
-                          <td><PayData :cost="cost"/>cost</td>
+                    <td><PayData :payox="payox"/>payox {{payox}}</td>
+                    <td><PayData :date="date"/>date {{date}}</td>
+                    <td><PayData :cost="cost"/>cost {{cost}}</td>
               </tr>
           </tbody>
           </v-table>
