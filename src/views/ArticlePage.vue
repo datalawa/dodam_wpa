@@ -8,6 +8,12 @@
         <span class="material-icons-round goBack" @click="goBack">close</span>
         <div class="post-right">
           <div v-if="exist" class="post-right-top">
+            <div v-if="article.board_board_pk === 3" class="top-info-complain">
+              <div v-if="article.post_tag === 1" class="complianitem-complain-head head-red">민원</div>
+              <div v-else class="complianitem-complain-head head-blue">QnA</div>
+              <div v-if="article.post_refer === null" class="complain-status">답변대기</div>
+              <div v-else class="complain-status">답변완료</div>
+            </div>
             <div class="post-top-title">{{ article.post_title }}</div>
             <div class="post-top-view">{{ numberWithCommas(article.view_count) }}회</div>
             <div class="post-top-sub">
@@ -21,7 +27,7 @@
           </div>
           <md-editor class="post-content" v-model="article.post_text" language="en-US" :previewOnly="true"/>
           <hr class="leftright">
-          <div class="post-comment-root">
+          <div v-if="article.board_board_pk !== 3" class="post-comment-root">
             <div class="post-info">
               <div class="post-info-item">
                 <span class="material-icons-round">chat</span>
@@ -36,6 +42,21 @@
             <Comment v-for="item in comment_list" :key="item" :reply="item.reply" :depth="0"
                     :writer-name="item.user_user_pk.user_nm" :content="item.comment_text"
                     :wirte-time="item.comment_write_time.substring(0, 10) + ' ' + item.comment_write_time.substring(11, 19)"></Comment>
+          </div>
+          <div v-else class="post-right">
+            <div v-if="exist" class="post-right-top">
+              <div class="post-top-title">{{ article.post_title }}</div>
+              <div class="post-top-view">{{ numberWithCommas(article.view_count) }}회</div>
+              <div class="post-top-sub">
+                <div class="post-top-sub-author">{{ article.user_user_pk.user_nm }}</div>
+                <hr class="updown">
+                <div class="post-top-sub-author">{{ article.post_write_time.substring(0, 10) }}</div>
+                <hr v-if="uid === article.user_user_pk.user_pk || role >= 100" class="updown">
+                <span v-if="uid === article.user_user_pk.user_pk || role >= 100"
+                      class="material-icons-round" @click="articleDelete">delete</span>
+              </div>
+            </div>
+            <md-editor class="post-content" v-model="article.post_text" language="en-US" :previewOnly="true"/>
           </div>
         </div>
       </div>
