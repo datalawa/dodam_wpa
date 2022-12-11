@@ -5,8 +5,8 @@
         <div class="left-right-corner-floor">{{floor}}</div>
       </div>
       <div class="parking-remain">
-        <div class="floorF1">F1 {{F1seat}}/40</div>
-        <div class="floorB1">B1 {{B1seat}}/40</div>
+        <div class="floorF1">F1 {{F1seat}}/{{ totalF1seat }}</div>
+        <div class="floorB1">B1 {{B1seat}}/{{ totalB1seat }}</div>
       </div>
       <div class="parking-tile-top">
         <SeatBoxGroup1/>
@@ -41,6 +41,8 @@ export default {
     props:{
         B1seat:Number,
         F1seat:Number,
+        totalB1seat:Number,
+        totalF1seat:Number,
         floor: String
     },
     components: {SeatBoxGroup1,SeatBoxGroup2, SeatBoxGroup3, SeatBoxGroup4, SeatInf},

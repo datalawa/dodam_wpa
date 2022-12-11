@@ -4,8 +4,10 @@
     <SideBar :is-hidden="false"></SideBar>
     <div id="section-main-transparent" class="open"></div>
     <div id="section-main-content">
-      <ParkingLotB1View v-if="layer === 'B1'"></ParkingLotB1View>
-      <ParkingLotView v-else-if="layer === 'F1'"></ParkingLotView>
+      <ParkingLotData  v-if="layer === 'B1'" :total-b1seat="parkB1Data.length"
+                       :B1seat="25" :F1seat="20" :floor="'B1'" :total-f1seat="parkF1Data.length" />
+      <ParkingLotData v-else-if="layer === 'F1'" :total-b1seat="parkB1Data.length"
+                      :B1seat="25" :F1seat="20" :floor="'F1'"  :total-f1seat="parkF1Data.length" />
     </div>
   </div>
 </template>
@@ -16,18 +18,19 @@ import SideBar from "@/components/sidebar/SideBar";
 import router from "@/routers/router";
 import ParkingLotB1View from "@/views/datalawa/ParkingLotB1View";
 import ParkingLotView from "@/views/datalawa/ParkingLotView";
+import ParkingLotData from "@/components/ParkingLotData";
 
-// const evtSource = new EventSource("/api/v1/parking/1f");
-// evtSource.onmessage = function(event) {
-//   console.log("event")
-//   console.log(event)
-// }
-
-let sseClient;
+let sseF1, sseB1;
 
 export default {
   name: "ParkingLotInformPage",
-  components: {ParkingLotView, ParkingLotB1View, SideBar, NavigationBar},
+  components: {ParkingLotData, ParkingLotView, ParkingLotB1View, SideBar, NavigationBar},
+  data() {
+    return {
+      parkF1Data: [],
+      parkB1Data: [],
+    }
+  },
   props: {
     layer: {
       default: '',
@@ -40,43 +43,47 @@ export default {
       router.go(-1)
     }
     console.log(this.layer)
-    this.$axios.get(
-      "/api/v1/parking/1f", {
-        timeout: 5000,
-        headers: {
-          'Access-Control-Allow-Origin': '*'
-        }
-      },
-    )
-      .then(function (response) {
-        // 성공 핸들링
-        console.log(response);
-      })
-      .catch(function (error) {
-        // 에러 핸들링
-        console.log(error);
-      })
-      .then(function () {
-        // 항상 실행되는 영역
-      });
   },
   mounted() {
-    sseClient = this.$sse.create({
-      url: '/api/v1/parking/1f',
+    sseF1 = this.$sse.create({
+      url: 'https://api.springnote.blog/api/v1/parking/1f',
       format: 'plain',
       // withCredentials: true,
       // polyfill: true,
     });
 
     // Handle messages without a specific event
-    sseClient.on('message', this.handleMessage);
+    sseF1.on('message', this.handleMessage);
 
-    sseClient.connect()
+    sseF1.connect()
       .then(sse => {
         console.log('We\'re connected!');
         console.log(sse)
         setTimeout(() => {
-          sseClient.off('message', this.handleMessage);
+          sseF1.off('message', this.handleMessage);
+          console.log('Stopped listening to event-less messages!');
+        }, 7000);
+      })
+      .catch((err) => {
+        console.error('Failed to connect to server', err);
+      });
+
+    sseB1 = this.$sse.create({
+      url: 'https://api.springnote.blog/api/v1/parking/b1',
+      format: 'plain',
+      // withCredentials: true,
+      // polyfill: true,
+    });
+
+    // Handle messages without a specific event
+    sseB1.on('message', this.handleB1Message);
+
+    sseB1.connect()
+      .then(sse => {
+        console.log('We\'re connected!');
+        console.log(sse)
+        setTimeout(() => {
+          sseB1.off('message', this.handleB1Message);
           console.log('Stopped listening to event-less messages!');
         }, 7000);
       })
@@ -86,11 +93,19 @@ export default {
   },
   methods: {
     handleMessage(message, lastEventId) {
-      console.warn('Received a message w/o an event!', message, lastEventId);
+      // console.log('Received a message w/o an event!', message, lastEventId);
+      this.parkF1Data = eval(message);
+      console.log('Received a message w/o an event!', this.parkF1Data, lastEventId);
+    },
+    handleB1Message(message, lastEventId) {
+      // console.log('Received a message w/o an event!', message, lastEventId);
+      this.parkB1Data = eval(message);
+      console.log('Received a message w/o an event!', this.parkB1Data, lastEventId);
     },
   },
   beforeDestroy() {
-    sseClient.disconnect();
+    sseF1.disconnect();
+    sseB1.disconnect();
   },
 }
 </script>

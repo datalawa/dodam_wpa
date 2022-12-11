@@ -4,15 +4,13 @@ module.exports = defineConfig({
   lintOnSave: false,
   devServer: {
     proxy: {
-      '^/hub': {
-        target: 'http://127.0.0.1',
-        changeOrigin: true,
-        port: 8000
+      '/hub': {
+        target: 'https://api.springnote.blog',
       },
-      '^/api': {
-        target: 'https://datalawa-api.hrabit64.xyz',
-        changeOrigin: true
-      },
+      // '^/api': {
+      //   target: 'https://datalawa-api.hrabit64.xyz',
+      //   changeOrigin: true
+      // },
     }
   },
   pluginOptions: {

@@ -11,7 +11,8 @@ import {tr} from "vuetify/lib/locale";
 const store = createStore({
   state: {
     user: null,
-    authIsReady: false
+    authIsReady: false,
+    idToken: ''
   },
   mutations: {
     setUser(state, payload) {
@@ -20,6 +21,9 @@ const store = createStore({
     },
     setAuthIsReady(state, payload) {
       state.authIsReady = payload
+    },
+    setTokenUID(state, payload) {
+      state.idToken = payload
     }
   },
   actions: {
@@ -43,6 +47,15 @@ const store = createStore({
       await signOut(auth)
       console.log('logout')
       context.commit('setUser', null)
+    },
+    async getToken(context){
+      const response = await auth.currentUser.getIdToken()
+      console.log(response)
+      if (response) {
+        context.commit('setTokenUID', response)
+      } else {
+        throw new Error('login failed')
+      }
     }
   }
 });

@@ -72,7 +72,7 @@ export default {
   computed: {
     async getArticles() {
       const result = await this.$axios.get(
-        "http://127.0.0.1:8000/hub/board/post/" + this.post_pk, {
+        "https://api.springnote.blog/hub/board/post/" + this.post_pk, {
           timeout: 5000
         },
       )
@@ -87,7 +87,7 @@ export default {
     },
     async getComment() {
       const result = await this.$axios.get(
-        "http://127.0.0.1:8000/hub/board/post/comment/?post_post_pk=" + this.post_pk, {
+        "https://api.springnote.blog/hub/board/post/comment/?post_post_pk=" + this.post_pk, {
           timeout: 5000
         },
       )

@@ -69,7 +69,7 @@ export default {
     },
     async getArticles() {
       const result = await this.$axios.get(
-        "http://127.0.0.1:8000/hub/board/post/?board_board_pk=1&page_size=25&page=" + this.page, {
+        "https://api.springnote.blog/hub/board/post/?board_board_pk=1&page_size=25&page=" + this.page, {
           timeout: 5000
         },
       )
