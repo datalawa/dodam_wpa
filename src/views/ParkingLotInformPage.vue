@@ -4,10 +4,12 @@
     <SideBar :is-hidden="false"></SideBar>
     <div id="section-main-transparent" class="open"></div>
     <div id="section-main-content">
-      <ParkingLotData  v-if="layer === 'B1'" :total-b1seat="parkB1Data.length"
-                       :B1seat="25" :F1seat="20" :floor="'B1'" :total-f1seat="parkF1Data.length" />
-      <ParkingLotData v-else-if="layer === 'F1'" :total-b1seat="parkB1Data.length"
-                      :B1seat="25" :F1seat="20" :floor="'F1'"  :total-f1seat="parkF1Data.length" />
+      <ParkingLotData  v-if="layer === 'B1'" :total-b1seat="parkB1Data.length" :statusData="parkB1Data"
+                       :B1seat="getUsingCount(parkB1Data)" :F1seat="getUsingCount(parkF1Data)"
+                       :floor="'B1'" :total-f1seat="parkF1Data.length" />
+      <ParkingLotData v-else-if="layer === 'F1'" :total-b1seat="parkB1Data.length" :statusData="parkF1Data"
+                      :B1seat="getUsingCount(parkB1Data)" :F1seat="getUsingCount(parkF1Data)"
+                      :floor="'F1'"  :total-f1seat="parkF1Data.length" />
     </div>
   </div>
 </template>
@@ -96,12 +98,21 @@ export default {
       // console.log('Received a message w/o an event!', message, lastEventId);
       this.parkF1Data = eval(message);
       console.log('Received a message w/o an event!', this.parkF1Data, lastEventId);
+      this.$store.commit("setParking1FData", this.parkF1Data)
     },
     handleB1Message(message, lastEventId) {
       // console.log('Received a message w/o an event!', message, lastEventId);
       this.parkB1Data = eval(message);
       console.log('Received a message w/o an event!', this.parkB1Data, lastEventId);
+      this.$store.commit("setParkingB1Data", this.parkB1Data)
     },
+    getUsingCount(data) {
+      let count = 0
+      for(let item of data) {
+        if (item.status) count++
+      }
+      return count
+    }
   },
   beforeDestroy() {
     sseF1.disconnect();

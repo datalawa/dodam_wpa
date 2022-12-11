@@ -16,7 +16,7 @@
 <script>
 export default {
     props:{
-        number:Number,
+      number:Number,
       type: {
           type: String,
           default: 'normal'

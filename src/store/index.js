@@ -12,7 +12,9 @@ const store = createStore({
   state: {
     user: null,
     authIsReady: false,
-    idToken: ''
+    idToken: '',
+    parking1FData: [],
+    parkingB1Data: []
   },
   mutations: {
     setUser(state, payload) {
@@ -24,6 +26,13 @@ const store = createStore({
     },
     setTokenUID(state, payload) {
       state.idToken = payload
+    },
+    setParking1FData(state, payload) {
+      state.parking1FData = payload
+      console.log("f1", payload)
+    },
+    setParkingB1Data(state, payload) {
+      state.parkingB1Data = payload
     }
   },
   actions: {
