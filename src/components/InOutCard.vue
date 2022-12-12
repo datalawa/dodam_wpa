@@ -4,14 +4,10 @@
       <div class="car-number">{{ carNum }}</div>
       <div class="car-inout-time-root">
         <div class="car-inout-time-time">
-          {{("00" + inTime.getMonth().toString()).slice(-2) +
-        '.' + ("00" + inTime.getDay().toString()).slice(-2) + " " +
-        ("00" + inTime.getHours().toString()).slice(-2)
-        + ":" + ("00" + inTime.getMinutes().toString()).slice(-2)  +
-        ":" + ("00" + inTime.getSeconds().toString()).slice(-2)}}
+          {{ inTime !== null?getTimeData(inTime):'-' }}
         </div>
         <div class="car-inout-time-text">
-          최근 입차 시간
+          최근 {{ inoutType?"출차":"입차" }} 시간
         </div>
       </div>
     </div>
@@ -59,8 +55,8 @@ export default {
   components: {CarNum},
   props:{
     inTime:{
-      type: Date,
-      default: () => {return new Date()}
+      type: String,
+      default: null
     },
     carNum: {
       type: String,
@@ -68,11 +64,16 @@ export default {
     },
     isVisiting: false,
     vhclType: false,
+    inoutType: false
   },
   setup() {},
   created() {},
   unmounted() {},
-  methods: {},
+  methods: {
+    getTimeData(d) {
+      return d.substring(5, 7) + '.' + d.substring(8, 10) + ' ' + d.substring(11, 20)
+    }
+  },
   data () {
     return {
       dialog: false,
