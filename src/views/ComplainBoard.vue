@@ -17,7 +17,7 @@
           <ComplainItem v-for="item in article_data" v-bind:key="item" :pk="item.post_pk"
                           :title="item.post_title" :author="item.user_user_pk.user_nm"
                           :write-time="item.post_write_time.substring(0, 10)" :is-complain="item.post_tag"
-                          :finish="post_refer !== null"></ComplainItem>
+                          :finish="item.post_refer !== null"></ComplainItem>
         </div>
       </div>
       <v-pagination
