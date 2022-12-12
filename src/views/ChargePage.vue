@@ -23,7 +23,9 @@
                 </select>
               </div>
               <div class="section-fee-montly-middle">
-                <div class="section-fee-monthly-fee">{{ numberWithCommas(fee) }}원</div>
+                <div class="section-fee-monthly-fee">
+                  {{ billData.length > 0?numberWithCommas(billData[0].our):0 }}원
+                </div>
                 <v-btn
                   icon="mdi-credit-card-outline"
                   variant="tonal"
@@ -36,22 +38,31 @@
             <div class="card background-shadow section-fee-monthly-detail">
               <div class="section-fee-detail-top">
                 <div class="section-fee-detail-top-title dashboard-text-title">관리비 분석</div>
-                <div class="section-fee-detail-top-sub">
-                  평균대비 <div class="section-fee-detail-top-sub-money text-blue">-15300원</div>
+                <div v-if="billData.length > 0" class="section-fee-detail-top-sub">
+                  평균대비
+                  <div v-if="billData[0].our - billData[0].avg < 0" class="section-fee-detail-top-sub-money text-blue">{{ numberWithCommas(billData[0].our - billData[0].avg) }}원</div>
+                  <div v-else class="section-fee-detail-top-sub-money text-red">{{ numberWithCommas(billData[0].our - billData[0].avg) }}원</div>
+                </div>
+                <div v-else class="section-fee-detail-top-sub">
+                  평균대비 0원
                 </div>
               </div>
               <div class="section-fee-detail-middle">
                 <div class="section-fee-detail-info">
                   <div class="section-fee-detail-info-top">
                     <div class="section-fee-detail-info-top-title">우리집</div>
-                    <div class="section-fee-detail-info-top-price">{{ numberWithCommas(fee) }}원</div>
+                    <div class="section-fee-detail-info-top-price">
+                      {{ billData.length > 0?numberWithCommas(billData[0].our):0 }}원
+                    </div>
                   </div>
                   <canvas id="section-fee-graph-our"></canvas>
                 </div>
                 <div class="section-fee-detail-info">
                   <div class="section-fee-detail-info-top">
                     <div class="section-fee-detail-info-top-title">전체평균</div>
-                    <div class="section-fee-detail-info-top-price">{{ numberWithCommas(fee) }}원</div>
+                    <div class="section-fee-detail-info-top-price">
+                      {{ billData.length > 0?numberWithCommas(billData[0].avg):0 }}원
+                    </div>
                   </div>
                   <canvas id="section-fee-graph-avg"></canvas>
                 </div>
@@ -74,7 +85,9 @@
             <hr class="sec dashed">
             <div class="section-fee-total">
               <div class="section-fee-total-title">합계</div>
-              <div class="section-fee-total-amount">{{ numberWithCommas(totalper) + '원' }}</div>
+              <div class="section-fee-total-amount">
+                {{ billData.length > 0?numberWithCommas(totalper):0 }}원
+              </div>
             </div>
           </div>
           <div class="section-fee-common background-shadow card">
@@ -87,7 +100,9 @@
             <hr class="sec dashed">
             <div class="section-fee-total">
               <div class="section-fee-total-title">합계</div>
-              <div class="section-fee-total-amount">{{ numberWithCommas(totalpublic) + '원' }}</div>
+              <div class="section-fee-total-amount">
+                {{ billData.length > 0?numberWithCommas(totalpublic):0 }}원
+              </div>
             </div>
           </div>
         </div>
@@ -120,6 +135,7 @@ export default {
       idToken: computed(() => store.state.idToken),
       uid: computed(() => store.state.uid),
       authIsReady: computed(() => store.state.authIsReady),
+      houseHold: computed(() => store.state.houseHold),
     }
   },
   data: () => {
@@ -131,23 +147,27 @@ export default {
     for (let i = 2018;i < 2023;i++) {
       year.push(i + "년")
     }
+
+    let dateTime = new Date()
+    dateTime = new Date(dateTime.toISOString().substring(0, 7) + '-01')
+    dateTime.setMonth(dateTime.getMonth() - 1)
     return {
+      selectedDate: dateTime,
       month: month,
       year: year,
-      fee: 150000,
       resultper: [],
       resultpublic: [],
       totalper: 0,
-      totalpublic: 0
+      totalpublic: 0,
+      billData: []
     }
   },
-  mounted() {
+  async mounted() {
     // const graphCanvas = document.getElementById("section-fee-graph-view");
     window.addEventListener('resize', this.drawGraph);
     // graphCanvas.addEventListener("animationstart", this.drawGraph);
     // graphCanvas.addEventListener("animationend", this.drawGraph);
     // graphCanvas.addEventListener("animationiteration", this.drawGraph);
-    this.drawGraph();
     if (this.authIsReady) {
       this.getBillDate();
       this.getBillHouseHold();
@@ -170,23 +190,7 @@ export default {
       // console.log(graphCanvas)
       // console.log(this.graphCanvasWidth);
       // console.log(this.graphCanvasHeight);
-      const data = [
-        {
-          'month': '7월',
-          'avg': 193000,
-          'our': 184785
-        },
-        {
-          'month': '8월',
-          'avg': 213000,
-          'our': 223435,
-        },
-        {
-          'month': '9월',
-          'avg': 173000,
-          'our': 123435,
-        }
-      ]
+      const data = this.billData
       const canvasWidth = graphCanvas.offsetWidth * 2;
       const canvasHeight = graphCanvas.offsetHeight * 2;
       graphCanvas.width = canvasWidth;
@@ -194,7 +198,12 @@ export default {
       const yAxisHeight = 60 * 2;
       const yPaddingTop = 20 * 2;
       const xAxisHeight = 60 * 2;
-      const maxCost = 250000 + 50000
+
+      let maxCost = 0
+      for (let c of data) {
+        maxCost = Math.max(maxCost, c.our, c.avg)
+      }
+      maxCost += 50000
       if (graphCanvas.getContext) {
         var ctx = graphCanvas.getContext("2d");
         const line_y = [];
@@ -224,7 +233,7 @@ export default {
         i = xAxisStart;
 
         const barLengthX = 20
-        for (let j = 0;j < data.length;j++) {
+        for (let j = data.length - 1;j > -1;j--) {
           ctx.font = "700 25px Roboto";
           ctx.fillStyle = '#00000044';
           ctx.textAlign = "center";
@@ -305,28 +314,53 @@ export default {
   return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     },
     async getBillDate() {
-      const result = await this.$axios.get(
-        "https://api.springnote.blog/api/v1/bill/data/2022-09-01", {
-          timeout: 5000,
+      const bills = []
+      let dateTime = this.selectedDate
+      for (let i = 0;i < 4;i++) {
+        const dtString = dateTime.toISOString().substring(0, 7) + '-01'
+        try {
+          const result = await this.$axios.get(
+            "https://api.springnote.blog/api/v1/bill/data/" + dtString + "?isOnlyBill=true", {
+              timeout: 5000,
               headers: {
                 Authorization: "Bearer " + this.idToken
               }
-        },
-      )
-      console.log("bill",result);
+            },
+          )
 
-
-      if (result !== null && result.status == 200) {
-        console.log(result)
-        this.total_count = result.data.total_count;
-        this.article_data = result.data.results
-      } else {
-        this.article_data = []
+          if (result !== null && result.status == 200) {
+            // console.log("bill", dtString, result);
+            let avg = 0
+            let our = 0
+            if (result.data.length > 0) {
+              for (let item of result.data) {
+                if (item.house_hold_id === this.houseHold) {
+                  our = item.cost
+                }
+                avg += item.cost
+              }
+              avg = Math.floor(avg / result.data.length)
+            }
+            bills.push({'our': our, 'avg': avg, 'month': dateTime.getMonth() + 1})
+          } else {
+            console.error("bill not found")
+            bills.push({'our': 0, 'avg': 0, 'month': dateTime.getMonth() + 1})
+          }
+        } catch (e) {
+          bills.push({'our': 0, 'avg': 0, 'month': dateTime.getMonth() + 1})
+        }
+        dateTime.setMonth(dateTime.getMonth() - 1)
+      }
+      console.log(bills)
+      this.billData = bills
+      if (this.billData.length > 0) {
+        this.drawGraph();
       }
     },
     async getBillHouseHold() {
+      const dtString = this.selectedDate.toISOString().substring(0, 7) + '-01'
       const result = await this.$axios.get(
-        "https://api.springnote.blog/api/v1/bill/data/2022-09-01/household/4", {
+        "https://api.springnote.blog/api/v1/bill/data/" + dtString + "/household/" + this.houseHold, {
           timeout: 5000,
               headers: {
                 Authorization: "Bearer " + this.idToken
@@ -346,10 +380,8 @@ export default {
 
         for (let i=0; i<this.resultpublic.length; i++) {
           this.totalpublic = this.totalpublic + this.resultpublic[i].per_cost}
-
-
       } else {
-        this.article_data = []
+        alert("부과목록 오류")
       }
     }
   },
@@ -367,10 +399,12 @@ export default {
     }
   },
   watch: {
-    idToken: function (val) {
-      console.log(val)
-      this.getBillHouseHold()
-      this.getBillDate()
+    authIsReady: function (val) {
+      if (val) {
+        console.log(val)
+        this.getBillHouseHold()
+        this.getBillDate()
+      }
     }
 }
 }

@@ -13,8 +13,9 @@
         </div>
         <div class="section-fee-contents">
           <div class="section-inout-cards" v-if="myCars.length > 0">
-            <InOutCard v-for="item in myCars" :key="item"
-            :car-num="item.id" :is-visiting="item.is_visiting" :vhcl-type="item.vhcl_type_name"></InOutCard>
+            <InOutCard v-for="(item, idx) in myCars" :key="item"
+            :car-num="item.id" :is-visiting="item.is_visiting" :vhcl-type="item.vhcl_type_name"
+            :in-time="item.dttm" :inout-type="item.inout"></InOutCard>
           </div>
           <div class="card background-shadow inout-root">
             <div class="section-inout-title">입출차 기록</div>
@@ -35,7 +36,7 @@
               </thead>
               <tbody>
               <tr
-                v-for="(item, idx) in carLogs[chipSelected]" :key="item.name">
+                v-for="item in carLogs[chipSelected]" :key="item.name">
                 <td v-if="item.type" ><div class="board-item-inout-head head-red">출차</div></td>
                 <td v-else><div class="board-item-inout-head head-blue">입차</div></td>
                 <td>{{ myCars[chipSelected].vhcl_type_name }}</td>
@@ -103,7 +104,7 @@ export default {
       carTypeInput: '소형',
       myCars: [],
       chipSelected: -1,
-      carLogs: []
+      carLogs: [],
     }
   },
   setup: () => {
@@ -242,6 +243,7 @@ export default {
 
       this.carLogs = []
       const carLogs = []
+      let idx = 0
       for (let car of this.myCars) {
         let selectedCar = car.id
         console.log(selectedCar)
@@ -260,15 +262,28 @@ export default {
 
           if (result !== null && result.status === 200) {
             console.log(result)
-            carLogs.push(result.data)
+            if (result.data.length > 0) {
+              carLogs.push(result.data.reverse())
+              this.myCars[idx].dttm = result.data[0].dttm
+              this.myCars[idx].inout = result.data[0].type
+            } else {
+              carLogs.push([])
+              this.myCars[idx].dttm = '-'
+              this.myCars[idx].inout = false
+            }
           } else {
             alert("통신중 오류")
             carLogs.push([])
+            this.myCars[idx].dttm = '-'
+            this.myCars[idx].inout = false
           }
         } catch (e) {
           alert("통신중 오류")
           carLogs.push([])
+          this.myCars[idx].dttm = '-'
+          this.myCars[idx].inout = false
         }
+        idx += 1
       }
       this.carLogs = carLogs;
     }
