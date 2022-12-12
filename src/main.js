@@ -5,7 +5,11 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 import getConfig from './secrets/secret'
 
+import axios from 'axios'
+
 let app = createApp(App)
+
+app.config.globalProperties.$axios = axios;
 
 app.use(router)
   .use(vuetify)

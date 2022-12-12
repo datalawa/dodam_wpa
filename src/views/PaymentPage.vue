@@ -64,6 +64,7 @@ import { loadScript } from "@paypal/paypal-js";
 import SideBar from "@/components/sidebar/SideBar";
 import NavigationBar from "@/components/NavigationBar";
 import PaymentDetailItem from "@/components/list/PaymentDetailItem";
+import axios from "axios";
 
 export default {
   name: "PaymentPage",
@@ -71,6 +72,15 @@ export default {
   data: () => {
     return {
       total: 233049
+    }
+  },
+  setup: () => {
+    const store = useStore()
+    return {
+      user: computed(() => store.state.user),
+      role: computed(() => store.state.role),
+      idToken: computed(() => store.state.idToken),
+      uid: computed(() => store.state.uid),
     }
   },
   computed: {
@@ -130,7 +140,50 @@ export default {
         .catch((err) => {
           console.error(err)
         });
+  },
+  mounted(){
+    this.getBillDate()
+  },
+  method:{
+    async getBillDate() {
+      const result = await this.$axios.get(
+        "https://api.springnote.blog//api/v1/bill/data/2022-09-01", {
+          timeout: 5000
+        },
+      )
+      console.log(result);
+
+
+      if (result !== null && result.status == 200) {
+        console.log(result)
+        this.total_count = result.data.total_count;
+        this.article_data = result.data.results
+      } else {
+        this.article_data = []
+      }
+    },
+    async getBillHouseHold() {
+      const result = await this.$axios.get(
+        "https://api.springnote.blog//api/v1/bill/data/2022-09-01/household/{houseHoldId}", {
+          timeout: 5000
+        },
+      )
+      console.log(result);
+
+
+      if (result !== null && result.status == 200) {
+        console.log(result)
+        this.total_count = result.data.total_count;
+        this.article_data = result.data.results
+      } else {
+        this.article_data = []
+      }
+    }
+
   }
+  // beforeMount(){
+
+  // }
 }
 </script>
 
