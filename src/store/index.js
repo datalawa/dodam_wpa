@@ -18,7 +18,7 @@ const store = createStore({
     parkingB1Data: [],
     role: 0,
     uid: "",
-    houseHold: -1
+    houseHold: -1,
     name: ""
   },
   mutations: {
