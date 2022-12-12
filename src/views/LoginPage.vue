@@ -48,11 +48,7 @@
                       block
                       rounded
                       size="45px"
-<<<<<<< HEAD
-                      v-on:click="login"
-=======
                       v-on:click="loginAction"
->>>>>>> a382f7432b0027c3ed2770ccc1a0d2aeca9149a6
                   >
                     로그인
                   </v-btn>
