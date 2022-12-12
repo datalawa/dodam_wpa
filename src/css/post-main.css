@@ -40,6 +40,21 @@
     flex-grow: 0;
 }
 
+.post-right-top-answer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0px;
+    gap: 3px;
+
+    height: 42px;
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
 .post-top-title {
     width: 100%;
     height: 24px;

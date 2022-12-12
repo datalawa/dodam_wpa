@@ -43,9 +43,9 @@
                     :writer-name="item.user_user_pk.user_nm" :content="item.comment_text"
                     :wirte-time="item.comment_write_time.substring(0, 10) + ' ' + item.comment_write_time.substring(11, 19)"></Comment>
           </div>
-          <div v-else-if="article.board_board_pk === 3 && article.post_refer !== null"
+          <div v-else-if="article.board_board_pk === 3 && article.post_refer !== null && Object.keys(articleAnswer).length > 0"
                class="post-right">
-            <div class="post-right-top">
+            <div class="post-right-top-answer">
               <div class="post-top-title">{{ articleAnswer.post_title }}</div>
               <div class="post-top-sub">
                 <div class="post-top-sub-author">{{ articleAnswer.user_user_pk.user_nm }}</div>
@@ -133,8 +133,8 @@ export default {
         console.log(result)
         this.article = result.data
         this.exist = true;
-        this.answerPk = result.data.post_refer
-        if (this.answerPk !== null) {
+        if (result.data.post_refer !== null) {
+          this.answerPk = result.data.post_refer.post_pk
           this.getAnswerArticles
         }
       } else {
@@ -145,6 +145,7 @@ export default {
       if (this.answerPk === null) {
         return
       }
+      console.log('answer pk', this.answerPk)
       const result = await this.$axios.get(
         "https://api.springnote.blog/hub/board/post/" + this.answerPk, {
           timeout: 5000
@@ -152,7 +153,6 @@ export default {
       )
       // console.log(result);
       if (result !== null && result.status === 200) {
-        console.log(result)
         this.articleAnswer = result.data
       } else {
         this.articleAnswer = {}
