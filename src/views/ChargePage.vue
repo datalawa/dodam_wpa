@@ -350,7 +350,7 @@ export default {
       }
     },
     numberWithCommas(x) {
-  return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+      return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     },
     async getBillDate() {
       this.billData = []
@@ -450,7 +450,7 @@ export default {
         this.getBillDate()
       }
     }
-}
+  }
 }
 </script>
 
