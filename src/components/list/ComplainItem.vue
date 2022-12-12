@@ -7,8 +7,8 @@
       <div class="board-item-complain-author">{{ author }}</div>
       <div class="board-item-complain-writetime">{{ writeTime }}</div>
       <div class="board-item-complain-finish">
-        <span v-if="finish" class="material-icons-round orange">hourglass_empty</span>
-        <span v-else class="material-icons-round green">check_circle_outline</span>
+        <span v-if="finish" class="material-icons-round green">check_circle_outline</span>
+        <span v-else class="material-icons-round orange">hourglass_empty</span>
       </div>
     </div>
     <div class="section-board-content-divider"></div>
