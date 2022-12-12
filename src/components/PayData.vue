@@ -43,6 +43,7 @@ export default {
       role: computed(() => store.state.role),
       idToken: computed(() => store.state.idToken),
       uid: computed(() => store.state.uid),
+      household: computed(() => store.state.household),
     }
   },
 
@@ -50,11 +51,11 @@ export default {
   //   unmounted() {},
   methods: {
     async getstatus() {
-      const idToken = await this.user.getIdToken()
-      const uid = await this.user.uid
+      const idToken = this.idToken
+      const uid = this.uid
       try {
         const response = await this.$axios.get(
-          "https://api.springnote.blog/api/v1/pay/household/{}",
+          "https://api.springnote.blog/api/v1/pay/household/" + this.household,
           {
             headers: {
               Authorization: 'Bearer' + idToken
@@ -63,25 +64,27 @@ export default {
           },
         )
         if (response.status === 200) {
-          await this.getstatus()
+          console.log('paydata getStatus', response)
+          this.payox = response.data.status_name
+        //   await this.getstatus()
         } else {
           console.error(response.data)
-          alert('통신 오류 발생')
+          alert('통신 오류')
           return;
         }
       } catch (e) {
         console.error(e.response.data)
         alert('통신 오류')
-        return;
+        return;3
       }
     },
 
     async getdate() {
-      const idToken = await this.user.getIdToken()
-      const uid = await this.user.uid
+      const idToken = this.idToken
+      const uid = this.uid
       try {
         const response = await this.$axios.get(
-          "https://api.springnote.blog/api/v1/pay/household/{}",
+          "https://api.springnote.blog/api/v1/pay/household/" + this.household,
           {
             headers: {
               Authorization: 'Bearer' + idToken
@@ -90,10 +93,12 @@ export default {
           },
         )
         if (response.status === 200) {
-          await this.getstatus()
+          console.log(response)
+          this.date = response.data.mod_dttm
+        //   await this.getdate()
         } else {
           console.error(response.data)
-          alert('통신 오류 발생')
+          alert('통신 오류')
           return;
         }
       } catch (e) {
@@ -104,11 +109,11 @@ export default {
     },
 
     async getcost() {
-      const idToken = await this.user.getIdToken()
-      const uid = await this.user.uid
+      const idToken = this.idToken
+      const uid = this.uid
       try {
         const response = await this.$axios.get(
-          "https://api.springnote.blog/api/v1/pay/household/{}",
+          "https://api.springnote.blog/api/v1/pay/household/" + this.household,
           {
             headers: {
               Authorization: 'Bearer' + idToken
@@ -117,10 +122,12 @@ export default {
           },
         )
         if (response.status === 200) {
-          await this.getstatus()
+          console.log(response)
+          this.cost = response.data.cost
+        //   await this.getcost()
         } else {
           console.error(response.data)
-          alert('통신 오류 발생')
+          alert('통신 오류')
           return;
         }
       } catch (e) {
@@ -138,3 +145,7 @@ export default {
   }
 }
 </script>
+
+<style>
+@import "../css/view-main.css";
+</style>
