@@ -263,7 +263,7 @@ export default {
           if (result !== null && result.status === 200) {
             console.log(result)
             if (result.data.length > 0) {
-              carLogs.push(result.data.reverse())
+              carLogs.push(result.data)
               this.myCars[idx].dttm = result.data[0].dttm
               this.myCars[idx].inout = result.data[0].type
             } else {

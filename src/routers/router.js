@@ -44,7 +44,7 @@ const router = new createRouter({
         {path: '/datalawa/mycar', name: 'MyCarView', component: MyCarView},
         {path: '/datalawa/parkinglot', name: 'ParkingLotView', component: ParkingLotView},
         {path: '/datalawa/parkinglotB1', name: 'ParkingLotB1View', component: ParkingLotB1View},
-        {path: '/datalawa/paylist', name: 'PayListView', component: PayListView}
+        {path: '/paylist', name: 'PayListView', component: PayListView}
     ]
 });
 
