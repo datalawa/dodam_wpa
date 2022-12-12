@@ -5,31 +5,33 @@
       <div id="section-main-transparent" class="open"></div>
       <div id="section-main-content">
         <div class="section-board-root">
-          <div class="section-board-top">
-            <h3>납부기록</h3>
-            총 1건의 납부한 결과가 있습니다.
-            <v-table class="content-box">
-            <thead>
+          <div class="pay-root card background-shadow">
+            <div class="parking-title">납부기록</div>
+            <div>
+              <v-table>
+                <thead>
                 <tr>
-                <th>
+                  <th width="100px">
                     납부상태
-                </th>
-                <th>
+                  </th>
+                  <th>
                     날짜
-                </th>
-                <th>
+                  </th>
+                  <th>
                     납부액
-                </th>
+                  </th>
                 </tr>
-            </thead>
-            <tbody v-if="household >= 0">
+                </thead>
+                <tbody v-if="household >= 0">
                 <tr :key="i" v-for="(item, i) in payox">
-                        <td>{{item}}</td>
-                        <td>{{date[i]}}</td>
-                        <td>{{cost[i]}}</td>
+                  <td v-if="item === '미납'" ><div class="board-item-inout-head head-red">미납</div></td>
+                  <td v-else><div class="board-item-inout-head head-blue">납입</div></td>
+                  <td>{{date[i].substring(0,10) + ' ' + date[i].substring(11,20)}}</td>
+                  <td>{{numberWithCommas(cost[i])}}</td>
                 </tr>
-            </tbody>
-            </v-table>
+                </tbody>
+              </v-table>
+            </div>
         </div>
       </div>
     </div>
@@ -76,6 +78,9 @@ export default {
   //   created() {},
   //   unmounted() {},
   methods: {
+    numberWithCommas(x) {
+      return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    },
     async getstatus() {
       const idToken = this.idToken
       console.log('status token', idToken)
@@ -195,6 +200,21 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 @import "../../css/view-main.css";
+
+.pay-root {
+  width: 100%;
+  padding: 20px;
+}
+
+td {
+  text-align: center;
+}
+
+.board-item-inout-head {
+  text-align: center;
+  color: #FFFFFF;
+  border-radius: 5px;
+}
 </style>

@@ -15,11 +15,11 @@
           <div class="section-fee-contents-left">
             <div class="card background-shadow section-fee-monthly">
               <div class="section-fee-monthly-selector">
-                <select class="section-fee-selector">
-                  <option class="section-fee-selector-item" v-for="(d, i) in year" :key="i" :value="d">{{ d }}</option>
+                <select class="section-fee-selector" @change="onYearChange">
+                  <option :selected="i === selectedYearIdx" class="section-fee-selector-item" v-for="(d, i) in year" :key="i" :value="i">{{ d }}</option>
                 </select>
-                <select class="section-fee-selector">
-                  <option class="section-fee-selector-item" v-for="(d, i) in month" :key="i" :value="d">{{ d }}</option>
+                <select class="section-fee-selector" @change="onMonthChange">
+                  <option :selected="i === selectedMonthIdx" class="section-fee-selector-item" v-for="(d, i) in month" :key="i" :value="i">{{ d }}</option>
                 </select>
               </div>
               <div class="section-fee-montly-middle">
@@ -33,7 +33,7 @@
                   @click="onCLickedPayments"
                 ></v-btn>
               </div>
-              <div class="section-fee-monthly-deadline">납부 마감일: 2022.09.25</div>
+<!--              <div class="section-fee-monthly-deadline">납부 마감일: 2022.09.25</div>-->
             </div>
             <div class="card background-shadow section-fee-monthly-detail">
               <div class="section-fee-detail-top">
@@ -139,22 +139,31 @@ export default {
     }
   },
   data: () => {
-    let month = []
-    for (let i = 1;i < 13;i++) {
-      month.push(i + "월")
-    }
-    let year = []
-    for (let i = 2018;i < 2023;i++) {
-      year.push(i + "년")
-    }
-
     let dateTime = new Date()
     dateTime = new Date(dateTime.toISOString().substring(0, 7) + '-01')
     dateTime.setMonth(dateTime.getMonth() - 1)
+
+    let month = []
+    let selectedMonthIdx = 0
+    let selectedYearIdx = 0
+    for (let i = 10;i < 12;i++) {
+      month.push(i + "월")
+      if (dateTime.getMonth() + 1 === i) selectedMonthIdx = i - 10
+    }
+    let year = []
+    let idx = 0
+    for (let i = 2022;i < dateTime.getFullYear() + 1;i++) {
+      year.push(i + "년")
+      if (dateTime.getFullYear() === i) selectedYearIdx = idx
+      idx += 1
+    }
+
     return {
       selectedDate: dateTime,
       month: month,
       year: year,
+      selectedMonthIdx: selectedMonthIdx,
+      selectedYearIdx: selectedYearIdx,
       resultper: [],
       resultpublic: [],
       totalper: 0,
@@ -181,6 +190,30 @@ export default {
     // graphCanvas.removeEventListener("animationiteration", this.drawGraph);
   },
   methods: {
+    onYearChange(e) {
+      console.log(e.target.value)
+      this.selectedYearIdx = e.target.value
+      this.selectedDate = new Date(
+        this.year[this.selectedYearIdx].substring(0, 4) + '-' +
+        this.month[this.selectedMonthIdx].substring(0, 2) + '-01')
+      console.log(this.selectedDate.toISOString())
+      if (this.authIsReady) {
+        this.getBillDate();
+        this.getBillHouseHold();
+      }
+    },
+    onMonthChange(e) {
+      console.log(e.target.value)
+      this.selectedMonthIdx = e.target.value
+      this.selectedDate = new Date(
+        this.year[this.selectedYearIdx].substring(0, 4) + '-' +
+        this.month[this.selectedMonthIdx].substring(0, 2) + '-01')
+      this.selectedMonthIdx = e.target.value
+      if (this.authIsReady) {
+        this.getBillDate();
+        this.getBillHouseHold();
+      }
+    },
     onCLickedPayments() {
       console.log('ccc')
       router.push({path: '/payments'})
@@ -206,6 +239,8 @@ export default {
       maxCost += 50000
       if (graphCanvas.getContext) {
         var ctx = graphCanvas.getContext("2d");
+        ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+        ctx.beginPath();
         const line_y = [];
         let nowCost = maxCost;
         let i = yPaddingTop;
@@ -237,7 +272,7 @@ export default {
           ctx.font = "700 25px Roboto";
           ctx.fillStyle = '#00000044';
           ctx.textAlign = "center";
-          ctx.fillText(data[j].month, i, canvasHeight - yAxisHeight / 2);
+          ctx.fillText(data[j].month + '월', i, canvasHeight - yAxisHeight / 2);
           const ys = canvasHeight - yAxisHeight;
           let ye1 = -(data[j].our / maxCost) * (canvasHeight - yAxisHeight);
           let grd = ctx.createLinearGradient(0, ys, 0, 0);
@@ -280,16 +315,18 @@ export default {
         graphCanvasOur.width = canvasWidthOur;
         graphCanvasOur.height = canvasHeightOur;
 
-        const max = Math.max(data[2].avg, data[2].our);
+        const max = Math.max(data[0].avg, data[0].our);
         if (graphCanvasOur.getContext) {
           let ctx = graphCanvasOur.getContext("2d");
+          ctx.clearRect(0, 0, canvasWidthOur, canvasHeightOur);
+          ctx.beginPath();
           ctx.fillStyle = '#F1F1F1';
           ctx.fillRect(0, 0, canvasWidthOur, canvasHeightOur);
           grd = ctx.createLinearGradient(0, 0, canvasWidthOur, 0);
           grd.addColorStop(0, "#f5af19");
           grd.addColorStop(1, "#f12711");
           ctx.fillStyle = grd;
-          ctx.fillRect(0, 0, (data[2].our / max) * canvasWidthOur, canvasHeightOur);
+          ctx.fillRect(0, 0, (data[0].our / max) * canvasWidthOur, canvasHeightOur);
         }
 
         const graphCanvasAvg = document.getElementById("section-fee-graph-avg");
@@ -300,13 +337,15 @@ export default {
 
         if (graphCanvasAvg.getContext) {
           let ctx = graphCanvasAvg.getContext("2d");
+          ctx.clearRect(0, 0, canvasWidthAvg, canvasHeightAvg);
+          ctx.beginPath();
           ctx.fillStyle = '#F1F1F1';
           ctx.fillRect(0, 0, canvasWidthAvg, canvasHeightAvg);
           grd = ctx.createLinearGradient(0, 0, canvasWidthAvg, 0);
           grd.addColorStop(0, "#4286f4");
           grd.addColorStop(1, "#373B44");
           ctx.fillStyle = grd;
-          ctx.fillRect(0, 0, (data[2].avg / max) * canvasWidthAvg, canvasHeightAvg);
+          ctx.fillRect(0, 0, (data[0].avg / max) * canvasWidthAvg, canvasHeightAvg);
         }
       }
     },
@@ -314,6 +353,7 @@ export default {
   return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     },
     async getBillDate() {
+      this.billData = []
       const bills = []
       let dateTime = this.selectedDate
       for (let i = 0;i < 4;i++) {
@@ -358,6 +398,10 @@ export default {
       }
     },
     async getBillHouseHold() {
+      this.resultper = []
+      this.resultpublic = []
+      this.totalper = 0
+      this.totalpublic = 0
       const dtString = this.selectedDate.toISOString().substring(0, 7) + '-01'
       const result = await this.$axios.get(
         "https://api.springnote.blog/api/v1/bill/data/" + dtString + "/household/" + this.houseHold, {
