@@ -18,6 +18,7 @@ const store = createStore({
     parkingB1Data: [],
     role: 0,
     uid: "",
+    houseHold: -1
     name: ""
   },
   mutations: {
@@ -44,6 +45,9 @@ const store = createStore({
     },
     seUid(state, payload) {
       state.uid = payload
+    },
+    seHoushold(state, payload) {
+      state.houseHold = payload
     },
     setName(state, payload) {
       state.name = payload
@@ -88,7 +92,7 @@ const store = createStore({
         throw new Error('login failed')
       }
     },
-    async getRole(context, token){
+    async getRole(context, token) {
       const uid = await auth.currentUser.uid
       let userData = await axios.get(
         "https://api.springnote.blog/api/v1/user/" + uid,
@@ -101,6 +105,8 @@ const store = createStore({
       if (userData) {
         console.log(userData)
         context.commit('seUserRole', userData.data.role_id)
+        context.commit('seHoushold', userData.data.household_id)
+        console.log('store household', userData.data.household_id)
         store.commit('setName', userData.data.name)
       } else {
         throw new Error('get role failed')

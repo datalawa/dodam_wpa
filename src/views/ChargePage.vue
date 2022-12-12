@@ -68,8 +68,8 @@
             <div class="fee-text-title">개인부과 목록</div>
             <hr class="dashed">
             <div class="section-board-content-root dashboard-section-article-list">
-              <PaymentDetailItem v-for="item in getTestDetailArticleList" v-bind:key="item"
-                                 :title="item.title" :price="item.price"></PaymentDetailItem>
+              <PaymentDetailItem v-for="item in result.data.per_costs" v-bind:key="item"
+                                 :title="item.name" :price="item.cost"></PaymentDetailItem>
             </div>
             <hr class="sec dashed">
             <div class="section-fee-total">
@@ -81,8 +81,8 @@
             <div class="fee-text-title">공동부과 목록</div>
             <hr class="dashed">
             <div class="section-board-content-root dashboard-section-article-list">
-              <PaymentDetailItem v-for="item in getTestDetailArticleList" v-bind:key="item"
-                              :title="item.title" :price="item.price"></PaymentDetailItem>
+              <PaymentDetailItem v-for="item in result.data.all_costs" v-bind:key="item"
+                              :title="item.name" :price="item.cost"></PaymentDetailItem>
             </div>
             <hr class="sec dashed">
             <div class="section-fee-total">
@@ -96,24 +96,29 @@
   </div>
 </template>
 
-<script setup>
-import PaymentDetailItem from "@/components/list/PaymentDetailItem";
-
-function numberWithCommas(x) {
-  return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-}
-</script>
-
 <script>
 import NavigationBar from "@/components/NavigationBar";
 import SideBar from "@/components/sidebar/SideBar";
 import router from "@/routers/router";
+import PaymentDetailItem from "@/components/list/PaymentDetailItem";
+import axios from "axios";
+import {useStore} from "vuex";
+import {computed} from "vue";
 
 export default {
   name: "ChargePage",
   components: {
     SideBar,
-    NavigationBar,
+    NavigationBar, PaymentDetailItem
+  },
+  setup: () => {
+    const store = useStore()
+    return {
+      user: computed(() => store.state.user),
+      role: computed(() => store.state.role),
+      idToken: computed(() => store.state.idToken),
+      uid: computed(() => store.state.uid),
+    }
   },
   data: () => {
     let month = []
@@ -136,7 +141,9 @@ export default {
     // graphCanvas.addEventListener("animationstart", this.drawGraph);
     // graphCanvas.addEventListener("animationend", this.drawGraph);
     // graphCanvas.addEventListener("animationiteration", this.drawGraph);
-    this.drawGraph()
+    this.drawGraph();
+    // this.getBillDate();
+    // this.getBillHouseHold();
   },
   unmounted() {
     // const graphCanvas = document.getElementById("section-fee-graph-view");
@@ -285,6 +292,49 @@ export default {
           ctx.fillRect(0, 0, (data[2].avg / max) * canvasWidthAvg, canvasHeightAvg);
         }
       }
+    },
+    numberWithCommas(x) {
+  return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+    },
+    async getBillDate() {
+      const result = await this.$axios.get(
+        "https://api.springnote.blog/api/v1/bill/data/2022-09-01", {
+          timeout: 5000,
+              headers: {
+                Authorization: "Bearer " + this.idToken
+              }
+        },
+      )
+      console.log("bill",result);
+
+
+      if (result !== null && result.status == 200) {
+        console.log(result)
+        this.total_count = result.data.total_count;
+        this.article_data = result.data.results
+      } else {
+        this.article_data = []
+      }
+    },
+    async getBillHouseHold() {
+      const result = await this.$axios.get(
+        "https://api.springnote.blog/api/v1/bill/data/2022-09-01/household/4", {
+          timeout: 5000,
+              headers: {
+                Authorization: "Bearer " + this.idToken
+              }
+        },
+      )
+      console.log("household",result);
+
+
+      if (result !== null && result.status == 200) {
+        console.log(result)
+        this.total_count = result.data.total_count;
+        this.article_data = result.data.results
+      } else {
+        this.article_data = []
+      }
     }
   },
   computed: {
@@ -299,7 +349,14 @@ export default {
       }
       return articleDatas
     }
-  }
+  },
+  watch: {
+    idToken: function (val) {
+      console.log(val)
+      this.getBillHouseHold()
+      this.getBillDate()
+    }
+}
 }
 </script>
 

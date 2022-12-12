@@ -64,8 +64,9 @@ import { loadScript } from "@paypal/paypal-js";
 import SideBar from "@/components/sidebar/SideBar";
 import NavigationBar from "@/components/NavigationBar";
 import PaymentDetailItem from "@/components/list/PaymentDetailItem";
-import {useStore} from "vuex";
-import {computed} from "vue";
+// import axios from "axios";
+// import {useStore} from "vuex";
+// import {computed} from "vue";
 
 export default {
   name: "PaymentPage",
@@ -73,15 +74,6 @@ export default {
   data: () => {
     return {
       total: 233049
-    }
-  },
-  setup: () => {
-    const store = useStore()
-    return {
-      user: computed(() => store.state.user),
-      role: computed(() => store.state.role),
-      idToken: computed(() => store.state.idToken),
-      uid: computed(() => store.state.uid),
     }
   },
   computed: {
@@ -141,6 +133,8 @@ export default {
         .catch((err) => {
           console.error(err)
         });
+  },
+  method:{
   }
 }
 </script>
