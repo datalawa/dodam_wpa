@@ -12,13 +12,12 @@ import InOutCardView from '@/views/datalawa/InOutCardView';
 import MyCarView from '@/views/datalawa/MyCarView';
 import ParkingLotView from '@/views/datalawa/ParkingLotView';
 import ParkingLotB1View from '@/views/datalawa/ParkingLotB1View';
-<<<<<<< HEAD
 import PayListView from '@/views/datalawa/PayListView';
-=======
 import ChargePage from "@/views/ChargePage";
 import ParkingLotInformPage from "@/views/ParkingLotInformPage";
 import NotFound from "@/views/NotFound";
->>>>>>> origin
+import CarInOutPage from "@/views/CarInOutPage.vue";
+import ArticlePage from "@/views/ArticlePage";
 
 // Vue 라우터 인스턴스 생성
 const router = new createRouter({
@@ -35,18 +34,17 @@ const router = new createRouter({
         {path: "/survey", component: SurveyBoard},
         {path: "/login", component: LoginPage},
         {path: "/fee", component: ChargePage},
+        {path: "/inout", component: CarInOutPage},
         {path: "/write", component: WritePage, name: 'write'},
         {path: '/payments', component: PaymentPage},
+        {path: '/post/:post_pk', component: ArticlePage, name: 'post', props: true},
         {path: '/parkinglot/:layer', name:'ParkingLotInform', component: ParkingLotInformPage, props: true},
         {path: '/datalawa/inout', name: 'InOutListView', component: InOutListView},
         {path: '/datalawa/inoutcard', name: 'InOutCardView', component: InOutCardView},
         {path: '/datalawa/mycar', name: 'MyCarView', component: MyCarView},
         {path: '/datalawa/parkinglot', name: 'ParkingLotView', component: ParkingLotView},
         {path: '/datalawa/parkinglotB1', name: 'ParkingLotB1View', component: ParkingLotB1View},
-<<<<<<< HEAD
         {path: '/datalawa/paylist', name: 'PayListView', component: PayListView}
-=======
->>>>>>> origin
     ]
 });
 

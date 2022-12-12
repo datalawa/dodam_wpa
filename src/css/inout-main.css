@@ -1,0 +1,34 @@
+.section-inout-cards {
+    display: flex;
+    flex-direction: row;
+    gap: 24px;
+    overflow-x: scroll;
+    width: 100%;
+}
+
+.section-inout-cards::-webkit-scrollbar {
+    width: 15px;
+    /*overflow: auto;*/
+}
+
+.section-inout-cards::-webkit-scrollbar-thumb {
+    height: 20%;
+    background: var(--navbar-icon-color);
+    border-radius: 20px;
+    border: 5px solid transparent;
+    background-clip: content-box;
+}
+
+.section-inout-title {
+    width: 100%;
+
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 22px;
+
+    display: flex;
+    align-items: center;
+
+    color: var(--secondary-text-color);
+}

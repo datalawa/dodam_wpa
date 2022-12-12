@@ -68,6 +68,8 @@ export default {
     box-sizing: border-box;
     height: 30px;
     width: 30px;
+
+  border-radius: 5px;
 }
 
 .material-icons-round {
