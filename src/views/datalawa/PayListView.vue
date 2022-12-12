@@ -66,7 +66,13 @@ export default {
       household: computed(() => store.state.houseHold),
     }
   },
-
+  mounted() {
+    if (this.household >= 0) {
+      this.getstatus()
+      this.getdate()
+      this.getcost()
+    }
+  },
   //   created() {},
   //   unmounted() {},
   methods: {
