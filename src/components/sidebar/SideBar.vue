@@ -32,7 +32,7 @@ export default {
           indexTitle: '관리비',
           indexItems: [
             {title: '이번달 관리비', image: 'attach_money', url: '/fee'},
-            {title: '납부기록', image: 'assessment', url: '/datalawa/paylist'},
+            {title: '납부기록', image: 'assessment', url: '/paylist'},
           ]
         },
         {
