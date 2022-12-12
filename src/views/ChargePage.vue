@@ -82,7 +82,7 @@
             <hr class="dashed">
             <div class="section-board-content-root dashboard-section-article-list">
               <PaymentDetailItem v-for="item in resultpublic" v-bind:key="item"
-                              :title="item.name" :price="item.cost"></PaymentDetailItem>
+                              :title="item.name" :price="item.per_cost"></PaymentDetailItem>
             </div>
             <hr class="sec dashed">
             <div class="section-fee-total">
@@ -119,6 +119,7 @@ export default {
       role: computed(() => store.state.role),
       idToken: computed(() => store.state.idToken),
       uid: computed(() => store.state.uid),
+      authIsReady: computed(() => store.state.authIsReady),
     }
   },
   data: () => {
@@ -147,8 +148,10 @@ export default {
     // graphCanvas.addEventListener("animationend", this.drawGraph);
     // graphCanvas.addEventListener("animationiteration", this.drawGraph);
     this.drawGraph();
-    // this.getBillDate();
-    // this.getBillHouseHold();
+    if (this.authIsReady) {
+      this.getBillDate();
+      this.getBillHouseHold();
+    }
   },
   unmounted() {
     // const graphCanvas = document.getElementById("section-fee-graph-view");
@@ -337,12 +340,12 @@ export default {
         console.log(result)
         this.resultper = result.data.per_costs
         this.resultpublic = result.data.all_costs
-        
+
         for (let i=0; i<this.resultper.length; i++) {
           this.totalper = this.totalper + this.resultper[i].cost}
 
         for (let i=0; i<this.resultpublic.length; i++) {
-          this.totalpublic = this.totalpublic + this.resultpublic[i].cost}
+          this.totalpublic = this.totalpublic + this.resultpublic[i].per_cost}
 
 
       } else {
