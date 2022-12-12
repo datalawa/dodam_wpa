@@ -68,26 +68,26 @@
             <div class="fee-text-title">개인부과 목록</div>
             <hr class="dashed">
             <div class="section-board-content-root dashboard-section-article-list">
-              <PaymentDetailItem v-for="item in result.data.per_costs" v-bind:key="item"
+              <PaymentDetailItem v-for="item in resultper" v-bind:key="item"
                                  :title="item.name" :price="item.cost"></PaymentDetailItem>
             </div>
             <hr class="sec dashed">
             <div class="section-fee-total">
               <div class="section-fee-total-title">합계</div>
-              <div class="section-fee-total-amount">{{ numberWithCommas(9483) + '원' }}</div>
+              <div class="section-fee-total-amount">{{ numberWithCommas(totalper) + '원' }}</div>
             </div>
           </div>
           <div class="section-fee-common background-shadow card">
             <div class="fee-text-title">공동부과 목록</div>
             <hr class="dashed">
             <div class="section-board-content-root dashboard-section-article-list">
-              <PaymentDetailItem v-for="item in result.data.all_costs" v-bind:key="item"
+              <PaymentDetailItem v-for="item in resultpublic" v-bind:key="item"
                               :title="item.name" :price="item.cost"></PaymentDetailItem>
             </div>
             <hr class="sec dashed">
             <div class="section-fee-total">
               <div class="section-fee-total-title">합계</div>
-              <div class="section-fee-total-amount">{{ numberWithCommas(9483) + '원' }}</div>
+              <div class="section-fee-total-amount">{{ numberWithCommas(totalpublic) + '원' }}</div>
             </div>
           </div>
         </div>
@@ -104,6 +104,7 @@ import PaymentDetailItem from "@/components/list/PaymentDetailItem";
 import axios from "axios";
 import {useStore} from "vuex";
 import {computed} from "vue";
+import { range } from "rxjs";
 
 export default {
   name: "ChargePage",
@@ -132,7 +133,11 @@ export default {
     return {
       month: month,
       year: year,
-      fee: 150000
+      fee: 150000,
+      resultper: [],
+      resultpublic: [],
+      totalper: 0,
+      totalpublic: 0
     }
   },
   mounted() {
@@ -330,8 +335,16 @@ export default {
 
       if (result !== null && result.status == 200) {
         console.log(result)
-        this.total_count = result.data.total_count;
-        this.article_data = result.data.results
+        this.resultper = result.data.per_costs
+        this.resultpublic = result.data.all_costs
+        
+        for (let i=0; i<this.resultper.length; i++) {
+          this.totalper = this.totalper + this.resultper[i].cost}
+
+        for (let i=0; i<this.resultpublic.length; i++) {
+          this.totalpublic = this.totalpublic + this.resultpublic[i].cost}
+
+
       } else {
         this.article_data = []
       }
