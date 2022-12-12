@@ -5,6 +5,13 @@
 </template>
 <script>
 import store from '../store/index.js'
+import { loadScript } from "@paypal/paypal-js";
+import SideBar from "@/components/sidebar/SideBar";
+import NavigationBar from "@/components/NavigationBar";
+import PaymentDetailItem from "@/components/list/PaymentDetailItem";
+import {useStore} from "vuex";
+import {computed} from "vue";
+
 export default {
   name: 'paydata',
   props:{
@@ -29,7 +36,16 @@ export default {
       cost: [],
     }
   },
-//   setup() {},
+  setup: () => {
+    const store = useStore()
+    return {
+      user: computed(() => store.state.user),
+      role: computed(() => store.state.role),
+      idToken: computed(() => store.state.idToken),
+      uid: computed(() => store.state.uid),
+    }
+  },
+
 //   created() {},
 //   unmounted() {},
   methods: {

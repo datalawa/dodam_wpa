@@ -76,7 +76,7 @@ const store = createStore({
         throw new Error('login failed')
       }
     },
-    async getRole(context, token){
+    async getRole(context, token) {
       const uid = await auth.currentUser.uid
       let userData = await axios.get(
         "https://api.springnote.blog/api/v1/user/" + uid,
@@ -106,14 +106,6 @@ const unsub = onAuthStateChanged(auth, (user) => {
   store.commit('setUser', user)
   console.log(user)
   getUserInfo(user)
-  unsub()
-})
-
-const unsub = onAuthStateChanged(auth, (user) => {
-  store.commit('setAuthIsReady', true)
-  store.commit('setUser', user)
-  console.log(user)
-  unsub()
 })
 
 export default store

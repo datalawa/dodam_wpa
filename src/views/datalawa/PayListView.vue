@@ -1,5 +1,10 @@
 <template>
-    <div>
+    <NavigationBar></NavigationBar>
+    <div id="section-main">
+      <SideBar :is-hidden="true"></SideBar>
+      <div id="section-main-transparent"></div>
+      <div id="section-main-content">
+        <div>
         <h3>납부기록</h3>
         총 1건의 납부한 결과가 있습니다.
           <v-table class="content-box">
@@ -24,14 +29,22 @@
               </tr>
           </tbody>
           </v-table>
+        </div>
+    </div>
     </div>
   </template>
 
 <script>
 import PayData from '@/components/PayData'
+import { loadScript } from "@paypal/paypal-js";
+import SideBar from "@/components/sidebar/SideBar";
+import NavigationBar from "@/components/NavigationBar";
+import PaymentDetailItem from "@/components/list/PaymentDetailItem";
+import {useStore} from "vuex";
+import {computed} from "vue";
 
 export default {
-  components: {PayData},
+  components: {PayData, SideBar, NavigationBar},
   data () {
     return {
     }
