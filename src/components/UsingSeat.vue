@@ -6,7 +6,7 @@
     women: type === 'women',
     using: type === 'using'
   }">
-    <div>{{number}}</div>
+    <div class="item-number">{{number}}</div>
     <div>
       <span v-if="type === 'disabled'" class="material-icons-round">accessible</span>
       <span v-else-if="type === 'women'" class="material-icons-round">woman</span>
@@ -16,7 +16,7 @@
 <script>
 export default {
     props:{
-        number:Number,
+      number:Number,
       type: {
           type: String,
           default: 'normal'
@@ -63,5 +63,9 @@ export default {
 
 .women {
   background: #F25672;
+}
+
+.item-number {
+  font-weight: 600;
 }
 </style>

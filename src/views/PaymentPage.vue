@@ -64,7 +64,12 @@ import { loadScript } from "@paypal/paypal-js";
 import SideBar from "@/components/sidebar/SideBar";
 import NavigationBar from "@/components/NavigationBar";
 import PaymentDetailItem from "@/components/list/PaymentDetailItem";
+<<<<<<< HEAD
 import axios from "axios";
+=======
+import {useStore} from "vuex";
+import {computed} from "vue";
+>>>>>>> a382f7432b0027c3ed2770ccc1a0d2aeca9149a6
 
 export default {
   name: "PaymentPage",

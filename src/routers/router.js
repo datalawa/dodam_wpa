@@ -16,6 +16,11 @@ import PayListView from '@/views/datalawa/PayListView';
 import ChargePage from "@/views/ChargePage";
 import ParkingLotInformPage from "@/views/ParkingLotInformPage";
 import NotFound from "@/views/NotFound";
+<<<<<<< HEAD
+=======
+import CarInOutPage from "@/views/CarInOutPage.vue";
+import ArticlePage from "@/views/ArticlePage";
+>>>>>>> a382f7432b0027c3ed2770ccc1a0d2aeca9149a6
 
 // Vue 라우터 인스턴스 생성
 const router = new createRouter({
@@ -32,8 +37,10 @@ const router = new createRouter({
         {path: "/survey", component: SurveyBoard},
         {path: "/login", component: LoginPage},
         {path: "/fee", component: ChargePage},
+        {path: "/inout", component: CarInOutPage},
         {path: "/write", component: WritePage, name: 'write'},
         {path: '/payments', component: PaymentPage},
+        {path: '/post/:post_pk', component: ArticlePage, name: 'post', props: true},
         {path: '/parkinglot/:layer', name:'ParkingLotInform', component: ParkingLotInformPage, props: true},
         {path: '/datalawa/inout', name: 'InOutListView', component: InOutListView},
         {path: '/datalawa/inoutcard', name: 'InOutCardView', component: InOutCardView},

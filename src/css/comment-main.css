@@ -1,0 +1,187 @@
+.comment-root {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    /*padding: 0px;*/
+    gap: 10px;
+
+    width: 100%;
+    box-sizing: border-box;
+
+    /* Inside auto layout */
+
+    flex: none;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.comment-top {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+
+    width: 100%;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    align-self: stretch;
+    flex-grow: 0;
+}
+
+.comment-profile {
+    width: 30px;
+    height: 30px;
+
+    /*background: url(깃허브프로필_작은버전);*/
+    background: black;
+
+    border-radius: 50%;
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.comment-right {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 5px;
+
+
+    /* Inside auto layout */
+
+    flex: 1;
+}
+
+.comment-writer {
+    width: 100%;
+    height: 15px;
+
+    /* 댓글-이름 */
+    font-style: normal;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.comment-content {
+    width: 100%;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 15px;
+    /* identical to box height */
+
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    color: #000000;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 1;
+    flex-grow: 0;
+}
+
+.comment-info {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    padding: 0px;
+    gap: 10px;
+
+    width: 100%;
+    height: 12px;
+
+    flex: none;
+    order: 2;
+    flex-grow: 0;
+}
+
+.comment-writetime {
+    height: 12px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    /* 2차텍스트 */
+
+    color: #393939;
+
+
+    /* Inside auto layout */
+
+    flex: none;
+    order: 0;
+    flex-grow: 0;
+}
+
+.comment-hr {
+    width: 100%;
+}
+
+.comment-reply {
+    height: 12px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    /* 2차텍스트 */
+
+    color: #393939;
+
+    cursor: pointer;
+}
+
+.comment-delete {
+    height: 12px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 12px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+
+    /* 2차텍스트 */
+
+    color: #393939;
+
+    cursor: pointer;
+}
