@@ -17,7 +17,8 @@ const store = createStore({
     parking1FData: [],
     parkingB1Data: [],
     role: 0,
-    uid: ""
+    uid: "",
+    houseHold: -1
   },
   mutations: {
     setUser (state, payload) {
@@ -42,6 +43,9 @@ const store = createStore({
     },
     seUid(state, payload) {
       state.uid = payload
+    },
+    seHoushold(state, payload) {
+      state.houseHold = payload
     }
   },
   actions: {
@@ -76,7 +80,7 @@ const store = createStore({
         throw new Error('login failed')
       }
     },
-    async getRole(context, token){
+    async getRole(context, token) {
       const uid = await auth.currentUser.uid
       let userData = await axios.get(
         "https://api.springnote.blog/api/v1/user/" + uid,
@@ -89,6 +93,8 @@ const store = createStore({
       if (userData) {
         console.log(userData)
         context.commit('seUserRole', userData.data.role_id)
+        context.commit('seHoushold', userData.data.household_id)
+        console.log('store household', userData.data.household_id)
       } else {
         throw new Error('get role failed')
       }
@@ -106,7 +112,6 @@ const unsub = onAuthStateChanged(auth, (user) => {
   store.commit('setUser', user)
   console.log(user)
   getUserInfo(user)
-  unsub()
 })
 
 export default store
