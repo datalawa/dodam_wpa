@@ -19,11 +19,13 @@ const store = createStore({
     role: 0,
     uid: "",
     houseHold: -1
+    name: ""
   },
   mutations: {
     setUser (state, payload) {
       state.user = payload
       console.log(state.user)
+      unsub()
     },
     setAuthIsReady (state, payload) {
       state.authIsReady = payload
@@ -46,6 +48,10 @@ const store = createStore({
     },
     seHoushold(state, payload) {
       state.houseHold = payload
+    },
+    setName(state, payload) {
+      state.name = payload
+      console.log(payload)
     }
   },
   actions: {
@@ -53,6 +59,7 @@ const store = createStore({
       const response = await createUserWithEmailAndPassword(auth, email, password)
       if (response) {
         context.commit('setUser', response.user)
+        unsub()
       } else {
         throw new Error('signup failed')
       }
@@ -61,14 +68,19 @@ const store = createStore({
       const response = await signInWithEmailAndPassword(auth, email, password)
       if (response) {
         context.commit('setUser', response.user)
+        unsub()
       } else {
         throw new Error('login failed')
       }
     },
     async logOut (context) {
+      context.commit('setUser', null)
       await signOut(auth)
       console.log('logout')
-      context.commit('setUser', null)
+      // context.commit('setAuthIsReady', false)
+      // context.commit('seUid', "")
+      // context.commit('seUserRole', 0)
+      // context.commit('setTokenUID', "")
     },
     async getToken(context) {
       const response = await auth.currentUser.getIdToken()
@@ -95,6 +107,7 @@ const store = createStore({
         context.commit('seUserRole', userData.data.role_id)
         context.commit('seHoushold', userData.data.household_id)
         console.log('store household', userData.data.household_id)
+        store.commit('setName', userData.data.name)
       } else {
         throw new Error('get role failed')
       }

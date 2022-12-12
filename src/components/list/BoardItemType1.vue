@@ -89,7 +89,7 @@ export default {
   },
   methods: {
     moveToPost() {
-      router.push({ name: 'post', params: { post_pk: this.pk }})
+      this.$router.push({ name: 'post', params: { post_pk: this.pk }})
     }
   }
 }
