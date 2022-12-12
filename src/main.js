@@ -8,6 +8,8 @@ import VueSSE from 'vue-sse'
 
 let app = createApp(App)
 app.config.globalProperties.$axios = axios;
+app.config.globalProperties.$springUrl = "https://api.springnote.blog/";
+app.config.globalProperties.$djangoUrl = "https://api.springnote.blog/";
 
 app.use(router)
   .use(vuetify)

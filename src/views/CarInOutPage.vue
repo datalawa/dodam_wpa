@@ -18,7 +18,12 @@
           </div>
           <div class="card background-shadow inout-root">
             <div class="section-inout-title">입출차 기록</div>
-            <v-table class="content-box">
+            <v-chip-group
+              v-model="chipSelected"
+              :mandatory="true" filter>
+              <v-chip v-for="item in myCars" :key="item">{{ item.id }}</v-chip>
+            </v-chip-group>
+            <v-table class="content-box" v-if="carLogs.length > 0">
               <thead>
               <tr>
                 <th width="100px">구분</th>
@@ -30,13 +35,13 @@
               </thead>
               <tbody>
               <tr
-                v-for="item in getTestLog" :key="item.name">
+                v-for="(item, idx) in carLogs[chipSelected]" :key="item.name">
                 <td v-if="item.type" ><div class="board-item-inout-head head-red">출차</div></td>
                 <td v-else><div class="board-item-inout-head head-blue">입차</div></td>
-                <td>{{ item.carType }}</td>
-                <td>{{ item.purpose }}</td>
-                <td>{{ item.date }}</td>
-                <td>{{ item.time }}</td>
+                <td>{{ myCars[chipSelected].vhcl_type_name }}</td>
+                <td>{{ myCars[chipSelected].is_visiting ? "방문" : "거주" }}</td>
+                <td>{{ item.dttm.substring(0, 10) }}</td>
+                <td>{{ item.dttm.substring(11, 20) }}</td>
               </tr>
               </tbody>
             </v-table>
@@ -96,17 +101,24 @@ export default {
       carIdInput: '',
       carPurposeInput: '거주',
       carTypeInput: '소형',
-      myCars: []
+      myCars: [],
+      chipSelected: -1,
+      carLogs: []
     }
   },
-  setup() {
+  setup: () => {
     const store = useStore()
     return {
       user: computed(() => store.state.user),
+      role: computed(() => store.state.role),
+      idToken: computed(() => store.state.idToken),
+      uid: computed(() => store.state.uid),
+      authIsReady: computed(() => store.state.authIsReady),
     }
   },
   async mounted() {
     this.myCars = await this.getVchlInfo()
+    if (this.myCars.length > 0) await this.getInOutLog()
     console.log(this.myCars)
   },
   methods: {
@@ -206,6 +218,10 @@ export default {
         }
 
         if (response.status === 200) {
+          console.log(response.data)
+          if (response.data.length > 0) {
+            this.chipSelected = 0
+          }
           return response.data
         } else {
           alert('통신 오류2')
@@ -216,6 +232,45 @@ export default {
         return [];
       }
       return [];
+    },
+    async getInOutLog() {
+      const idToken = this.idToken
+      if (idToken === '') {
+        alert("토큰 없음")
+        return
+      }
+
+      this.carLogs = []
+      const carLogs = []
+      for (let car of this.myCars) {
+        let selectedCar = car.id
+        console.log(selectedCar)
+
+        let result = null
+        try {
+          result = await this.$axios.get(
+            this.$springUrl + 'api/v1/vhcl/' + selectedCar + '/history/',
+            {
+              headers: {
+                Authorization: "Bearer " + idToken
+              },
+              timeout: 5000
+            }
+          )
+
+          if (result !== null && result.status === 200) {
+            console.log(result)
+            carLogs.push(result.data)
+          } else {
+            alert("통신중 오류")
+            carLogs.push([])
+          }
+        } catch (e) {
+          alert("통신중 오류")
+          carLogs.push([])
+        }
+      }
+      this.carLogs = carLogs;
     }
   },
   computed: {
@@ -259,7 +314,7 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 5px;
 }
 
 td {
@@ -337,6 +392,8 @@ td {
   font-weight: 700;
   font-size: 18px;
   line-height: 22px;
+
+  margin-bottom: 5px;
 
   display: flex;
   align-items: center;
