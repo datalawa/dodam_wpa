@@ -51,7 +51,6 @@ const store = createStore({
     },
     setName(state, payload) {
       state.name = payload
-      console.log(payload)
     }
   },
   actions: {
@@ -75,56 +74,47 @@ const store = createStore({
     },
     async logOut (context) {
       context.commit('setUser', null)
+      context.commit('setAuthIsReady', false)
       await signOut(auth)
       console.log('logout')
-      // context.commit('setAuthIsReady', false)
-      // context.commit('seUid', "")
-      // context.commit('seUserRole', 0)
-      // context.commit('setTokenUID', "")
     },
-    async getToken(context) {
-      const response = await auth.currentUser.getIdToken()
+    async setUserInfo(context, user) {
+      const response = await user.getIdToken()
       console.log(response)
       if (response) {
         context.commit('setTokenUID', response)
-        await store.dispatch('getRole', response)
+        const uid = await user.uid
+        let userData = await axios.get(
+          "https://api.springnote.blog/api/v1/user/" + uid,
+          {
+            headers: {
+              Authorization: "Bearer " + response,
+            }
+          }
+        )
+
+        if (userData) {
+          console.log(userData)
+          context.commit('seUid', uid)
+          context.commit('seUserRole', userData.data.role_id)
+          context.commit('seHoushold', userData.data.household_id)
+          context.commit('setName', userData.data.name)
+          context.commit('setAuthIsReady', true)
+          console.log('store household', userData.data.household_id)
+        } else {
+          throw new Error('get role failed')
+        }
       } else {
         throw new Error('login failed')
-      }
-    },
-    async getRole(context, token) {
-      const uid = await auth.currentUser.uid
-      let userData = await axios.get(
-        "https://api.springnote.blog/api/v1/user/" + uid,
-        {
-          headers: {
-            Authorization: "Bearer " + token,
-          }
-        }
-      )
-      if (userData) {
-        console.log(userData)
-        context.commit('seUserRole', userData.data.role_id)
-        context.commit('seHoushold', userData.data.household_id)
-        console.log('store household', userData.data.household_id)
-        store.commit('setName', userData.data.name)
-      } else {
-        throw new Error('get role failed')
       }
     }
   }
 });
 
-const getUserInfo = async (user) => {
-  await store.dispatch('getToken')
-  store.commit('seUid', await user.uid)
-}
-
 const unsub = onAuthStateChanged(auth, (user) => {
-  store.commit('setAuthIsReady', true)
   store.commit('setUser', user)
+  store.dispatch('setUserInfo', user)
   console.log(user)
-  getUserInfo(user)
 })
 
 export default store
