@@ -23,10 +23,10 @@
                 </tr>
             </thead>
             <tbody v-if="household >= 0">
-                <tr :key="i.idx" v-for="i in (0,20)">
-                        <td>{{payox}}</td>
-                        <td>{{date}}</td>
-                        <td>{{cost}}</td>
+                <tr :key="i" v-for="(item, i) in payox">
+                        <td>{{item}}</td>
+                        <td>{{date[i]}}</td>
+                        <td>{{cost[i]}}</td>
                 </tr>
             </tbody>
             </v-table>
@@ -88,15 +88,19 @@ export default {
         if (response.status === 200) {
           console.log('paydata getStatus', response)
         //   this.payox = response.data.status_name
-          return response.data
-        //   await this.getstatus()
+
+        for(var i = 0; i < response.data.length; i++){
+            this.payox.push(response.data[i].status_name)
+        }
+        console.log("payox", this.payox)
+
         } else {
           console.error(response.data)
           alert('통신 오류')
           return [];
         }
       } catch (e) {
-        console.error(e.response.data)
+        console.error(e)
         alert('통신 오류')
         return [];
       }
@@ -119,9 +123,12 @@ export default {
         )
         if (response.status === 200) {
           console.log('paydata getDate', response)
-        //   this.payox = response.data.status_name
-          return response.data
-        //   await this.getdate()
+          //   this.payox = response.data.status_name
+          for(var i = 0; i < response.data.length; i++){
+            this.date.push(response.data[i].mod_dttm)
+        }
+        console.log("date", this.date)
+
         } else {
           console.error(response.data)
           alert('통신 오류')
@@ -152,6 +159,11 @@ export default {
         if (response.status === 200) {
           console.log('paydata getCost', response)
         //   this.payox = response.data.status_name
+        for(var i = 0; i < response.data.length; i++){
+            this.cost.push(response.data[i].cost)
+        }
+        console.log("cost", this.cost)
+
           return response.data
         //   await this.getcost()
         } else {
