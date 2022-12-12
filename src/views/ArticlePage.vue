@@ -59,8 +59,13 @@
             </div>
             <md-editor class="post-content" v-model="article.post_text" language="en-US" :previewOnly="true"/>
           </div>
-          <div v-else-if="writeMode">
-
+          <div v-else-if="writeMode" class="writemode-page">
+            <v-text-field v-model="titleInput" label="제목" variant="outlined" density="comfortable" placeholder="제목입력" counter="45"></v-text-field>
+            <md-editor class="section-text-input" v-model="contentInput" language="en-US" :toolbars="toolbars"/>
+            <div class="section-text-selector-root">
+              <v-btn class="section-write-button" variant="outlined" color="red" @click="writeMode = false">취소</v-btn>
+              <v-btn class="section-write-button" variant="outlined" color="blue" @click="upload">등록</v-btn>
+            </div>
           </div>
           <div v-else>
             답변 대기중입니다.

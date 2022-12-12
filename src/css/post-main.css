@@ -295,3 +295,7 @@
     order: 1;
     flex-grow: 0;
 }
+
+.writemode-page {
+    width: 100%;
+}
