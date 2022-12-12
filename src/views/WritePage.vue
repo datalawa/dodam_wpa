@@ -198,7 +198,7 @@ export default {
       console.log("post data", articleData)
       try {
         const response = await this.$axios.post(
-          "http://127.0.0.1:8000/hub/board/post/",
+          "https://api.springnote.blog/hub/board/post/",
           articleData,
           {
             headers: {
