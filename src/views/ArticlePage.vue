@@ -39,9 +39,11 @@
                 <div class="post-info-text">좋아요 {{ numberWithCommas(article.like_count) }}개</div>
               </div>
             </div>
-            <Comment v-for="item in comment_list" :key="item" :reply="item.reply" :depth="0"
-                    :writer-name="item.user_user_pk.user_nm" :content="item.comment_text"
+            <Comment v-for="item in comment_list" :key="item" :post-pk="item.post_post_pk"
+                     :reply="item.reply" :depth="0" :comment-pk="item.comment_pk"
+                    :writer-name="item.user_user_pk.user_nm" :content="item.comment_text" :isReply="true" :writer-u-i-d="item.user_user_pk.user_pk"
                     :wirte-time="item.comment_write_time.substring(0, 10) + ' ' + item.comment_write_time.substring(11, 19)"></Comment>
+            <CommentWrite></CommentWrite>
           </div>
           <div v-else-if="article.board_board_pk === 3 && article.post_refer !== null && Object.keys(articleAnswer).length > 0"
                class="post-right">
@@ -89,12 +91,13 @@ import Comment from "@/components/Comment";
 
 import MdEditor from 'md-editor-v3';
 import 'md-editor-v3/lib/style.css';
+import CommentWrite from "@/components/CommentWrite";
 
 
 export default {
   //TODO: name 변경
   name: "ArticlePage",
-  components: {SideBar, NavigationBar, MdEditor, Comment},
+  components: {CommentWrite, SideBar, NavigationBar, MdEditor, Comment},
   data() {
     return {
       article: {},
@@ -203,8 +206,6 @@ export default {
             },
           )
           if (response.status === 201) {
-            // console.log(post_pk + ' deleted')
-            // this.$router.back(-1)
             console.log('like', response)
             this.article.like_count += 1
           } else if (response.status === 204) {
