@@ -119,6 +119,41 @@ export default {
         return
       }
     },
+    async deleteComment() {
+      const idToken = this.idToken
+      const uid = this.uid
+      const commentPk = this.commentPk
+      console.log(commentPk, uid)
+
+      try {
+        const response = await this.$axios.post(
+          "https://api.springnote.blog/hub/board/post/comment/",
+          {
+            comment_parent_comment_comment_pk: commentPk,
+            status: 1,
+            user_user_pk: uid,
+            post_post_pk: this.postPk,
+            comment_text: content
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + idToken
+            },
+            timeout: 5000
+          },
+        )
+        if (response.status === 201) {
+          console.log('comment created', response)
+          window.location.reload(true);
+        } else {
+          alert("글 생성중 오류 발생2")
+        }
+      } catch (e) {
+        console.error(e.response.data)
+        alert("서버 통신 오류")
+        return
+      }
+    }
   },
   mounted() {
     console.log(this.depth)
