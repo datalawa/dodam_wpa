@@ -272,13 +272,13 @@ export default {
               this.myCars[idx].inout = false
             }
           } else {
-            alert("통신중 오류")
+            // alert("통신중 오류")
             carLogs.push([])
             this.myCars[idx].dttm = '-'
             this.myCars[idx].inout = false
           }
         } catch (e) {
-          alert("통신중 오류")
+          // alert("통신중 오류")
           carLogs.push([])
           this.myCars[idx].dttm = '-'
           this.myCars[idx].inout = false
