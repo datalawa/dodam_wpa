@@ -26,7 +26,7 @@ const router = new createRouter({
         // TODO: 추가한 페이지 여기에 추가
         {path: '/:pathMatch(.*)*', redirect: '/404'},
         {path: '/404', component: NotFound},
-        {path: '/', redirect: '/dash'},
+        {path: '/', redirect: '/notice'},
         {path: "/dash", component: DashBoard},
         {path: "/notice", component: NoticeBoard},
         {path: "/free", component: FreeBoard},
