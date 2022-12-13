@@ -92,7 +92,7 @@ export default {
 
       try {
         const response = await this.$axios.post(
-          "http://127.0.0.1:8000/hub/board/post/comment/",
+          "https://api.springnote.blog/hub/board/post/comment/",
           {
             comment_parent_comment_comment_pk: commentPk,
             status: 1,
@@ -109,6 +109,7 @@ export default {
         )
         if (response.status === 201) {
           console.log('comment created', response)
+          window.location.reload(true);
           } else {
             alert("글 생성중 오류 발생2")
           }

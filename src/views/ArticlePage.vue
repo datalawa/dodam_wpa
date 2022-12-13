@@ -43,7 +43,20 @@
                      :reply="item.reply" :depth="0" :comment-pk="item.comment_pk"
                     :writer-name="item.user_user_pk.user_nm" :content="item.comment_text" :isReply="true" :writer-u-i-d="item.user_user_pk.user_pk"
                     :wirte-time="item.comment_write_time.substring(0, 10) + ' ' + item.comment_write_time.substring(11, 19)"></Comment>
-            <CommentWrite></CommentWrite>
+            <div class="comment-root">
+              <div class="comment-top">
+                <div class="comment-profile"></div>
+                <div class="comment-right">
+                  <div class="comment-writer">{{ name }} 님</div>
+                  <textarea @focus="isWrite = true" v-model="writeContent"
+                            @keydown="resize" @onkeyup="resize" class="comment-write-area"></textarea>
+                  <div class="section-text-selector-root">
+                    <v-btn class="section-write-button" variant="outlined" color="blue" @click="commentupload" size="x-small">등록</v-btn>
+                  </div>
+                </div>
+              </div>
+              <hr class="comment-hr">
+            </div>
           </div>
           <div v-else-if="article.board_board_pk === 3 && article.post_refer !== null && Object.keys(articleAnswer).length > 0"
                class="post-right">
@@ -107,7 +120,10 @@ export default {
       contentInputAnswer: "",
       exist: false,
       writeMode: false,
-      answerPk: null
+      answerPk: null,
+      isWrite: false,
+      parentPk: -1,
+      writeContent: ''
     }
   },
   setup: () => {
@@ -119,6 +135,7 @@ export default {
       idToken: computed(() => store.state.idToken),
       uid: computed(() => store.state.uid),
       authIsReady: computed(() => store.state.authIsReady),
+      name: computed(() => store.state.name),
     }
   },
   props: {
@@ -184,6 +201,10 @@ export default {
     }
   },
   methods: {
+    resize(obj) {
+      obj.target.style.height = "1px";
+      obj.target.style.height = (12 + obj.target.scrollHeight)+"px";
+    },
     async setLike() {
       const uid = this.uid
       const post_pk = this.post_pk
@@ -255,6 +276,47 @@ export default {
         }
       } else {
         alert("삭제 권한 없음")
+      }
+    },
+    async commentupload() {
+      const content = this.writeContent
+      if (content === '') {
+        alert('내용입력')
+        return
+      }
+
+      const idToken = this.idToken
+      const uid = this.uid
+      const commentPk = this.commentPk
+      console.log(commentPk, uid)
+
+      try {
+        const response = await this.$axios.post(
+          "https://api.springnote.blog/hub/board/post/comment/",
+          {
+            comment_parent_comment_comment_pk: null,
+            status: 1,
+            user_user_pk: uid,
+            post_post_pk: this.post_pk,
+            comment_text: content
+          },
+          {
+            headers: {
+              Authorization: "Bearer " + idToken
+            },
+            timeout: 5000
+          },
+        )
+        if (response.status === 201) {
+          console.log('comment created', response)
+          window.location.reload(true);
+        } else {
+          alert("글 생성중 오류 발생2")
+        }
+      } catch (e) {
+        console.error(e.response.data)
+        alert("서버 통신 오류")
+        return
       }
     },
     async articleAnswerDelete() {
@@ -378,4 +440,13 @@ export default {
 <style>
 @import "../css/view-main.css";
 @import "../css/post-main.css";
+.comment-write-area {
+  width: 100%;
+  outline-width: 1px;
+  min-height: 50px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  border:solid 1px black;
+  border-radius: 5px;
+}
 </style>
