@@ -34,7 +34,7 @@
                 <div class="post-info-text">댓글 {{ numberWithCommas(article.comment_count) }}개</div>
               </div>
               <hr class="updown">
-              <div class="post-info-item">
+              <div class="post-info-item" @click="setLike">
                 <span class="material-icons-round icon-pink-f">favorite</span>
                 <div class="post-info-text">좋아요 {{ numberWithCommas(article.like_count) }}개</div>
               </div>
@@ -123,6 +123,7 @@ export default {
   },
   computed: {
     async getArticles() {
+      console.log('getArticle')
       const result = await this.$axios.get(
         "https://api.springnote.blog/hub/board/post/" + this.post_pk, {
           timeout: 5000
@@ -180,6 +181,47 @@ export default {
     }
   },
   methods: {
+    async setLike() {
+      const uid = this.uid
+      const post_pk = this.post_pk
+      const idToken = this.idToken
+
+      if (uid !== '' && post_pk > 0 && idToken !== '') {
+        try {
+          const response = await this.$axios.post(
+            "https://api.springnote.blog/hub/board/post/like/",
+            {
+              post_post_pk: post_pk,
+              user_user_pk: uid,
+              like_time: null
+            },
+            {
+              timeout: 5000,
+              headers: {
+                Authorization: "Bearer " + idToken
+              },
+            },
+          )
+          if (response.status === 201) {
+            // console.log(post_pk + ' deleted')
+            // this.$router.back(-1)
+            console.log('like', response)
+            this.article.like_count += 1
+          } else if (response.status === 204) {
+            console.log('like cancel')
+            this.article.like_count -= 1
+          } else {
+            alert("라이크 오류 발생")
+          }
+        } catch (e) {
+          console.error(e.response.data)
+          alert("서버 통신 오류")
+          return
+        }
+      } else {
+        alert("라이크 권한 없음")
+      }
+    },
     goBack() {
       router.back(-1)
     },
