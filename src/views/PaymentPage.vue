@@ -88,6 +88,8 @@ export default {
       totalpublic: 0,
       billData: [],
       selectedDate: dateTime,
+      succ: false,
+      billid: ''
     }
   },
   computed: {
@@ -109,6 +111,31 @@ export default {
     }
   },
   methods: {
+    async setPayStateSuccess(idToken, uid, axios, router) {
+      console.log("succccccccckkkkkk")
+
+      try {
+        const response = await axios.put(
+          "https://api.springnote.blog/api/v1/pay/3/2",
+          {},
+          {
+            headers: {
+              Authorization: "Bearer " + idToken
+            },
+            timeout: 5000
+          },
+        )
+        if (response.status < 300) {
+          router.push({ url:'/paylist' })
+        } else {
+          alert("상태 변경 오류 발생2")
+        }
+      } catch (e) {
+        console.error(e.response.data)
+        alert("서버 통신 오류")
+        return
+      }
+    },
     numberWithCommas(x) {
       return String(x).replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
     },
@@ -133,6 +160,7 @@ export default {
         console.log(result)
         this.resultper = result.data.per_costs
         this.resultpublic = result.data.all_costs
+        this.billid = result.data.id
 
         for (let i=0; i<this.resultper.length; i++) {
           this.totalper = this.totalper + this.resultper[i].cost}
@@ -147,11 +175,16 @@ export default {
     makeTotal() {
       let total = (this.totalper + this.totalpublic) * 110 / 100
       total = String(Math.ceil((this.totalper + this.totalpublic) / 1300 * 100) / 100);
+      const idToken = this.idToken
+      const uid = this.uid
+      const axios = this.$axios
+      const router = this.$router
+      const billid = this.billid
       loadScript({
         "client-id": 'ASSekI5oIma6ysxWN3j3UfqPFIy_TL_lHc1ZHjY-68xIc1PTOZcj7ZrKyBSBukIj187kS0ZAgAqW2EB8',
         "buyer-country": "KR",
         'locale': 'ko_KR',
-        'debug': true
+        'debug': false
       })
         .then((paypal) => {
           console.log(paypal)
@@ -173,10 +206,47 @@ export default {
             },
             onApprove: function(data, actions) {
               // This function captures the funds from the transaction.
-              return actions.order.capture().then(function (details) {
+              return actions.order.capture().then(async function (details) {
                 // This function shows a transaction success message to your buyer.
                 alert('결제 완료');
-              });
+                console.log("succccccccckkkkkk")
+
+                try {
+                  const response2 = await axios.get(
+                    "https://api.springnote.blog/api/v1/pay/bill/" + billid,
+                    {
+                      headers: {
+                        Authorization: "Bearer " + idToken
+                      },
+                      timeout: 5000
+                    },
+                  )
+                  if (response2.status < 300) {
+                    const response = await axios.put(
+                      "https://api.springnote.blog/api/v1/pay/" + response2.data.id + "/2",
+                      {},
+                      {
+                        headers: {
+                          Authorization: "Bearer " + idToken
+                        },
+                        timeout: 5000
+                      },
+                    )
+                    if (response2.status < 300) {
+                      console.log('succ')
+                      router.push({ url: '/paylist' })
+                    } else {
+                      alert("상태 변경 오류 발생3")
+                    }
+                  } else {
+                    alert("상태 변경 오류 발생2")
+                  }
+                } catch (e) {
+                  console.error(e.response.data)
+                  alert("서버 통신 오류")
+                  return
+                }
+              })
             },
             onCancel: function (data) {
               console.log(data)
