@@ -7,7 +7,6 @@ import {
   onAuthStateChanged
 } from 'firebase/auth'
 import axios from "axios";
-import { tr } from 'vuetify/lib/locale'
 
 const store = createStore({
   state: {
