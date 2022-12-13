@@ -292,7 +292,7 @@ export default {
 
       try {
         const response = await this.$axios.post(
-          "http://127.0.0.1:8000/hub/board/post/comment/",
+          "https://api.springnote.blog/hub/board/post/comment/",
           {
             comment_parent_comment_comment_pk: null,
             status: 1,
