@@ -38,7 +38,7 @@ export default {
         {
           indexTitle: '주차',
           indexItems: [
-            {title: '주차장 현황', image: 'local_parking', url: '/parkinglot/B1'},
+            {title: '주차장 현황', image: 'local_parking', url: '/parkinglot/F1'},
             {title: '입출차 기록', image: 'schedule', url: '/inout'},
           ]
         }

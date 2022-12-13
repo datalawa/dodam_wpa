@@ -261,8 +261,8 @@ export default {
           )
 
           if (result !== null && result.status === 200) {
-            console.log(result)
-            if (result.data.length > 0) {
+            console.log(result.data)
+            if (result.data.length > 0 && result.data[0] !== null ) {
               carLogs.push(result.data)
               this.myCars[idx].dttm = result.data[0].dttm
               this.myCars[idx].inout = result.data[0].type
@@ -279,12 +279,14 @@ export default {
           }
         } catch (e) {
           // alert("통신중 오류")
+          console.error('errrrrrr',e)
           carLogs.push([])
           this.myCars[idx].dttm = '-'
           this.myCars[idx].inout = false
         }
         idx += 1
       }
+      console.log('cars', carLogs)
       this.carLogs = carLogs;
     }
   },

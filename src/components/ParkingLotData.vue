@@ -30,10 +30,10 @@
         <SeatBoxGroup4 v-if="statusData1F.length > 0" :datas="statusData1F.slice(0, 10)"/>
       </div>
       <div class="parking-bottom">
-        <div class="parking-button-another">
-          <button @click="onLayerButtonCLicked" class="btn background-shadow" >B1</button>
-          <button @click="onLayerButtonCLicked" class="btn background-shadow" >F1</button>
-        </div>
+<!--        <div class="parking-button-another">-->
+<!--          <button @click="onLayerButtonCLicked" class="btn background-shadow" >B1</button>-->
+<!--          <button @click="onLayerButtonCLicked" class="btn background-shadow" >F1</button>-->
+<!--        </div>-->
         <SeatInf />
       </div>
     </div>
