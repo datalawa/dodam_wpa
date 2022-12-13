@@ -8,9 +8,9 @@
         <div class="section-board-top">
           <div class="section-board-title">공지게시판</div>
           <div class="section-board-search-root background-shadow">
-            <input class="section-board-search-text" type="text" placeholder="글 검색"/>
+            <input v-model="searchData" class="section-board-search-text" type="text" placeholder="글 검색"/>
             <div class="section-board-search-border"></div>
-            <span class="material-icons-outlined section-board-search-image">search</span>
+            <span @click="getSearchArticles" class="material-icons-outlined section-board-search-image">search</span>
           </div>
         </div>
         <div v-if="total_count > 0" class="card background-shadow section-board-content-root type2">
@@ -49,7 +49,8 @@ export default {
     return {
       article_data: [],
       total_count: 0,
-      page: 1
+      page: 1,
+      searchData: ''
     }
   },
   setup: () => {
@@ -96,7 +97,29 @@ export default {
     }
   },
   methods: {
-    onArticleWriteButtonClicked
+    onArticleWriteButtonClicked,
+    async getSearchArticles() {
+      let url = "https://api.springnote.blog/hub/board/post/?board_board_pk=1&page_size=25&page=" + this.page
+      if (this.searchData === '') {
+        alert("검색어 입력")
+        return
+      } else {
+        url += '&post_title=' + this.searchData
+      }
+      const result = await this.$axios.get(
+        url, {
+          timeout: 5000
+        },
+      )
+      // console.log(result);
+      if (result !== null && result.status == 200) {
+        console.log(result)
+        this.total_count = result.data.total_count;
+        this.article_data = result.data.results
+      } else {
+        this.article_data = []
+      }
+    }
   },
   async mounted() {
     this.getArticles
