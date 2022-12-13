@@ -77,24 +77,13 @@ import Login from './Login.vue';
 import {auth} from "@/plugins/firebase";
 import {useStore} from "vuex";
 import {useRouter} from 'vue-router';
-import {ref} from "vue";
+import {computed, ref} from "vue";
 
 const store = useStore()
 
 export default {
   name: "LoginPage",
   components: {SideBar, NavigationBar},
-  // data () {
-  //     return {
-  //       email: '',
-  //       password: '',
-  //     }
-  //   },
-  //   methods: {
-  //     login () {
-  //       console.log(this.email," ",this.password)
-  //     }
-  // },
   setup: () => {
     const email = ref('')
     const password = ref('')
@@ -109,13 +98,29 @@ export default {
           email: email.value,
           password: password.value
         })
-        router.push('/')
+        window.location.reload(true);
       }
       catch (err) {
         error.value = err.message
       }
     }
-    return { loginAction, email, password, error }
+    return { loginAction, email, password, error,
+      user: computed(() => store.state.user),
+      role: computed(() => store.state.role),
+      idToken: computed(() => store.state.idToken),
+      uid: computed(() => store.state.uid),
+      authIsReady: computed(() => store.state.authIsReady),
+      name: computed(() => store.state.name),
+      router
+    }
+  },
+  watch: {
+    authIsReady: function (v) {
+      if (v && this.user !== null) {
+        console.log('login login')
+        this.router.push({path: '/'})
+      }
+    }
   }
 }
 </script>
